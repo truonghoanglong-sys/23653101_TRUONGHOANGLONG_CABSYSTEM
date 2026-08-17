@@ -1,6 +1,5 @@
 # 23653101_TRUONGHOANGLONG_CABSYSTEM
 ###BƯỚC 1: TÌM HIỂU
-###1. Tìm hiểu về nghiệp vụ hệ thống
 
 **Lý do hệ thống cũ không đáp ứng được và phải xây dựng hệ thống mới:**
 * Việc phân công tài xế chủ yếu được thực hiện thủ công, gây tốn thời gian và dễ sai sót.
@@ -32,29 +31,31 @@
 | **Khách hàng** | Khởi tạo yêu cầu đặt xe, theo dõi chuyến đi real-time, thanh toán (tiền mặt/điện tử) và đánh giá dịch vụ. |
 | **Tài xế** | Cập nhật hồ sơ/phương tiện, bật trạng thái sẵn sàng, nhận/từ chối chuyến và cập nhật tiến trình chuyến đi. |
 | **Nhân viên Vận hành** | Giám sát danh sách chuyến đi/tài xế real-time, quản lý tài khoản và hỗ trợ xử lý các sự cố phát sinh. |
+| **Nhân viên Tài chính** | Quản lý đối soát giao dịch thanh toán, theo dõi doanh thu/chiết khấu tài xế, xử lý hoàn tiền và tra cứu dữ liệu tài chính. |
 | **Ban Giám đốc** | Xem báo cáo doanh thu & hiệu suất, quản lý phân quyền hệ thống và đưa ra các quyết định kinh doanh. |
 | **Quản trị viên hệ thống** | Làm rõ quy tắc nghiệp vụ, thiết kế, xây dựng và triển khai hệ thống trong thời gian 7 tuần. |
 | **Cổng thanh toán** | Tiếp nhận và xử lý giao dịch thanh toán trực tuyến . |
 | **Nhà cung cấp Thông báo** | Chịu trách nhiệm truyền tải các thông báo (Push Notification/SMS/Email) tức thì đến thiết bị người dùng. |
 3. Lập stackholder matric
- ```mermaid
+```mermaid
 quadrantChart
-    title Stakeholder Matrix - CAB System
-    x-axis Low Interest --> High Interest
-    y-axis Low Power --> High Power
-    quadrant-1 Manage Closely
-    quadrant-2 Keep Satisfied
-    quadrant-3 Monitor
-    quadrant-4 Keep Informed
+    title Ma trận Stakeholder - Hệ thống CAB
+    x-axis Mức độ quan tâm thấp --> Mức độ quan tâm cao
+    y-axis Mức độ ảnh hưởng thấp --> Mức độ ảnh hưởng cao
+    quadrant-1 Quản lý chặt chẽ
+    quadrant-2 Duy trì sự hài lòng
+    quadrant-3 Theo dõi sát sao
+    quadrant-4 Cung cấp thông tin
     "Ban Giám đốc": [0.85, 0.90]
     "Quản trị viên hệ thống": [0.90, 0.85]
+    "Nhân viên Tài chính": [0.80, 0.75]
     "Cổng thanh toán": [0.30, 0.80]
     "Nhân viên Vận hành": [0.80, 0.40]
     "Khách hàng": [0.85, 0.30]
     "Tài xế": [0.85, 0.25]
     "Nhà cung cấp Thông báo": [0.25, 0.20]
 ```
-### Mục đích nghiệp vụ (Business Purpose & Goals)
+### Bước 3: Mục đích nghiệp vụ (Business Purpose & Goals)
 
 * **Tự động hóa vận hành:** Tự động ghép chuyến thông minh qua vị trí GPS, loại bỏ hoàn toàn quy trình phân công thủ công, tối ưu chi phí nhân sự tổng đài.
 * **Đa dạng phương thức thanh toán:** Hỗ trợ linh hoạt song song cả **Thanh toán tiền mặt** và **Thanh toán trực tuyến** (Ví điện tử/Thẻ) an toàn qua cơ chế Tokenization.
@@ -66,3 +67,36 @@ quadrantChart
 * **Chịu lỗi & Hoạt động liên tục (Fault Tolerance):** Đảm bảo sự cố từ các dịch vụ bên thứ ba (thanh toán, thông báo) không làm ngừng trệ chức năng đặt xe cốt lõi.
 * **Hỗ trợ báo cáo & Quyết định kinh doanh:** Cung cấp báo cáo trực quan cho Ban Giám đốc về doanh thu, tỷ lệ hoàn thành/hủy chuyến và KPI hiệu suất tài xế.
 * **Sẵn sàng mở rộng tương lai:** Xây dựng kiến trúc linh hoạt để dễ dàng bổ sung thêm dịch vụ mới (giao hàng, xe ghép...), kênh thông báo hoặc phương thức thanh toán mới.
+  
+###Bước 4: Phạm vi dự án (Project Scope - 7 Tuần)
+
+#### 1. Trong phạm vi (In-Scope)
+
+* **Xác thực & Phân quyền cơ bản (Authentication & RBAC):**
+  * Đăng ký, đăng nhập an toàn cho người dùng (Khách hàng, Tài xế).
+  * Phân quyền truy cập theo vai trò (Khách hàng, Tài xế, Nhân viên Vận hành, Nhân viên Tài chính, Ban Giám đốc).
+
+* **Thiết kế modul hóa (Modular Design):**
+  * **Modul Quản lý Khách hàng (Customer Management):** Quản lý thông tin hồ sơ khách hàng, lịch sử chuyến đi, thông tin thanh toán lưu trữ và lịch sử đánh giá/phản hồi dịch vụ.
+  * **Modul Tài khoản & Xác thực (Auth):** Quản lý đăng nhập, phân quyền và bảo mật phiên làm việc.
+  * **Modul Đặt xe (Booking):** Khởi tạo chuyến đi, tự động tìm tài xế gần nhất qua GPS và xử lý chuyển tiếp khi tài xế từ chối/hết giờ.
+  * **Modul Định vị (Tracking):** Theo dõi vị trí tài xế và trạng thái chuyến đi theo thời gian thực trên bản đồ.
+  * **Modul Thanh toán (Payment):** Hỗ trợ song song **Tiền mặt** và **Thanh toán trực tuyến** (môi trường thử nghiệm Sandbox).
+  * **Modul Quản trị (Dashboard):** Giao diện hỗ trợ cho Nhân viên Vận hành (giám sát), Nhân viên Tài chính (xem giao dịch, đối soát) và Ban Giám đốc (xem báo cáo doanh thu).
+
+#### 2. Ngoài phạm vi (Out-of-Scope)
+* Tích hợp cổng thanh toán thực tế (chỉ dùng tài khoản thử nghiệm Sandbox).
+* Các tính năng nâng cao: Đặt xe ghép, giao hàng, đặt trước chuyến đi.
+* Chương trình tích điểm, khuyến mãi hoặc mã giảm giá phức tạp.
+
+#### 3. Lộ trình 7 tuần (7-Week Roadmap)
+
+| Tuần | Công việc chính |
+| :---: | :--- |
+| **1** | Thu thập yêu cầu, xác định phạm vi và lập bảng Stakeholder. |
+| **2** | Phân tích nghiệp vụ (Sơ đồ Use Case, Activity Diagram). |
+| **3** | Thiết kế Cơ sở dữ liệu (ERD) và phân chia cấu trúc các Modul. |
+| **4** | Xây dựng Modul Auth (Đăng nhập/Phân quyền), Modul Quản lý Khách hàng & Modul Đặt xe. |
+| **5** | Xây dựng Modul Thanh toán (Tiền mặt/Online), Tracking & Giao diện Dashboard Quản trị. |
+| **6** | Kiểm thử tích hợp giữa các modul và sửa lỗi. |
+| **7** | Hoàn thiện tài liệu README.md và tổng kết báo cáo dự án. |
