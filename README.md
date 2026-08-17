@@ -143,6 +143,76 @@ quadrantChart
 | | Đánh giá & Báo cáo | Khách hàng chấm điểm 1-5★; Ban Giám đốc xem báo cáo doanh thu |
 
 Bước 7: vẽ usecase tổng quát
+```mermaid
+graph LR
+    %% Định nghĩa Actors (Tác nhân)
+    subgraph Actors [Tác nhân hệ thống]
+        C[Khách hàng]
+        D[Tài xế]
+        Ops[NV Vận hành]
+        Fin[NV Tài chính]
+        BOD[Ban Giám đốc]
+    end
+
+    %% Định nghĩa Chức năng (Use Cases)
+    subgraph System [Hệ thống CAB System]
+        subgraph Mod_Auth [Modul Xác thực]
+            UC1(Đăng ký / Đăng nhập)
+            UC2(Phân quyền RBAC)
+        end
+
+        subgraph Mod_User [Modul Quản lý Khách & Tài xế]
+            UC3(Quản lý hồ sơ & Địa chỉ đã lưu)
+            UC4(Duyệt hồ sơ tài xế)
+        end
+
+        subgraph Mod_Booking [Modul Đặt xe & Ghép chuyến]
+            UC5(Khởi tạo chuyến & Xem cước phí)
+            UC6(Ghép chuyến tự động qua GPS)
+            UC7(Cập nhật trạng thái chuyến)
+        end
+
+        subgraph Mod_Track [Modul Định vị]
+            UC8(Theo dõi xe Real-time)
+        end
+
+        subgraph Mod_Pay [Modul Thanh toán]
+            UC9(Thanh toán Tiền mặt)
+            UC10(Thanh toán Trực tuyến)
+        end
+
+        subgraph Mod_Dash [Modul Quản trị & Báo cáo]
+            UC11(Giám sát vận hành & Hỗ trợ)
+            UC12(Đối soát tài chính & Chiết khấu)
+            UC13(Đánh giá dịch vụ 1-5★)
+            UC14(Xem báo cáo doanh thu & KPI)
+        end
+    end
+
+    %% Mối liên kết giữa Actor và Use Case
+    C --> UC1
+    C --> UC3
+    C --> UC5
+    C --> UC8
+    C --> UC9
+    C --> UC10
+    C --> UC13
+
+    D --> UC1
+    D --> UC6
+    D --> UC7
+    D --> UC9
+
+    Ops --> UC1
+    Ops --> UC4
+    Ops --> UC11
+
+    Fin --> UC1
+    Fin --> UC12
+
+    BOD --> UC1
+    BOD --> UC14
+```
 Bước 8: đặc tả usecase
 Bước 9: quy trình nghiệp vụ business process
 Bước 10: Kết thúc trong phần thiết kế( phân tích các thiết kế business rule vd: các tài xế trong trạng thái available thì mới có ưu tiên nhận cuốc xe trc)
