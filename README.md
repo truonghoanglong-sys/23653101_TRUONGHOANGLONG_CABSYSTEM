@@ -145,6 +145,7 @@ Bước 7: vẽ usecase tổng quát
 
 
 Bước 8: đặc tả usecase
+**###KHÁCH HÀNG**
 ### **Đặc tả UseCase Đăng nhập**
 
 | Thuộc tính | Nội dung |
@@ -335,7 +336,7 @@ Bước 8: đặc tả usecase
 | | **4.1.1.** Hệ thống ghi nhận Tài xế đã bấm "Bắt đầu chuyến đi" (đã đón khách lên xe) ngay trước thời điểm Khách hàng bấm hủy |
 | | **4.1.2.** Hệ thống không cho phép hủy và hiển thị thông báo "Chuyến đi đã bắt đầu, không thể hủy chuyến" |
 | **4.1.3.** Nhấn nút OK. Kết thúc usecase | |
-
+**TÀI XẾ**
 ### **Đặc tả UseCase Quản lý hồ sơ & Phương tiện**
 
 | Thuộc tính | Nội dung |
@@ -409,6 +410,237 @@ Bước 8: đặc tả usecase
 | | **2.1.1.** Hệ thống phát hiện tài khoản chưa được duyệt, bị khóa hoặc số dư ví tài xế dưới mức quy định tối thiểu |
 | | **2.1.2.** Hệ thống không cho phép bật trạng thái và hiển thị thông báo lỗi chi tiết (ví dụ: "Số dư ví không đủ để bật nhận chuyến") |
 | **2.1.3.** Nhấn nút OK. Kết thúc usecase | |
+
+### **Đặc tả UseCase Xử lý yêu cầu chuyến đi**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Xử lý yêu cầu chuyến đi |
+| **– Mô tả sơ lược:** | Chức năng Xử lý yêu cầu chuyến đi cho phép Tài xế xem thông tin chuyến đi được hệ thống đề xuất (điểm đón, điểm đến, cước phí) và đưa ra quyết định Nhận chuyến hoặc Từ chối / Hủy nhận chuyến trong thời gian quy định. |
+| **– Actor chính:** | Tài xế |
+| **– Actor phụ:** | Khách hàng, Hạ tầng thông báo |
+| **– Tiền điều kiện (Pre-condition):** | Tài xế đang ở trạng thái "Trực tuyến" (Sẵn sàng nhận chuyến) và hệ thống phát tín hiệu có chuyến đi mới phù hợp. |
+| **– Hậu điều kiện (Post-condition):** | Hệ thống ghi nhận quyết định của Tài xế, cập nhật trạng thái chuyến đi (`Accepted` hoặc `Rejected/Cancelled`) và thông báo cho Khách hàng. |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **1.** Đẩy màn hình thông báo chuyến đi mới (gồm: Điểm đón, Điểm đến, Khoảng cách, Cước phí) kèm đồng hồ đếm ngược 15 giây |
+| **2.** Nhấn nút "Nhận chuyến" | |
+| | **3.** Kiểm tra điều kiện chuyến đi (đảm bảo chuyến đi chưa bị Khách hàng hủy hoặc chưa được gán cho tài xế khác) |
+| | **4.** Cập nhật trạng thái chuyến đi thành `Accepted` và gán Tài xế vào chuyến đi |
+| | **5.** Hiển thị màn hình đón khách (bản đồ chỉ đường tới điểm đón và thông tin Khách hàng). Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **2.1.1.** Nhấn nút "Bỏ qua" (Từ chối / Hủy yêu cầu) hoặc hết 15 giây đếm ngược mà không thao tác | |
+| | **2.1.2.** Ghi nhận Tài xế từ chối chuyến đi, tự động tìm kiếm và chuyển tiếp yêu cầu sang Tài xế tiếp theo |
+| | **2.1.3.** Đóng màn hình đề xuất và đưa Tài xế quay lại màn hình chờ nhận chuyến. Kết thúc usecase |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **3.1.1.** Hệ thống phát hiện Khách hàng đã bấm hủy chuyến ngay trước thời điểm Tài xế bấm "Nhận chuyến" |
+| | **3.1.2.** Hệ thống hiển thị thông báo "Chuyến đi đã bị hủy bởi Khách hàng" |
+| **3.1.3.** Nhấn nút OK. Kết thúc usecase | |
+
+### **Đặc tả UseCase Cập nhật tiến trình**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Cập nhật tiến trình |
+| **– Mô tả sơ lược:** | Chức năng Cập nhật tiến trình cho phép Tài xế cập nhật trạng thái thực tế của chuyến đi theo thời gian thực (Đã đến điểm đón -> Bắt đầu chuyến đi -> Hoàn thành chuyến đi) để Khách hàng và hệ thống theo dõi. |
+| **– Actor chính:** | Tài xế |
+| **– Actor phụ:** | Khách hàng, Hạ tầng thông báo |
+| **– Tiền điều kiện (Pre-condition):** | Tài xế đã nhận chuyến thành công và đang trên đường thực hiện chuyến đi. |
+| **– Hậu điều kiện (Post-condition):** | Trạng thái chuyến đi được ghi nhận thành "Hoàn thành", hệ thống chuyển sang bước thanh toán và giải phóng trạng thái cho Tài xế. |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **1.** Nhấn nút "Đã đến điểm đón" khi di chuyển tới vị trí đón Khách | |
+| | **2.** Cập nhật trạng thái chuyến đi thành `Arrived`, phát thông báo "Tài xế đã đến" tới ứng dụng Khách hàng |
+| **3.** Khách lên xe, Tài xế nhấn nút "Bắt đầu chuyến đi" | |
+| | **4.** Cập nhật trạng thái chuyến đi thành `In_Progress`, bật chế độ ghi nhận lộ trình di chuyển qua GPS |
+| **5.** Di chuyển tới điểm trả khách và nhấn nút "Hoàn thành chuyến đi" | |
+| | **6.** Cập nhật trạng thái chuyến đi thành `Completed`, tính toán quãng đường/thời gian thực tế và hiển thị màn hình thu tiền. Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **1.1.1.** Tài xế chờ quá 10 phút tại điểm đón mà Khách hàng không xuất hiện và không liên lạc được | |
+| **1.1.2.** Nhấn nút "Khai báo khách không đến" | |
+| | **1.1.3.** Tự động cập nhật trạng thái chuyến đi thành `No_Show`, tính phí hủy do lỗi khách hàng và đưa Tài xế quay lại màn hình chờ nhận chuyến. Kết thúc usecase |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **5.2.1.** Mất kết nối GPS hoặc gián đoạn mạng internet khi Tài xế bấm "Hoàn thành chuyến đi" |
+| | **5.2.2.** Hệ thống lưu tạm thời gian/tọa độ hoàn thành tại máy cục bộ và hiển thị thông báo "Đang kết nối lại hệ thống để hoàn tất chuyến đi" |
+| **5.2.3.** Nhấn nút Thử lại khi có mạng. Kết thúc usecase | |
+
+### **Đặc tả UseCase Xác nhận thu tiền mặt**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Xác nhận thu tiền mặt |
+| **– Mô tả sơ lược:** | Chức năng Xác nhận thu tiền mặt cho phép Tài xế xác nhận đã nhận đủ số tiền mặt từ Khách hàng sau khi hoàn thành chuyến đi (đối với các chuyến đi chọn phương thức thanh toán bằng tiền mặt), hệ thống sẽ tự động trừ tiền chiết khấu/hoa hồng vào ví tài xế. |
+| **– Actor chính:** | Tài xế |
+| **– Actor phụ:** | Khách hàng |
+| **– Tiền điều kiện (Pre-condition):** | Chuyến đi đã hoàn thành, phương thức thanh toán của chuyến đi là "Tiền mặt" và màn hình thu tiền mặt đang hiển thị. |
+| **– Hậu điều kiện (Post-condition):** | Hệ thống ghi nhận chuyến đi đã thanh toán xong, trừ tiền chiết khấu dịch vụ trong Ví tài xế và gửi hóa đơn điện tử cho Khách hàng. |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **1.** Hiển thị màn hình thu tiền mặt với đúng tổng số tiền cước phí Khách hàng cần trả |
+| **2.** Thu tiền mặt từ Khách hàng và nhấn nút "Đã nhận đủ tiền" | |
+| | **3.** Kiểm tra số dư Ví tài xế để đảm bảo đủ tiền trừ phí hoa hồng/chiết khấu chuyến đi |
+| | **4.** Thực hiện trừ phí chiết khấu ứng dụng vào Ví tài xế và lưu lịch sử giao dịch |
+| | **5.** Cập nhật trạng thái thanh toán chuyến đi thành `Paid` (Đã thanh toán) |
+| | **6.** Hiển thị thông báo "Xác nhận thanh toán thành công" và chuyển sang màn hình Đánh giá khách hàng / Chờ nhận chuyến mới. Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **2.1.1.** Khách hàng không đủ tiền mặt và muốn chuyển sang trả bằng chuyển khoản/ví điện tử | |
+| **2.1.2.** Nhấn chọn "Khách đổi phương thức thanh toán" | |
+| | **2.1.3.** Hệ thống tạo mã QR thanh toán nhanh để Khách hàng quét trả tiền và tự động cập nhật khi nhận tiền thành công. Kết thúc usecase |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **3.1.1.** Số dư Ví tài xế bị âm vượt quá hạn mức cho phép nên không đủ trừ phí chiết khấu |
+| | **3.1.2.** Hệ thống ghi nhận chuyến đi đã thu tiền mặt nhưng tạm thời khóa quyền nhận chuyến tiếp theo của Tài xế cho đến khi nạp thêm tiền vào Ví |
+| **3.1.3.** Nhấn nút OK. Kết thúc usecase | |
+
+**Nhân viên vận hành**
+
+### **Đặc tả UseCase Duyệt hồ sơ tài xế**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Duyệt hồ sơ tài xế |
+| **– Mô tả sơ lược:** | Chức năng Duyệt hồ sơ tài xế cho phép Nhân viên Vận hành kiểm tra, đối soát thông tin cá nhân, hình ảnh giấy tờ và phương tiện do Tài xế đăng ký/cập nhật, từ đó quyết định Phê duyệt hoặc Từ chối cấp quyền hoạt động. |
+| **– Actor chính:** | Nhân viên Vận hành |
+| **– Actor phụ:** | Tài xế, Hạ tầng thông báo |
+| **– Tiền điều kiện (Pre-condition):** | Nhân viên Vận hành đã đăng nhập vào hệ thống và có danh sách tài xế ở trạng thái "Chờ duyệt". |
+| **– Hậu điều kiện (Post-condition):** | Hồ sơ tài xế được cập nhật trạng thái mới ("Đã duyệt" hoặc "Từ chối"), tài xế nhận được thông báo kết quả. |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **1.** Chọn mục "Quản lý tài xế" -> "Dánh sách chờ duyệt" trên hệ thống | |
+| | **2.** Hiển thị danh sách các hồ sơ tài xế đang ở trạng thái `Pending` (Chờ duyệt) |
+| **3.** Chọn một hồ sơ tài xế cụ thể để xem chi tiết | |
+| | **4.** Hiển thị chi tiết thông tin cá nhân, hình ảnh Bằng lái xe, Cavet, Đăng kiểm, Biển số xe và Ảnh chân dung tài xế |
+| **5.** Đối soát thông tin hợp lệ và nhấn nút "Phê duyệt" | |
+| | **6.** Cập nhật trạng thái tài khoản tài xế thành `Approved` (Đã duyệt), kích hoạt quyền nhận chuyến |
+| | **7.** Tự động gửi thông báo / SMS chúc mừng và kích hoạt tài khoản đến ứng dụng của Tài xế. Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **5.1.1.** Phát hiện giấy tờ bị mờ, hết hạn hoặc không hợp lệ | |
+| **5.1.2.** Nhấn nút "Từ chối", chọn/nhập lý do từ chối (ví dụ: "Ảnh đăng kiểm bị mờ") | |
+| | **5.1.3.** Cập nhật trạng thái hồ sơ thành `Rejected` (Bị từ chối) |
+| | **5.1.4.** Gửi thông báo kèm lý do chi tiết tới Tài xế để yêu cầu tải lại giấy tờ. Kết thúc usecase |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| | **6.1.1.** Mất kết nối mạng hoặc gián đoạn hệ thống khi bấm xác nhận duyệt |
+| | **6.1.2.** Hệ thống hiển thị thông báo "Cập nhật trạng thái thất bại, vui lòng kiểm tra lại kết nối" |
+| **6.1.3.** Nhấn nút Thử lại. Kết thúc usecase | |
+
+### **Đặc tả UseCase Giám sát vận hành**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Giám sát vận hành |
+| **– Mô tả sơ lược:** | Chức năng Giám sát vận hành cho phép Nhân viên Vận hành theo dõi bản đồ trực quan theo thời gian thực về mật độ tài xế, các chuyến đi đang thực hiện, phát hiện các điểm nóng thiếu xe hoặc các sự cố chuyến đi để can thiệp kịp thời. |
+| **– Actor chính:** | Nhân viên Vận hành |
+| **– Actor phụ:** | Hạ tầng thông báo |
+| **– Tiền điều kiện (Pre-condition):** | Nhân viên Vận hành đã đăng nhập thành công vào hệ thống. |
+| **– Hậu điều kiện (Post-condition):** | Hệ thống ghi nhận các tác vụ can thiệp vận hành (nếu có) và xuất báo cáo trạng thái vận hành theo thời gian thực. |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **1.** Chọn mục "Giám sát vận hành" trên thanh menu | |
+| | **2.** Hiển thị bản đồ Live-Tracking khu vực, vị trí/trạng thái của các Tài xế (Sẵn sàng/Đang chở khách) và các chuyến đi đang diễn ra |
+| **3.** Lọc thông tin theo khu vực, trạng thái chuyến đi hoặc tìm kiếm theo mã chuyến/sdt khách hàng/tài xế | |
+| | **4.** Cập nhật dữ liệu hiển thị real-time tương ứng với bộ lọc |
+| **5.** Chọn một chuyến đi cụ thể để xem chi tiết lộ trình, thời gian đón/trả và trạng thái kết nối GPS | |
+| | **6.** Hiển thị bảng chi tiết chuyến đi real-time. Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **5.1.1.** Phát hiện chuyến đi gặp sự cố (tài xế dừng quá lâu, đi sai lộ trình, khách hàng báo khẩn cấp) | |
+| **5.1.2.** Nhấn nút "Can thiệp chuyến đi" (Liên hệ tài xế/khách hàng hoặc Hủy chuyến khẩn cấp) | |
+| | **5.1.3.** Hệ thống thực hiện lệnh can thiệp, gửi thông báo cập nhật tới các bên liên quan và lưu lại nhật ký xử lý (Audit Log). Kết thúc usecase |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| | **2.1.1.** Mất kết nối đến Server WebSocket (hệ thống truyền dữ liệu real-time) |
+| | **2.1.2.** Hệ thống hiển thị cảnh báo "Mất kết nối dữ liệu trực tuyến, đang tự động kết nối lại..." |
+| **2.1.3.** Nhấn nút "Tải lại trang". Kết thúc usecase | |
+
+### **Đặc tả UseCase Can thiệp sự cố**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Can thiệp sự cố |
+| **– Mô tả sơ lược:** | Chức năng Can thiệp sự cố cho phép Nhân viên Vận hành tiếp nhận, xử lý các báo cáo sự cố phát sinh trong chuyến đi (tai nạn, hủy chuyến bất thường, tranh chấp, tín hiệu SOS) và thực hiện các biện pháp can thiệp kỹ thuật/nghiệp vụ để đảm bảo an toàn và quyền lợi cho người dùng. |
+| **– Actor chính:** | Nhân viên Vận hành |
+| **– Actor phụ:** | Khách hàng, Tài xế, Hạ tầng thông báo |
+| **– Tiền điều kiện (Pre-condition):** | Nhân viên Vận hành đã đăng nhập vào hệ thống và có tín hiệu cảnh báo sự cố hoặc yêu cầu hỗ trợ từ chuyến đi. |
+| **– Hậu điều kiện (Post-condition):** | Sự cố được ghi nhận phương án xử lý, chuyến đi được cập nhật trạng thái tương ứng, lịch sử can thiệp được lưu vào Audit Log. |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **1.** Chọn cảnh báo sự cố từ danh sách "Yêu cầu xử lý khẩn cấp" | |
+| | **2.** Hiển thị chi tiết thông tin sự cố (mã chuyến, thông tin khách/tài xế, tọa độ GPS hiện tại, loại sự cố, nhật ký vị trí) |
+| **3.** Đánh giá tình huống và chọn phương án xử lý (Liên hệ trực tiếp, Điều xe thay thế, Hủy chuyến đi khẩn cấp, Tạm khóa tài khoản) | |
+| **4.** Nhập nội dung biên bản xử lý sự cố và bấm nút "Xác nhận can thiệp" | |
+| | **5.** Thực hiện lệnh can thiệp trên hệ thống (cập nhật trạng thái chuyến đi, điều chỉnh cước phí nếu có) |
+| | **6.** Gửi thông báo / tin nhắn cập nhật trạng thái xử lý tới ứng dụng Khách hàng và Tài xế. Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **3.1.1.** Nhận diện đây là tín hiệu báo động giả hoặc thông tin nhầm lẫn từ người dùng | |
+| **3.1.2.** Chọn phương án "Đóng sự cố" và ghi chú lý do | |
+| | **3.1.3.** Hệ thống lưu lại nhật ký, đóng cảnh báo và đưa chuyến đi quay lại trạng thái vận hành bình thường. Kết thúc usecase |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| | **5.1.1.** Mất kết nối mạng hoặc lỗi hệ thống khi đang gửi lệnh can thiệp khẩn cấp |
+| | **5.1.2.** Hệ thống hiển thị cảnh báo "Lệnh can thiệp chưa được gửi, vui lòng kiểm tra lại kết nối" |
+| **5.1.3.** Nhấn nút Thử lại. Kết thúc usecase | |
 
 Bước 9: quy trình nghiệp vụ business process
 Bước 10: Kết thúc trong phần thiết kế( phân tích các thiết kế business rule vd: các tài xế trong trạng thái available thì mới có ưu tiên nhận cuốc xe trc)
