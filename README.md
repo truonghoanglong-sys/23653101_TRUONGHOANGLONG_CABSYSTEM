@@ -1,5 +1,5 @@
 # 23653101_TRUONGHOANGLONG_CABSYSTEM
-###BƯỚC 1: TÌM HIỂU
+**###BƯỚC 1: TÌM HIỂU**
 
 **Lý do hệ thống cũ không đáp ứng được và phải xây dựng hệ thống mới:**
 * Việc phân công tài xế chủ yếu được thực hiện thủ công, gây tốn thời gian và dễ sai sót.
@@ -23,8 +23,8 @@
 ####  Tác nhân hệ thống tích hợp (External Systems)
 * **Cổng thanh toán (Payment Gateway):** Xử lý giao dịch thanh toán điện tử an toàn theo cơ chế Tokenization.
 * **Hạ tầng thông báo (Notification Gateway):** Gửi SMS, Email và Push Notification tức thì đến thiết bị người dùng.
-###BƯỚC 2
-2. Các bên liên quan
+**###BƯỚC 2**
+**2. Các bên liên quan**
 
 | Stakeholder | Vai trò trong hệ thống |
 | :--- | :--- |
@@ -68,7 +68,7 @@ quadrantChart
 * **Hỗ trợ báo cáo & Quyết định kinh doanh:** Cung cấp báo cáo trực quan cho Ban Giám đốc về doanh thu, tỷ lệ hoàn thành/hủy chuyến và KPI hiệu suất tài xế.
 * **Sẵn sàng mở rộng tương lai:** Xây dựng kiến trúc linh hoạt để dễ dàng bổ sung thêm dịch vụ mới (giao hàng, xe ghép...), kênh thông báo hoặc phương thức thanh toán mới.
   
-###Bước 4: Phạm vi dự án (Project Scope - 7 Tuần)
+**###Bước 4: Phạm vi dự án (Project Scope - 7 Tuần)**
 
 #### 1. Trong phạm vi (In-Scope)
 
