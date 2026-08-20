@@ -6,9 +6,7 @@
 * Khách hàng khó theo dõi trạng thái chuyến đi theo thời gian thực.
 * Thông tin thanh toán chưa được quản lý tập trung, gây khó khăn cho việc đối soát.
 * Bộ phận vận hành gặp khó khăn khi muốn mở rộng hệ thống do kiến trúc cũ không linh hoạt và không chịu được tải cao.
-### Phân tích chi tiết các bên tham gia hệ thống
-### Giải pháp của hệ thống mới (CAB System)
-
+### Giải pháp của hệ thống mới 
 * **Tự động hóa ghép chuyến (Smart Matching):** Tự động tìm tài xế gần nhất dựa trên GPS; tự động chuyển tiếp sang tài xế khác nếu tài xế đầu tiên từ chối/không phản hồi mà không bắt khách hàng đặt lại.
 * **Kiến trúc mở rộng & Chịu lỗi:** Các module (Đặt xe, Thanh toán, Thông báo) hoạt động độc lập, tự động nâng cấp tài nguyên khi tải cao vào giờ cao điểm; sự cố ở module này không làm gián đoạn toàn bộ hệ thống.
 * **Bảo mật thanh toán (Tokenization):** Tích hợp cổng thanh toán bên thứ ba an toàn, không lưu thông tin thẻ nhạy cảm trên hệ thống; tự động xử lý lại khi giao dịch thất bại.
@@ -105,23 +103,23 @@ quadrantChart
 
 ### Bảng Quy trình Nghiệp vụ
 
-| STT | Giai đoạn | Quy trình nghiệp vụ | Bước thực hiện | Tác nhân | Modul hệ thống | Thực thể dữ liệu |
-| :---: | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1** | **Khởi tạo & Xác thực** | Đăng ký & Đăng nhập | Tạo tài khoản, xác thực OTP/Mật khẩu và cấp Token phiên làm việc | Khách hàng, Tài xế | Auth Module | `User`, `Account`, `Token` |
-| **2** | | Phân quyền (RBAC) | Cấp quyền truy cập giao diện và chức năng tương ứng theo vai trò | All Users | Auth Module | `Role`, `Permission` |
-| **3** | **Quản lý Khách & Tài xế** | Quản lý Hồ sơ Khách hàng | Lưu địa chỉ yêu thích, xem lịch sử chuyến đi & cài đặt thanh toán | Khách hàng | Customer Module | `CustomerProfile`, `SavedAddress` |
-| **4** | | Duyệt & Quản lý Tài xế | Cập nhật bằng lái/đăng ký xe, kiểm duyệt hồ sơ tài xế vận hành | Tài xế, Ops | Driver Module | `DriverProfile`, `Vehicle` |
-| **5** | **Đặt xe & Điều phối** | Khởi tạo Đặt xe | Chọn điểm đi/đến, hệ thống đo khoảng cách, ước tính thời gian & báo giá | Khách hàng | Booking Module | `Trip`, `FareEstimation` |
-| **6** | | Ghép chuyến Tự động | Định vị GPS, tìm tài xế gần nhất và phát thông báo mời chuyến | Hệ thống, Tài xế | Booking Module | `Trip`, `DriverLocation` |
-| **7** | | Xử lý Từ chối / Timeout | Tài xế nhận/từ chối. Quá thời gian chờ tự động chuyển sang tài xế tiếp theo | Hệ thống, Tài xế | Booking Module | `TripStatusLog`, `DispatchRule` |
-| **8** | **Vận hành & Theo dõi** | Quản lý Tiến trình | Cập nhật: **Đã nhận → Đón khách → Đang di chuyển → Hoàn thành** | Tài xế | Booking Module | `Trip`, `TripStatusHistory` |
-| **9** | | Theo dõi Real-time | Cập nhật vị trí GPS tài xế liên tục trên bản đồ thời gian thực | Khách hàng, Tài xế | Tracking Module | `GPSLog`, `LiveTracking` |
-| **10**| | Giám sát & Hỗ trợ | Giám sát danh sách chuyến đi real-time, can thiệp điều xe/hủy xe khi sự cố | NV Vận hành | Dashboard Module | `Trip`, `IncidentLog` |
-| **11**| **Thanh toán & Tài chính**| Thanh toán Tiền mặt | Khách trả tiền mặt khi đến nơi; tài xế xác nhận đã thu đủ trên ứng dụng | Khách hàng, Tài xế | Payment Module | `PaymentTransaction`, `CashReceipt` |
-| **12**| | Thanh toán Trực tuyến | Tự động trừ tiền qua Ví/Thẻ (Tokenization) khi kết thúc chuyến | Hệ thống, Cổng TT | Payment Module | `PaymentTransaction`, `Invoice` |
-| **13**| | Đối soát Tài chính | Tra cứu giao dịch, tính chiết khấu hoa hồng & quản lý ví tài xế | NV Tài chính | Dashboard Module | `DriverWallet`, `RevenueShare` |
-| **14**| **Đánh giá & Báo cáo** | Đánh giá Dịch vụ | Chấm điểm 1-5 sao và gửi phản hồi chất lượng phục vụ sau chuyến | Khách hàng | Customer Module | `Feedback`, `Rating` |
-| **15**| | Báo cáo Quản trị | Trích xuất báo cáo doanh thu, tỷ lệ hoàn thành/hủy chuyến & chỉ số KPI | Ban Giám đốc | Dashboard Module | `ExecutiveReport`, `Analytics` |
+| STT | Giai đoạn | Quy trình nghiệp vụ | Bước thực hiện | Tác nhân | Modul hệ thống |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **1** | **Khởi tạo & Xác thực** | Đăng ký & Đăng nhập | Tạo tài khoản, xác thực OTP/Mật khẩu và cấp Token phiên làm việc | Khách hàng, Tài xế | Auth Module |
+| **2** | | Phân quyền (RBAC) | Cấp quyền truy cập giao diện và chức năng tương ứng theo vai trò | All Users | Auth Module |
+| **3** | **Quản lý Khách & Tài xế** | Quản lý Hồ sơ Khách hàng | Lưu địa chỉ yêu thích, xem lịch sử chuyến đi & cài đặt thanh toán | Khách hàng | Customer Module |
+| **4** | | Duyệt & Quản lý Tài xế | Cập nhật bằng lái/đăng ký xe, kiểm duyệt hồ sơ tài xế vận hành | Tài xế, Ops | Driver Module |
+| **5** | **Đặt xe & Điều phối** | Khởi tạo Đặt xe | Chọn điểm đi/đến, hệ thống đo khoảng cách, ước tính thời gian & báo giá | Khách hàng | Booking Module |
+| **6** | | Ghép chuyến Tự động | Định vị GPS, tìm tài xế gần nhất và phát thông báo mời chuyến | Hệ thống, Tài xế | Booking Module |
+| **7** | | Xử lý Từ chối / Timeout | Tài xế nhận/từ chối. Quá thời gian chờ tự động chuyển sang tài xế tiếp theo | Hệ thống, Tài xế | Booking Module |
+| **8** | **Vận hành & Theo dõi** | Quản lý Tiến trình | Cập nhật: **Đã nhận → Đón khách → Đang di chuyển → Hoàn thành** | Tài xế | Booking Module |
+| **9** | | Theo dõi Real-time | Cập nhật vị trí GPS tài xế liên tục trên bản đồ thời gian thực | Khách hàng, Tài xế | Tracking Module |
+| **10**| | Giám sát & Hỗ trợ | Giám sát danh sách chuyến đi real-time, can thiệp điều xe/hủy xe khi sự cố | NV Vận hành | Dashboard Module |
+| **11**| **Thanh toán & Tài chính**| Thanh toán Tiền mặt | Khách trả tiền mặt khi đến nơi; tài xế xác nhận đã thu đủ trên ứng dụng | Khách hàng, Tài xế | Payment Module |
+| **12**| | Thanh toán Trực tuyến | Tự động trừ tiền qua Ví/Thẻ (Tokenization) khi kết thúc chuyến | Hệ thống, Cổng TT | Payment Module |
+| **13**| | Đối soát Tài chính | Tra cứu giao dịch, tính chiết khấu hoa hồng & quản lý ví tài xế | NV Tài chính | Dashboard Module |
+| **14**| **Đánh giá & Báo cáo** | Đánh giá Dịch vụ | Chấm điểm 1-5 sao và gửi phản hồi chất lượng phục vụ sau chuyến | Khách hàng | Customer Module |
+| **15**| | Báo cáo Quản trị | Trích xuất báo cáo doanh thu, tỷ lệ hoàn thành/hủy chuyến & chỉ số KPI | Ban Giám đốc | Dashboard Module |
 
 ###Bước 6 Bảng Phân rã Chức năng Hệ thống (Functional Decomposition)
 
@@ -143,76 +141,10 @@ quadrantChart
 | | Đánh giá & Báo cáo | Khách hàng chấm điểm 1-5★; Ban Giám đốc xem báo cáo doanh thu |
 
 Bước 7: vẽ usecase tổng quát
-```mermaid
-graph LR
-    %% Định nghĩa Actors (Tác nhân)
-    subgraph Actors [Tác nhân hệ thống]
-        C[Khách hàng]
-        D[Tài xế]
-        Ops[NV Vận hành]
-        Fin[NV Tài chính]
-        BOD[Ban Giám đốc]
-    end
+<img width="963" height="954" alt="image" src="https://github.com/user-attachments/assets/dc53931e-5ded-4f1e-869b-9dc67e989447" />
 
-    %% Định nghĩa Chức năng (Use Cases)
-    subgraph System [Hệ thống CAB System]
-        subgraph Mod_Auth [Modul Xác thực]
-            UC1(Đăng ký / Đăng nhập)
-            UC2(Phân quyền RBAC)
-        end
-
-        subgraph Mod_User [Modul Quản lý Khách & Tài xế]
-            UC3(Quản lý hồ sơ & Địa chỉ đã lưu)
-            UC4(Duyệt hồ sơ tài xế)
-        end
-
-        subgraph Mod_Booking [Modul Đặt xe & Ghép chuyến]
-            UC5(Khởi tạo chuyến & Xem cước phí)
-            UC6(Ghép chuyến tự động qua GPS)
-            UC7(Cập nhật trạng thái chuyến)
-        end
-
-        subgraph Mod_Track [Modul Định vị]
-            UC8(Theo dõi xe Real-time)
-        end
-
-        subgraph Mod_Pay [Modul Thanh toán]
-            UC9(Thanh toán Tiền mặt)
-            UC10(Thanh toán Trực tuyến)
-        end
-
-        subgraph Mod_Dash [Modul Quản trị & Báo cáo]
-            UC11(Giám sát vận hành & Hỗ trợ)
-            UC12(Đối soát tài chính & Chiết khấu)
-            UC13(Đánh giá dịch vụ 1-5★)
-            UC14(Xem báo cáo doanh thu & KPI)
-        end
-    end
-
-    %% Mối liên kết giữa Actor và Use Case
-    C --> UC1
-    C --> UC3
-    C --> UC5
-    C --> UC8
-    C --> UC9
-    C --> UC10
-    C --> UC13
-
-    D --> UC1
-    D --> UC6
-    D --> UC7
-    D --> UC9
-
-    Ops --> UC1
-    Ops --> UC4
-    Ops --> UC11
-
-    Fin --> UC1
-    Fin --> UC12
-
-    BOD --> UC1
-    BOD --> UC14
-```
 Bước 8: đặc tả usecase
+<img width="705" height="403" alt="image" src="https://github.com/user-attachments/assets/bea70f37-be02-48a2-9b34-9a449b4ef5d2" />
+
 Bước 9: quy trình nghiệp vụ business process
 Bước 10: Kết thúc trong phần thiết kế( phân tích các thiết kế business rule vd: các tài xế trong trạng thái available thì mới có ưu tiên nhận cuốc xe trc)
