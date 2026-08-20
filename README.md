@@ -141,7 +141,8 @@ quadrantChart
 | | Đánh giá & Báo cáo | Khách hàng chấm điểm 1-5★; Ban Giám đốc xem báo cáo doanh thu |
 
 Bước 7: vẽ usecase tổng quát
-<img width="963" height="954" alt="image" src="https://github.com/user-attachments/assets/dc53931e-5ded-4f1e-869b-9dc67e989447" />
+<img width="963" height="954" alt="image" src="https://github.com/user-attachments/assets/50f0c68f-d3ea-4e30-ba95-d99b336500b8" />
+
 
 Bước 8: đặc tả usecase
 ### **Đặc tả UseCase Đăng nhập**
@@ -181,5 +182,233 @@ Bước 8: đặc tả usecase
 | :--- | :--- |
 | | **5.2.1.** Hệ thống phát hiện tài khoản chưa tồn tại hoặc đã bị khóa |
 | **5.2.3** Nhấn nút đóng hoặc OK. Kết thúc usecase | **5.2.2.** Hệ thống hiển thị thông báo "Tài khoản không tồn tại hoặc đã bị khóa" |
+
+### **Đặc tả UseCase Quản lý hồ sơ**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Quản lý hồ sơ |
+| **– Mô tả sơ lược:** | Chức năng Quản lý hồ sơ cho phép Khách hàng xem, cập nhật thông tin cá nhân (họ tên, email, ảnh đại diện) và quản lý danh sách địa chỉ yêu thích trên ứng dụng. |
+| **– Actor chính:** | Khách hàng |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập thành công vào ứng dụng. |
+| **– Hậu điều kiện (Post-condition):** | Thông tin hồ sơ mới được lưu cập nhật thành công vào cơ sở dữ liệu. |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| **1.** Chọn mục "Hồ sơ cá nhân" từ ứng dụng | |
+| | **2.** Hiển thị thông tin cá nhân hiện tại (Họ tên, Số điện thoại, Email, Ảnh đại diện) và danh sách địa chỉ đã lưu |
+| **3.** Thay đổi thông tin cá nhân hoặc thêm/sửa thông tin cá nhân | |
+| **4.** Nhấn nút "Lưu thay đổi" | |
+| | **5.** Kiểm tra định dạng dữ liệu đầu vào (định dạng Email, khoảng trắng...) |
+| | **6.** Cập nhật thông tin mới vào cơ sở dữ liệu và hiển thị thông báo "Cập nhật hồ sơ thành công". Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| | **5.1.1.** Hệ thống phát hiện định dạng Email hoặc dữ liệu nhập vào không hợp lệ |
+| | **5.1.2.** Hệ thống hiển thị thông báo lỗi chi tiết tại trường thông tin sai |
+| **5.1.3.** Quay lại bước 3 | |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| | **6.1.1.** Hệ thống gặp lỗi kết nối cơ sở dữ liệu hoặc gián đoạn mạng khi đang lưu |
+| | **6.1.2.** Hệ thống hiển thị thông báo "Cập nhật thất bại, vui lòng kiểm tra lại kết nối" |
+| **6.1.3.** Nhấn nút OK. Kết thúc usecase | |
+
+### **Đặc tả UseCase Đặt xe**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Đặt xe |
+| **– Mô tả sơ lược:** | Chức năng Đặt xe cho phép Khách hàng chọn điểm đi, điểm đến, chọn loại xe, xem ước tính cước phí và gửi yêu cầu tìm tài xế trên hệ thống CAB System. |
+| **– Actor chính:** | Khách hàng |
+| **– Actor phụ:** | Tài xế, Cổng thanh toán, Hạ tầng thông báo |
+| **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập thành công vào ứng dụng và đã bật vị trí (GPS). |
+| **– Hậu điều kiện (Post-condition):** | Hệ thống tạo chuyến đi thành công, kết nối với Tài xế và chuyển sang trạng thái theo dõi chuyến đi real-time. |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| **1.** Chọn chức năng "Đặt xe" trên ứng dụng | |
+| | **2.** Hiển thị bản đồ vị trí hiện tại và form nhập điểm đi, điểm đến |
+| **3.** Nhập điểm đi, điểm đến, chọn loại xe và phương thức thanh toán | |
+| | **4.** Tính khoảng cách di chuyển, hiển thị cước phí dự kiến và thời gian tài xế dự kiến đến đón |
+| **5.** Nhấn nút "Xác nhận đặt xe" | |
+| | **6.** Khởi tạo đơn đặt xe, tìm kiếm Tài xế gần nhất trong bán kính quy định và gửi thông báo mời chuyến đến ứng dụng của Tài xế |
+| | **7.** Nhận phản hồi "Chấp nhận" từ Tài xế và cập nhật trạng thái chuyến đi |
+| | **8.** Hiển thị thông tin tài xế (Họ tên, biển số xe, số điện thoại, vị trí trên bản đồ). Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| | **6.1.1.** Tài xế được chọn từ chối hoặc hết thời gian chờ (15 giây) không phản hồi |
+| | **6.1.2.** Hệ thống tự động chuyển tiếp yêu cầu đến Tài xế phù hợp tiếp theo trong khu vực |
+| | **6.1.3.** Tự động quay lại bước 7 khi có Tài xế nhận chuyến |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| | **6.2.1.** Hệ thống không tìm thấy Tài xế nào khả dụng trong khu vực |
+| | **6.2.2.** Hệ thống hiển thị thông báo "Không tìm thấy tài xế quanh đây, vui lòng thử lại sau" |
+| **6.2.3.** Nhấn nút OK. Kết thúc usecase | |
+
+### **Đặc tả UseCase Đánh giá dịch vụ**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Đánh giá dịch vụ |
+| **– Mô tả sơ lược:** | Chức năng Đánh giá dịch vụ cho phép Khách hàng chấm điểm số sao (1-5 sao) và gửi nhận xét về chất lượng chuyến đi cũng như thái độ của tài xế sau khi hoàn thành chuyến. |
+| **– Actor chính:** | Khách hàng |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Chuyến đi đã được tài xế cập nhật trạng thái "Hoàn thành" và Khách hàng đã thanh toán cước phí. |
+| **– Hậu điều kiện (Post-condition):** | Điểm đánh giá và nhận xét được lưu vào cơ sở dữ liệu, tự động cập nhật lại điểm trung bình (Rating) của Tài xế. |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| | **1.** Tự động hiển thị màn hình đánh giá dịch vụ ngay khi chuyến đi hoàn tất |
+| **2.** Chọn số sao đánh giá (từ 1 đến 5 sao), chọn các tiêu chí nhanh (ví dụ: Lái xe an toàn, Xe sạch sẽ...) và nhập lời nhắn (nếu có) | |
+| **3.** Nhấn nút "Gửi đánh giá" | |
+| | **4.** Lưu thông tin đánh giá vào cơ sở dữ liệu |
+| | **5.** Tự động tính toán lại điểm rating trung bình của Tài xế |
+| | **6.** Hiển thị thông báo "Cảm ơn bạn đã đánh giá dịch vụ" và quay về trang chủ. Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| **2.1.1.** Bấm nút "Bỏ qua" hoặc dấu "X" trên màn hình đánh giá | |
+| | **2.1.2.** Ghi nhận không có đánh giá, đóng màn hình và quay về trang chủ. Kết thúc usecase |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| | **4.1.1.** Hệ thống gặp lỗi kết nối hoặc gián đoạn mạng khi đang gửi đánh giá |
+| | **4.1.2.** Hệ thống hiển thị thông báo "Gửi đánh giá thất bại, vui lòng kiểm tra lại kết nối" |
+| **4.1.3.** Nhấn nút OK. Kết thúc usecase | |
+
+### **Đặc tả UseCase Hủy chuyến**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Hủy chuyến |
+| **– Mô tả sơ lược:** | Chức năng Hủy chuyến cho phép Khách hàng chủ động hủy yêu cầu đặt xe đã gửi hoặc hủy chuyến đi đang trong trạng thái chờ tài xế đến đón. |
+| **– Actor chính:** | Khách hàng |
+| **– Actor phụ:** | Tài xế, Hạ tầng thông báo |
+| **– Tiền điều kiện (Pre-condition):** | Khách hàng đã gửi yêu cầu đặt xe thành công và chuyến đi chưa chuyển sang trạng thái "Đang di chuyển" (Đang chở khách). |
+| **– Hậu điều kiện (Post-condition):** | Chuyển trạng thái chuyến đi thành "Đã hủy", hệ thống giải phóng trạng thái bận của Tài xế (nếu đã nhận) và tính phí hủy chuyến (nếu có). |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| **1.** Nhấn nút "Hủy chuyến" trên màn hình chờ hoặc màn hình theo dõi chuyến đi | |
+| | **2.** Hiển thị hộp thoại xác nhận kèm danh sách lý do hủy chuyến (ví dụ: Đổi kế hoạch, Chờ quá lâu, Đặt nhầm...) |
+| **3.** Chọn lý do hủy chuyến và nhấn nút "Xác nhận hủy" | |
+| | **4.** Kiểm tra điều kiện thời gian hủy chuyến và tính phí phạt hủy chuyến (nếu hủy sau 5 phút kể từ khi tài xế nhận chuyến) |
+| | **5.** Cập nhật trạng thái chuyến đi thành `Cancelled` trong cơ sở dữ liệu |
+| | **6.** Gửi thông báo hủy chuyến đến ứng dụng của Tài xế (nếu đã có tài xế nhận) |
+| | **7.** Hiển thị thông báo "Hủy chuyến thành công" và đưa Khách hàng quay về trang chủ. Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| **3.1.1.** Nhấn nút "Quay lại" hoặc "Đóng" trên hộp thoại chọn lý do hủy | |
+| | **3.1.2.** Đóng hộp thoại xác nhận và tiếp tục giữ nguyên trạng thái chuyến đi. Kết thúc usecase |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| | **4.1.1.** Hệ thống ghi nhận Tài xế đã bấm "Bắt đầu chuyến đi" (đã đón khách lên xe) ngay trước thời điểm Khách hàng bấm hủy |
+| | **4.1.2.** Hệ thống không cho phép hủy và hiển thị thông báo "Chuyến đi đã bắt đầu, không thể hủy chuyến" |
+| **4.1.3.** Nhấn nút OK. Kết thúc usecase | |
+
+### **Đặc tả UseCase Quản lý hồ sơ & Phương tiện**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Quản lý hồ sơ & Phương tiện |
+| **– Mô tả sơ lược:** | Chức năng Quản lý hồ sơ & Phương tiện cho phép Tài xế xem, cập nhật thông tin cá nhân (họ tên, số điện thoại, ảnh chân dung) và tải lên/cập nhật giấy tờ xe (bằng lái, cavet, đăng kiểm, biển số xe) để phục vụ việc duyệt tài khoản. |
+| **– Actor chính:** | Tài xế |
+| **– Actor phụ:** | Nhân viên Vận hành |
+| **– Tiền điều kiện (Pre-condition):** | Tài xế đã đăng nhập thành công vào ứng dụng dành cho Tài xế (Driver App). |
+| **– Hậu điều kiện (Post-condition):** | Thông tin/hình ảnh giấy tờ mới được lưu vào hệ thống và chuyển sang trạng thái "Chờ duyệt" nếu có thay đổi thông tin pháp lý/phương tiện. |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **1.** Chọn mục "Hồ sơ & Xe" trên ứng dụng Tài xế | |
+| | **2.** Hiển thị thông tin cá nhân hiện tại, thông tin xe và trạng thái giấy tờ (Đã duyệt / Chờ duyệt / Bị từ chối) |
+| **3.** Chỉnh sửa thông tin cá nhân hoặc tải lên hình ảnh giấy tờ/phương tiện mới | |
+| **4.** Nhấn nút "Lưu cập nhật" | |
+| | **5.** Kiểm tra định dạng dữ liệu, kích thước và định dạng tệp hình ảnh tải lên |
+| | **6.** Cập nhật thông tin vào cơ sở dữ liệu, chuyển trạng thái giấy tờ xe sang "Chờ duyệt", gửi thông báo đến Nhân viên Vận hành và hiển thị thông báo "Cập nhật hồ sơ thành công". Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **5.1.1.** Hệ thống phát hiện tệp hình ảnh vượt quá dung lượng cho phép hoặc sai định dạng (không phải JPG/PNG) |
+| | **5.1.2.** Hệ thống hiển thị thông báo "Kích thước tệp quá lớn hoặc định dạng hình ảnh không hợp lệ" |
+| **5.1.3.** Quay lại bước 3 | |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **6.1.1.** Hệ thống gặp lỗi kết nối cơ sở dữ liệu hoặc gián đoạn mạng khi đang tải tệp lên |
+| | **6.1.2.** Hệ thống hiển thị thông báo "Tải hồ sơ thất bại, vui lòng kiểm tra lại kết nối mạng" |
+| **6.1.3.** Nhấn nút OK. Kết thúc usecase | |
+
+### **Đặc tả UseCase Cập nhật trạng thái sẵn sàng**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Cập nhật trạng thái sẵn sàng |
+| **– Mô tả sơ lược:** | Chức năng Cập nhật trạng thái sẵn sàng cho phép Tài xế chủ động bật/tắt trạng thái hoạt động (Trực tuyến/Ngoại tuyến) trên ứng dụng để nhận hoặc ngừng nhận các yêu cầu chuyến đi từ hệ thống. |
+| **– Actor chính:** | Tài xế |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Tài xế đã đăng nhập thành công vào ứng dụng Tài xế, tài khoản đã được duyệt và thiết bị đã bật vị trí (GPS). |
+| **– Hậu điều kiện (Post-condition):** | Trạng thái hoạt động của Tài xế được cập nhật trên hệ thống (Sẵn sàng nhận chuyến hoặc Ngừng nhận chuyến). |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **1.** Nhấn nút gạt (Toggle Switch) "Bật nhận chuyến" trên màn hình chính của ứng dụng | |
+| | **2.** Kiểm tra điều kiện tài khoản (trạng thái hồ sơ, số dư ví tài xế tối thiểu) và tín hiệu GPS |
+| | **3.** Cập nhật trạng thái Tài xế thành `Online` (Sẵn sàng) trong cơ sở dữ liệu và kích hoạt cơ chế định vị real-time |
+| | **4.** Hiển thị giao diện "Đang sẵn sàng nhận chuyến" kèm bản đồ khu vực xung quanh. Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **1.1.1.** Nhấn nút gạt "Tắt nhận chuyến" khi đang ở trạng thái Trực tuyến (`Online`) | |
+| | **1.1.2.** Kiểm tra Tài xế hiện không trong tiến trình thực hiện chuyến đi nào |
+| | **1.1.3.** Cập nhật trạng thái Tài xế thành `Offline` (Ngoại tuyến), ngừng gửi tọa độ GPS và chuyển giao diện sang "Đã tắt nhận chuyến". Kết thúc usecase |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **2.1.1.** Hệ thống phát hiện tài khoản chưa được duyệt, bị khóa hoặc số dư ví tài xế dưới mức quy định tối thiểu |
+| | **2.1.2.** Hệ thống không cho phép bật trạng thái và hiển thị thông báo lỗi chi tiết (ví dụ: "Số dư ví không đủ để bật nhận chuyến") |
+| **2.1.3.** Nhấn nút OK. Kết thúc usecase | |
+
 Bước 9: quy trình nghiệp vụ business process
 Bước 10: Kết thúc trong phần thiết kế( phân tích các thiết kế business rule vd: các tài xế trong trạng thái available thì mới có ưu tiên nhận cuốc xe trc)
