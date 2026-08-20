@@ -144,5 +144,42 @@ Bước 7: vẽ usecase tổng quát
 <img width="963" height="954" alt="image" src="https://github.com/user-attachments/assets/dc53931e-5ded-4f1e-869b-9dc67e989447" />
 
 Bước 8: đặc tả usecase
+### **Đặc tả UseCase Đăng nhập**
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Đăng nhập |
+| **– Mô tả sơ lược:** | Chức năng Đăng nhập cho phép người dùng (Khách hàng, Tài xế, Nhân viên, Quản trị viên) xác thực tài khoản để truy cập vào hệ thống CAB System. |
+| **– Actor chính:** | Người dùng (Khách hàng, Tài xế, Nhân viên Vận hành, Nhân viên Tài chính, Ban Giám đốc, Quản trị viên hệ thống) |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Người dùng phải có tài khoản đã được kích hoạt trên hệ thống. |
+| **– Hậu điều kiện (Post-condition):** | Nếu đăng nhập thành công thì hệ thống sẽ hiển thị giao diện trang chủ theo đúng vai trò (Role). |
+
+#### **– Luồng sự kiện chính (main flow):**
+
+| Actor: Người dùng | System |
+| :--- | :--- |
+| **1.** Mở ứng dụng / Truy cập website hệ thống | |
+| | **2.** Hiển thị form đăng nhập gồm các thông tin: Số điện thoại / Tên đăng nhập, Mật khẩu |
+| **3.** Nhập đầy đủ thông tin đăng nhập và nhấn nút "Đăng nhập" | |
+| | **4.** Kiểm tra cú pháp và định dạng dữ liệu đầu vào |
+| | **5.** Xác thực thông tin tài khoản và mật khẩu trong cơ sở dữ liệu |
+| | **6.** Hệ thống hiển thị trang chủ tương ứng với vai trò của người dùng. Kết thúc usecase |
+
+#### **– Luồng sự kiện thay thế (alternate flow):**
+
+| Actor: Người dùng | System |
+| :--- | :--- |
+| | **4.1.1.** Hệ thống hiển thị thông báo sai định dạng (ví dụ: Số điện thoại không hợp lệ) |
+| **4.1.2.** Quay lại bước 3 | |
+| | **5.1.1.** Hệ thống hiển thị thông báo "Tài khoản hoặc mật khẩu không chính xác" |
+| **5.1.2.** Quay lại bước 3 | |
+
+#### **– Luồng sự kiện ngoại lệ (exception flow):**
+
+| Actor: Người dùng | System |
+| :--- | :--- |
+| | **5.2.1.** Hệ thống phát hiện tài khoản chưa tồn tại hoặc đã bị khóa |
+| **5.2.3** Nhấn nút đóng hoặc OK. Kết thúc usecase | **5.2.2.** Hệ thống hiển thị thông báo "Tài khoản không tồn tại hoặc đã bị khóa" |
 Bước 9: quy trình nghiệp vụ business process
 Bước 10: Kết thúc trong phần thiết kế( phân tích các thiết kế business rule vd: các tài xế trong trạng thái available thì mới có ưu tiên nhận cuốc xe trc)
