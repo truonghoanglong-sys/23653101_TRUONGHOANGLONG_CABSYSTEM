@@ -144,7 +144,5 @@ Bước 7: vẽ usecase tổng quát
 <img width="963" height="954" alt="image" src="https://github.com/user-attachments/assets/dc53931e-5ded-4f1e-869b-9dc67e989447" />
 
 Bước 8: đặc tả usecase
-<img width="705" height="403" alt="image" src="https://github.com/user-attachments/assets/bea70f37-be02-48a2-9b34-9a449b4ef5d2" />
-
 Bước 9: quy trình nghiệp vụ business process
 Bước 10: Kết thúc trong phần thiết kế( phân tích các thiết kế business rule vd: các tài xế trong trạng thái available thì mới có ưu tiên nhận cuốc xe trc)
