@@ -99,46 +99,56 @@ quadrantChart
 | **6** | Kiểm thử tích hợp giữa các modul và sửa lỗi. |
 | **7** | Hoàn thiện tài liệu README.md và tổng kết báo cáo dự án. |
 
-###Bước 5: Yêu cầu nghiệp vụ (Business Requirements)
+### Bước 5: Yêu cầu nghiệp vụ (Business Requirements)
 
-### Bảng Quy trình Nghiệp vụ
+#### Bảng Quy trình Nghiệp vụ
 
 | STT | Giai đoạn | Quy trình nghiệp vụ | Bước thực hiện | Tác nhân | Modul hệ thống |
 | :---: | :--- | :--- | :--- | :--- | :--- |
-| **1** | **Khởi tạo & Xác thực** | Đăng ký & Đăng nhập | Tạo tài khoản, xác thực OTP/Mật khẩu và cấp Token phiên làm việc | Khách hàng, Tài xế | Auth Module |
-| **2** | | Phân quyền (RBAC) | Cấp quyền truy cập giao diện và chức năng tương ứng theo vai trò | All Users | Auth Module |
-| **3** | **Quản lý Khách & Tài xế** | Quản lý Hồ sơ Khách hàng | Lưu địa chỉ yêu thích, xem lịch sử chuyến đi & cài đặt thanh toán | Khách hàng | Customer Module |
-| **4** | | Duyệt & Quản lý Tài xế | Cập nhật bằng lái/đăng ký xe, kiểm duyệt hồ sơ tài xế vận hành | Tài xế, Ops | Driver Module |
-| **5** | **Đặt xe & Điều phối** | Khởi tạo Đặt xe | Chọn điểm đi/đến, hệ thống đo khoảng cách, ước tính thời gian & báo giá | Khách hàng | Booking Module |
-| **6** | | Ghép chuyến Tự động | Định vị GPS, tìm tài xế gần nhất và phát thông báo mời chuyến | Hệ thống, Tài xế | Booking Module |
-| **7** | | Xử lý Từ chối / Timeout | Tài xế nhận/từ chối. Quá thời gian chờ tự động chuyển sang tài xế tiếp theo | Hệ thống, Tài xế | Booking Module |
-| **8** | **Vận hành & Theo dõi** | Quản lý Tiến trình | Cập nhật: **Đã nhận → Đón khách → Đang di chuyển → Hoàn thành** | Tài xế | Booking Module |
-| **9** | | Theo dõi Real-time | Cập nhật vị trí GPS tài xế liên tục trên bản đồ thời gian thực | Khách hàng, Tài xế | Tracking Module |
-| **10**| | Giám sát & Hỗ trợ | Giám sát danh sách chuyến đi real-time, can thiệp điều xe/hủy xe khi sự cố | NV Vận hành | Dashboard Module |
-| **11**| **Thanh toán & Tài chính**| Thanh toán Tiền mặt | Khách trả tiền mặt khi đến nơi; tài xế xác nhận đã thu đủ trên ứng dụng | Khách hàng, Tài xế | Payment Module |
-| **12**| | Thanh toán Trực tuyến | Tự động trừ tiền qua Ví/Thẻ (Tokenization) khi kết thúc chuyến | Hệ thống, Cổng TT | Payment Module |
-| **13**| | Đối soát Tài chính | Tra cứu giao dịch, tính chiết khấu hoa hồng & quản lý ví tài xế | NV Tài chính | Dashboard Module |
-| **14**| **Đánh giá & Báo cáo** | Đánh giá Dịch vụ | Chấm điểm 1-5 sao và gửi phản hồi chất lượng phục vụ sau chuyến | Khách hàng | Customer Module |
-| **15**| | Báo cáo Quản trị | Trích xuất báo cáo doanh thu, tỷ lệ hoàn thành/hủy chuyến & chỉ số KPI | Ban Giám đốc | Dashboard Module |
+| **1** | **Khởi tạo & Xác thực** | Đăng ký tài khoản | Tạo tài khoản mới cho Khách hàng/Tài xế, xác thực thông tin ban đầu | Khách hàng, Tài xế | Auth Module |
+| **2** | | Đăng nhập hệ thống | Xác thực thông tin đăng nhập (SĐT/Mật khẩu), cấp Token phiên làm việc | All Users | Auth Module |
+| **3** | | Phân quyền (RBAC) | Cấp quyền truy cập giao diện và chức năng tương ứng theo từng vai trò | All Users | Auth Module |
+| **4** | **Quản lý Khách & Tài xế** | Quản lý Hồ sơ Khách hàng | Lưu địa chỉ yêu thích, xem lịch sử chuyến đi & cài đặt thông tin cá nhân | Khách hàng | Customer Module |
+| **5** | | Quản lý Hồ sơ & Phương tiện | Tài xế cập nhật/tải lên bằng lái, cavet, đăng kiểm, biển số xe | Tài xế | Driver Module |
+| **6** | | Duyệt Hồ sơ Tài xế | Kiểm tra hình ảnh giấy tờ, phê duyệt hoặc từ chối cấp quyền hoạt động | NV Vận hành | Driver Module |
+| **7** | | Cập nhật Trạng thái Sẵn sàng | Tài xế bật/tắt chế độ nhận chuyến (Online/Offline) trên ứng dụng | Tài xế | Driver Module |
+| **8** | **Đặt xe & Điều phối** | Khởi tạo Đặt xe | Chọn điểm đi/đến, chọn loại xe, hệ thống tính khoảng cách & báo giá | Khách hàng | Booking Module |
+| **9** | | Xử lý Yêu cầu Chuyến đi | Hệ thống quét GPS tìm tài xế gần nhất; Tài xế nhận hoặc từ chối chuyến | Hệ thống, Tài xế | Booking Module |
+| **10**| | Hủy chuyến | Khách hàng chủ động hủy yêu cầu đặt xe hoặc hủy chuyến trước khi đón | Khách hàng | Booking Module |
+| **11**| **Vận hành & Theo dõi** | Cập nhật Tiến trình đi | Cập nhật trạng thái: Đã đến điểm đón → Bắt đầu đi → Hoàn thành | Tài xế | Booking Module |
+| **12**| | Theo dõi Real-time | Hiển thị vị trí GPS và lộ trình di chuyển trực tiếp trên bản đồ | Khách hàng, Tài xế | Tracking Module |
+| **13**| | Giám sát Vận hành & Can thiệp | Giám sát danh sách chuyến đi real-time, can thiệp điều xe/hủy xe khi sự cố | NV Vận hành | Dashboard Module |
+| **14**| **Thanh toán & Tài chính**| Xác nhận Thu tiền mặt | Tài xế xác nhận đã thu tiền mặt từ khách khi kết thúc chuyến đi | Khách hàng, Tài xế | Payment Module |
+| **15**| | Xử lý Giao dịch Online | Tự động trừ tiền qua Ví/Thẻ (Tokenization Sandbox) khi hoàn tất chuyến | Hệ thống, Cổng TT | Payment Module |
+| **16**| | Tra cứu & Đối soát Tài chính | Tra cứu lịch sử giao dịch, tính chiết khấu hoa hồng & quản lý ví tài xế | NV Tài chính | Dashboard Module |
+| **17**| **Đánh giá & Báo cáo** | Đánh giá Dịch vụ | Khách hàng chấm điểm 1-5 sao và gửi phản hồi chất lượng phục vụ | Khách hàng | Customer Module |
+| **18**| | Báo cáo Doanh thu & Hiệu suất| Trích xuất báo cáo doanh thu tổng quan, chỉ số KPI và tỷ lệ hoàn thành | Ban Giám đốc | Dashboard Module |
+| **19**| **Tích hợp & Quản trị** | Gửi Thông báo | Gửi Push Notification, SMS, Email tức thì đến thiết bị người dùng | Nhà cung cấp TB | Notification Module |
+| **20**| | Cập nhật & Quản lý Dữ liệu | Quản lý danh mục hệ thống, cập nhật cấu hình và dữ liệu người dùng | Admin | System Module |
+| **21**| | Sao lưu & Lưu trữ | Thực hiện sao lưu định kỳ cơ sở dữ liệu và lưu trữ nhật ký Audit Log | Admin | System Module |
 
-###Bước 6 Bảng Phân rã Chức năng Hệ thống (Functional Decomposition)
+### Bước 6: Bảng Phân rã Chức năng Hệ thống (Functional Decomposition)
 
 | Modul | Chức năng cấp 1 | Chi tiết chức năng cấp 2 (Mức cơ bản) |
 | :--- | :--- | :--- |
-| **1. Auth Module** | Đăng ký & Đăng nhập | Đăng nhập tài khoản bằng SĐT/Mật khẩu; cấp Token xác thực |
-| | Phân quyền (RBAC) | Cấp quyền truy cập cho 5 nhóm: Khách, Tài xế, Ops, Finance, Admin |
-| **2. User Module** | Quản lý Khách hàng | Cập nhật thông tin, lưu địa chỉ yêu thích, xem lịch sử chuyến đi |
-| | Quản lý Tài xế | Cập nhật bằng lái, biển số xe; NV Vận hành duyệt hồ sơ |
-| **3. Booking Module** | Khởi tạo Đặt xe | Chọn điểm đi/đến, hiển thị quãng đường và báo giá cước phí trước |
-| | Ghép chuyến Tự động | Tìm tài xế gần nhất qua GPS ở trạng thái "Sẵn sàng" |
-| | Xử lý Từ chối/Timeout | Tài xế đếm ngược nhận chuyến; nếu từ chối/hết giờ thì quét xế tiếp theo |
-| **4. Tracking Module**| Cập nhật Tiến trình | Tài xế chuyển trạng thái: **Đã nhận → Đón khách → Đang đi → Hoàn thành** |
-| | Theo dõi Real-time | Hiển thị tọa độ xe chạy trực tiếp trên bản đồ của Khách hàng |
-| **5. Payment Module** | Thanh toán Tiền mặt | Khách trả tiền mặt tại điểm đến; Tài xế xác nhận đã nhận tiền |
-| | Thanh toán Trực tuyến | Tự động trừ tiền qua cổng thanh toán thử nghiệm (Sandbox) |
-| **6. Dashboard Module**| Giám sát Vận hành | NV Vận hành xem danh sách chuyến đi real-time và can thiệp sự cố |
-| | Đối soát Tài chính | NV Tài chính tra cứu lịch sử thanh toán & tính chiết khấu tài xế |
-| | Đánh giá & Báo cáo | Khách hàng chấm điểm 1-5★; Ban Giám đốc xem báo cáo doanh thu |
+| **1. Auth Module** | Đăng ký & Đăng nhập | Đăng ký tài khoản mới; Đăng nhập bằng SĐT/Mật khẩu; Cấp Token xác thực |
+| | Phân quyền (RBAC) | Phân quyền truy cập cho 5 nhóm: Khách hàng, Tài xế, Ops, Tài chính, Admin |
+| **2. Customer Module** | Quản lý Hồ sơ | Cập nhật thông tin cá nhân, lưu địa chỉ yêu thích, xem lịch sử chuyến đi |
+| | Đánh giá Dịch vụ | Chấm điểm 1–5★ và gửi nhận xét chất lượng dịch vụ sau chuyến đi |
+| **3. Driver Module** | Quản lý Hồ sơ & Xe | Tải lên/cập nhật bằng lái, cavet, đăng kiểm, biển số xe; NV Vận hành duyệt hồ sơ |
+| | Trạng thái Sẵn sàng | Nhấn nút gạt chuyển trạng thái Trực tuyến/Ngoại tuyến (Online/Offline) |
+| **4. Booking Module** | Khởi tạo Đặt xe | Chọn điểm đi/đến, loại xe, hiển thị quãng đường và báo giá cước phí trước |
+| | Ghép chuyến Tự động | Tìm tài xế gần nhất qua GPS; xử lý đếm ngược 15s/từ chối/timeout để chuyển xế tiếp |
+| | Hủy chuyến | Cho phép Khách hàng hủy chuyến trước khi đón (tính phí phạt nếu quá 5 phút) |
+| **5. Tracking Module**| Cập nhật Tiến trình | Tài xế cập nhật trạng thái: **Đã nhận → Đón khách → Đang đi → Hoàn thành** |
+| | Theo dõi Real-time | Hiển thị tọa độ xe chạy và lộ trình di chuyển trực tiếp trên bản đồ |
+| **6. Payment Module** | Thanh toán Tiền mặt | Khách trả tiền mặt tại điểm đến; Tài xế bấm xác nhận đã thu đủ tiền |
+| | Thanh toán Trực tuyến | Tự động trừ tiền qua Cổng thanh toán thử nghiệm (Sandbox Tokenization) |
+| **7. Dashboard Module**| Giám sát Vận hành | NV Vận hành xem danh sách chuyến đi real-time, can thiệp xử lý sự cố khẩn cấp |
+| | Đối soát Tài chính | NV Tài chính tra cứu lịch sử giao dịch, tính chiết khấu hoa hồng & quản lý ví tài xế |
+| | Báo cáo Quản trị | Ban Giám đốc xem báo cáo doanh thu, tỷ lệ hoàn thành/hủy chuyến & chỉ số KPI |
+| **8. System & Notice**| Gửi Thông báo | Tự động phát Push Notification, SMS, Email thông báo trạng thái chuyến đi |
+| | Quản trị Hệ thống | Admin quản lý dữ liệu danh mục, cấu hình hệ thống, sao lưu & lưu trữ Audit Log |
 
 Bước 7: vẽ usecase tổng quát
 <img width="939" height="916" alt="Hệ thống đặt xe" src="https://github.com/user-attachments/assets/6d969fc1-171a-45dd-a72b-d287d54109d3" />
