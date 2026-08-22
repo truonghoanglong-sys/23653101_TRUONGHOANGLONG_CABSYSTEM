@@ -131,24 +131,13 @@ quadrantChart
 
 | Modul | Chức năng cấp 1 | Chi tiết chức năng cấp 2 (Mức cơ bản) |
 | :--- | :--- | :--- |
-| **1. Auth Module** | Đăng ký & Đăng nhập | Đăng ký tài khoản mới; Đăng nhập bằng SĐT/Mật khẩu; Cấp Token xác thực |
-| | Phân quyền (RBAC) | Phân quyền truy cập cho 5 nhóm: Khách hàng, Tài xế, Ops, Tài chính, Admin |
-| **2. Customer Module** | Quản lý Hồ sơ | Cập nhật thông tin cá nhân, lưu địa chỉ yêu thích, xem lịch sử chuyến đi |
-| | Đánh giá Dịch vụ | Chấm điểm 1–5★ và gửi nhận xét chất lượng dịch vụ sau chuyến đi |
-| **3. Driver Module** | Quản lý Hồ sơ & Xe | Tải lên/cập nhật bằng lái, cavet, đăng kiểm, biển số xe; NV Vận hành duyệt hồ sơ |
-| | Trạng thái Sẵn sàng | Nhấn nút gạt chuyển trạng thái Trực tuyến/Ngoại tuyến (Online/Offline) |
-| **4. Booking Module** | Khởi tạo Đặt xe | Chọn điểm đi/đến, loại xe, hiển thị quãng đường và báo giá cước phí trước |
-| | Ghép chuyến Tự động | Tìm tài xế gần nhất qua GPS; xử lý đếm ngược 15s/từ chối/timeout để chuyển xế tiếp |
-| | Hủy chuyến | Cho phép Khách hàng hủy chuyến trước khi đón (tính phí phạt nếu quá 5 phút) |
-| **5. Tracking Module**| Cập nhật Tiến trình | Tài xế cập nhật trạng thái: **Đã nhận → Đón khách → Đang đi → Hoàn thành** |
-| | Theo dõi Real-time | Hiển thị tọa độ xe chạy và lộ trình di chuyển trực tiếp trên bản đồ |
-| **6. Payment Module** | Thanh toán Tiền mặt | Khách trả tiền mặt tại điểm đến; Tài xế bấm xác nhận đã thu đủ tiền |
-| | Thanh toán Trực tuyến | Tự động trừ tiền qua Cổng thanh toán thử nghiệm (Sandbox Tokenization) |
-| **7. Dashboard Module**| Giám sát Vận hành | NV Vận hành xem danh sách chuyến đi real-time, can thiệp xử lý sự cố khẩn cấp |
-| | Đối soát Tài chính | NV Tài chính tra cứu lịch sử giao dịch, tính chiết khấu hoa hồng & quản lý ví tài xế |
-| | Báo cáo Quản trị | Ban Giám đốc xem báo cáo doanh thu, tỷ lệ hoàn thành/hủy chuyến & chỉ số KPI |
-| **8. System & Notice**| Gửi Thông báo | Tự động phát Push Notification, SMS, Email thông báo trạng thái chuyến đi |
-| | Quản trị Hệ thống | Admin quản lý dữ liệu danh mục, cấu hình hệ thống, sao lưu & lưu trữ Audit Log |
+| **1. Auth Module** | Đăng ký & Đăng nhập | Đăng ký, đăng nhập bằng SĐT/Mật khẩu; phân quyền theo vai trò (Khách, Xế, Ops, Admin) |
+| **2. Customer Module** | Quản lý Hồ sơ | Cập nhật thông tin cá nhân, xem lịch sử chuyến đi và đánh giá dịch vụ 1–5★ |
+| **3. Driver Module** | Quản lý Hồ sơ & Xe | Cập nhật bằng lái, biển số xe (chờ Ops duyệt) và bật/tắt nhận chuyến (Online/Offline) |
+| **4. Booking Module** | Đặt xe & Điều phối | Khởi tạo chuyến đi (tính cước), tự động tìm tài xế gần nhất qua GPS và xử lý Hủy chuyến |
+| **5. Tracking Module**| Tiến trình & Bản đồ | Tài xế chuyển trạng thái (Đón khách → Hoàn thành) và xem vị trí xe chạy trên bản đồ |
+| **6. Payment Module** | Thanh toán | Xác nhận thu tiền mặt hoặc thanh toán trực tuyến qua cổng thử nghiệm (Sandbox) |
+| **7. Dashboard Module**| Quản trị & Báo cáo | Ops giám sát chuyến đi; Finance đối soát tiền; Ban Giám đốc xem báo cáo doanh thu |
 
 Bước 7: vẽ usecase tổng quát
 <img width="939" height="916" alt="Hệ thống đặt xe" src="https://github.com/user-attachments/assets/6d969fc1-171a-45dd-a72b-d287d54109d3" />
@@ -233,18 +222,18 @@ Bước 8: đặc tả usecase
 | | **6.1.2.** Hệ thống hiển thị thông báo "Cập nhật thất bại, vui lòng kiểm tra lại kết nối" |
 | **6.1.3.** Nhấn nút OK. Kết thúc usecase | |
 
-### **Đặc tả UseCase Đặt xe**
+### Đặc tả UseCase Đặt xe
 
 | Thuộc tính | Nội dung |
 | :--- | :--- |
 | **– Tên use case:** | Đặt xe |
-| **– Mô tả sơ lược:** | Chức năng Đặt xe cho phép Khách hàng chọn điểm đi, điểm đến, chọn loại xe, xem ước tính cước phí và gửi yêu cầu tìm tài xế trên hệ thống CAB System. |
+| **– Mô tả sơ lược:** | Chức năng Đặt xe cho phép Khách hàng chọn điểm đi, điểm đến, chọn loại xe, xem ước tính cước phí và gửi yêu cầu tìm tài xế trên hệ thống. |
 | **– Actor chính:** | Khách hàng |
 | **– Actor phụ:** | Tài xế, Cổng thanh toán, Hạ tầng thông báo |
 | **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập thành công vào ứng dụng và đã bật vị trí (GPS). |
 | **– Hậu điều kiện (Post-condition):** | Hệ thống tạo chuyến đi thành công, kết nối với Tài xế và chuyển sang trạng thái theo dõi chuyến đi real-time. |
 
-#### **– Luồng sự kiện chính (main flow):**
+#### – Luồng sự kiện chính (main flow):
 
 | Actor: Khách hàng | System |
 | :--- | :--- |
@@ -254,25 +243,28 @@ Bước 8: đặc tả usecase
 | | **4.** Tính khoảng cách di chuyển, hiển thị cước phí dự kiến và thời gian tài xế dự kiến đến đón |
 | **5.** Nhấn nút "Xác nhận đặt xe" | |
 | | **6.** Khởi tạo đơn đặt xe, tìm kiếm Tài xế gần nhất trong bán kính quy định và gửi thông báo mời chuyến đến ứng dụng của Tài xế |
-| | **7.** Nhận phản hồi "Chấp nhận" từ Tài xế và cập nhật trạng thái chuyến đi |
+| | **7.** [Tài xế chấp nhận] Nhận phản hồi chấp nhận từ Tài xế |
 | | **8.** Hiển thị thông tin tài xế (Họ tên, biển số xe, số điện thoại, vị trí trên bản đồ). Kết thúc usecase |
 
-#### **– Luồng sự kiện thay thế (alternate flow):**
+#### – Luồng sự kiện thay thế (alternate flow):
 
 | Actor: Khách hàng | System |
 | :--- | :--- |
-| | **6.1.1.** Tài xế được chọn từ chối hoặc hết thời gian chờ (15 giây) không phản hồi |
-| | **6.1.2.** Hệ thống tự động chuyển tiếp yêu cầu đến Tài xế phù hợp tiếp theo trong khu vực |
-| | **6.1.3.** Tự động quay lại bước 7 khi có Tài xế nhận chuyến |
+| | **6.1.1.** [Tài xế từ chối / Không tìm thấy] Hệ thống không tìm thấy Tài xế nhận chuyến |
+| | **6.1.2.** Hiển thị thông báo "Rất tiếc, hiện không có tài xế nào nhận chuyến" kèm 2 lựa chọn: "Thử lại" hoặc "Hủy" |
+| **6.1.3a.** [Bấm "Thử lại"] Hệ thống quay lại bước 6 để quét lại danh sách tài xế | |
+| **6.1.3b.** [Bấm "Hủy"] Đóng thông báo và quay về trang chủ. Kết thúc usecase | |
 
-#### **– Luồng sự kiện ngoại lệ (exception flow):**
+#### – Luồng sự kiện ngoại lệ (exception flow):
 
 | Actor: Khách hàng | System |
 | :--- | :--- |
-| | **6.2.1.** Hệ thống không tìm thấy Tài xế nào khả dụng trong khu vực |
-| | **6.2.2.** Hệ thống hiển thị thông báo "Không tìm thấy tài xế quanh đây, vui lòng thử lại sau" |
-| **6.2.3.** Nhấn nút OK. Kết thúc usecase | |
-
+| | **2.1.1.** Hệ thống phát hiện thiết bị của Khách hàng bị mất kết nối Internet hoặc chưa bật GPS |
+| | **2.1.2.** Hiển thị thông báo "Không có kết nối mạng hoặc GPS bị tắt. Vui lòng kiểm tra lại thiết bị" |
+| **2.1.3.** Bấm nút "Đồng ý" để đóng thông báo. Kết thúc usecase | |
+| | **6.2.1.** Hệ thống gặp sự cố mất kết nối cơ sở dữ liệu/Server khi đang xử lý đơn đặt xe |
+| | **6.2.2.** Hiển thị thông báo "Hệ thống đang gián đoạn, vui lòng thử lại sau ít phút" |
+| **6.2.3.** Bấm nút OK. Kết thúc usecase | |
 ### **Đặc tả UseCase Đánh giá dịch vụ**
 
 | Thuộc tính | Nội dung |
@@ -653,5 +645,24 @@ Bước 8: đặc tả usecase
 | | **5.1.2.** Hệ thống hiển thị cảnh báo "Lệnh can thiệp chưa được gửi, vui lòng kiểm tra lại kết nối" |
 | **5.1.3.** Nhấn nút Thử lại. Kết thúc usecase | |
 
-Bước 9: quy trình nghiệp vụ business process
-Bước 10: Kết thúc trong phần thiết kế( phân tích các thiết kế business rule vd: các tài xế trong trạng thái available thì mới có ưu tiên nhận cuốc xe trc)
+### Bước 9: quy trình nghiệp vụ business process
+### Đặt xe
+<img width="976" height="1096" alt="image" src="https://github.com/user-attachments/assets/90bc1ce3-0353-4ef0-b949-a0f3705a0e0e" />
+### Cập nhật tiến trình
+<img width="976" height="996" alt="image" src="https://github.com/user-attachments/assets/0a876f58-a7a6-4554-9146-5cc22b8bf665" />
+
+### Duyệt hồ sơ tài xế
+<img width="726" height="1116" alt="image" src="https://github.com/user-attachments/assets/09203ae8-024e-4898-934a-4d53993086ff" />
+
+
+### Bước 10: Quy tắc Nghiệp vụ Hệ thống (Business Rules)
+
+| Mã Quy tắc | Nhóm Quy tắc | Tên Quy tắc | Nội dung chi tiết |
+| :---: | :--- | :--- | :--- |
+| **BR-01** | **Điều phối & Ghép chuyến** | Trạng thái Khả dụng | Chỉ những Tài xế đang ở trạng thái "Trực tuyến" (Online) và "Sẵn sàng" (Available) mới được hệ thống ưu tiên phát thông báo mời chuyến. |
+| **BR-02** | **Điều phối & Ghép chuyến** | Thuật toán Định vị (GPS) | Hệ thống tự động quét và ưu tiên gửi đơn đặt xe cho Tài xế ở gần vị trí điểm đón của Khách hàng nhất trong bán kính tối đa 3km. |
+| **BR-03** | **Điều phối & Ghép chuyến** | Thời gian Chờ (Timeout) | Tài xế có tối đa 15 giây để nhấn "Nhận chuyến". Quá 15 giây không phản hồi, hệ thống tự động coi là Từ chối và chuyển chuyến đi cho Tài xế tiếp theo. |
+| **BR-04** | **Vận hành & Hồ sơ** | Điều kiện Hoạt động | Tài xế chỉ được phép bật trạng thái "Trực tuyến" khi hồ sơ cá nhân (Bằng lái, Đăng ký xe, Bảo hiểm) đã được Nhân viên Vận hành (Ops) phê duyệt. |
+| **BR-05** | **Đặt & Hủy chuyến** | Phí Hủy chuyến | Khách hàng được miễn phí hủy chuyến trong vòng 2 phút đầu sau khi ghép xế thành công. Nếu hủy sau 2 phút, hệ thống sẽ ghi nhận phí phạt hủy chuyến vào đơn tiếp theo. |
+| **BR-06** | **Thanh toán & Tài chính** | Khấu trừ Chiết khấu | Hệ thống tự động trừ % hoa hồng dịch vụ (VD: 20%) trực tiếp vào Ví tài xế ngay khi chuyến đi hoàn thành thành công. |
+| **BR-07** | **Đánh giá & Khóa tài khoản** | Tỷ lệ Hoàn thành & Điểm Sao | Tài xế có điểm đánh giá trung bình dưới 4.0★ hoặc tỷ lệ hủy chuyến quá 15% trong tuần sẽ bị hệ thống tạm khóa quyền nhận chuyến tự động. |
