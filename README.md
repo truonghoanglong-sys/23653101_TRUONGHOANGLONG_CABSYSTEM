@@ -655,7 +655,7 @@ Bước 8: đặc tả usecase
 <img width="726" height="1116" alt="image" src="https://github.com/user-attachments/assets/09203ae8-024e-4898-934a-4d53993086ff" />
 
 
-### Bước 10: Quy tắc Nghiệp vụ Hệ thống (Business Rules)
+### Bước 10: Kết thúc phần thiết kế (Quy tắc Nghiệp vụ Hệ thống)
 
 | Mã Quy tắc | Nhóm Quy tắc | Tên Quy tắc | Nội dung chi tiết |
 | :---: | :--- | :--- | :--- |
