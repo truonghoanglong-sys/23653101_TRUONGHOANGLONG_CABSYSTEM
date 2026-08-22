@@ -141,7 +141,8 @@ quadrantChart
 | | Đánh giá & Báo cáo | Khách hàng chấm điểm 1-5★; Ban Giám đốc xem báo cáo doanh thu |
 
 Bước 7: vẽ usecase tổng quát
-<img width="963" height="954" alt="image" src="https://github.com/user-attachments/assets/50f0c68f-d3ea-4e30-ba95-d99b336500b8" />
+<img width="939" height="916" alt="Hệ thống đặt xe" src="https://github.com/user-attachments/assets/6d969fc1-171a-45dd-a72b-d287d54109d3" />
+
 
 
 Bước 8: đặc tả usecase
