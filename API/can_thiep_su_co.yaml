@@ -1,0 +1,67 @@
+openapi: 3.0.3
+info:
+  title: API Can thiệp sự cố
+  description: Can thiệp hủy chuyến, điều lại xe hoặc xử lý các sự cố phát sinh trong quá trình vận hành.
+  version: 1.0.0
+paths:
+  /ops/trips/{trip_id}/cancel:
+    post:
+      summary: Can thiệp hủy chuyến
+      parameters:
+        - name: trip_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: Can thiệp hủy chuyến thành công
+  /ops/trips/{trip_id}/reassign:
+    post:
+      summary: Điều lại xe cho chuyến đi
+      parameters:
+        - name: trip_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                new_driver_id:
+                  type: string
+      responses:
+        '200':
+          description: Điều lại xe thành công
+  /ops/incidents:
+    post:
+      summary: Xử lý các sự cố phát sinh trong quá trình vận hành
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                trip_id:
+                  type: string
+                incident_type:
+                  type: string
+                resolution:
+                  type: string
+      responses:
+        '200':
+          description: Xử lý sự cố thành công

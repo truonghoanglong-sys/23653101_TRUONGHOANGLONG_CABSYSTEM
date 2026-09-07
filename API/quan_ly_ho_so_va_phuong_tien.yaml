@@ -1,0 +1,47 @@
+openapi: 3.0.3
+info:
+  title: API Quản lý hồ sơ và phương tiện
+  description: Cập nhật thông tin cá nhân và tải lên giấy tờ xe (Bằng lái, Biển số, Cavet, Đăng kiểm) để chờ duyệt.
+  version: 1.0.0
+paths:
+  /driver/profile:
+    put:
+      summary: Cập nhật thông tin cá nhân tài xế
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                full_name:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '200':
+          description: Cập nhật thông tin cá nhân thành công
+  /driver/documents:
+    post:
+      summary: Tải lên giấy tờ xe để chờ duyệt
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                driver_license:
+                  type: string
+                  format: binary
+                license_plate:
+                  type: string
+                vehicle_registration_certificate:
+                  type: string
+                  format: binary
+                inspection_certificate:
+                  type: string
+                  format: binary
+      responses:
+        '200':
+          description: Tải lên giấy tờ xe thành công, chờ phê duyệt

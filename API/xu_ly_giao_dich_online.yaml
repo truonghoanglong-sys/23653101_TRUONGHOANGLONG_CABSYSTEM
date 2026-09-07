@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  title: API Xử lý giao dịch online
+  description: Tiếp nhận và xử lý các giao dịch thanh toán trực tuyến qua Thẻ/Ví điện tử an toàn theo cơ chế Tokenization.
+  version: 1.0.0
+paths:
+  /payment-gateway/online-payment:
+    post:
+      summary: Tiếp nhận và xử lý giao dịch thanh toán trực tuyến qua Thẻ/Ví điện tử an toàn theo cơ chế Tokenization
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                payment_token:
+                  type: string
+                amount:
+                  type: number
+                currency:
+                  type: string
+                order_id:
+                  type: string
+      responses:
+        '200':
+          description: Xử lý giao dịch thanh toán trực tuyến thành công

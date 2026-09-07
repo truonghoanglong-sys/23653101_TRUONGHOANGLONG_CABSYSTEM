@@ -1,0 +1,30 @@
+openapi: 3.0.3
+info:
+  title: API Xem báo cáo doanh thu
+  description: Trích xuất và theo dõi các chỉ số doanh thu tổng quan, doanh thu theo thời gian và phương thức thanh toán.
+  version: 1.0.0
+paths:
+  /executive/reports/revenue/overview:
+    get:
+      summary: Trích xuất và theo dõi các chỉ số doanh thu tổng quan
+      responses:
+        '200':
+          description: Báo cáo doanh thu tổng quan
+  /executive/reports/revenue/by-time:
+    get:
+      summary: Theo dõi doanh thu theo thời gian
+      parameters:
+        - name: period
+          in: query
+          schema:
+            type: string
+            enum: [DAY, WEEK, MONTH, YEAR]
+      responses:
+        '200':
+          description: Báo cáo doanh thu theo thời gian
+  /executive/reports/revenue/by-payment-method:
+    get:
+      summary: Theo dõi doanh thu theo phương thức thanh toán
+      responses:
+        '200':
+          description: Báo cáo doanh thu theo phương thức thanh toán

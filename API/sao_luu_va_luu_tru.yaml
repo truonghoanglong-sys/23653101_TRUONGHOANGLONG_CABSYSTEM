@@ -1,0 +1,33 @@
+openapi: 3.0.3
+info:
+  title: API Sao lưu và lưu trữ
+  description: Thực hiện sao lưu dữ liệu định kỳ, lưu trữ nhật ký thao tác (Audit Log) và khôi phục dữ liệu khi cần.
+  version: 1.0.0
+paths:
+  /admin/backup/run:
+    post:
+      summary: Thực hiện sao lưu dữ liệu định kỳ
+      responses:
+        '200':
+          description: Thực hiện sao lưu dữ liệu thành công
+  /admin/audit-logs:
+    get:
+      summary: Lưu trữ và xem nhật ký thao tác (Audit Log)
+      responses:
+        '200':
+          description: Danh sách nhật ký thao tác
+  /admin/backup/restore:
+    post:
+      summary: Khôi phục dữ liệu khi cần
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                backup_file_id:
+                  type: string
+      responses:
+        '200':
+          description: Khôi phục dữ liệu thành công

@@ -1,0 +1,68 @@
+openapi: 3.0.3
+info:
+  title: API Quản lý hồ sơ Khách hàng
+  description: Khách hàng xem và cập nhật thông tin cá nhân (Họ tên, Email, Ảnh đại diện) và quản lý danh sách địa chỉ yêu thích.
+  version: 1.0.0
+paths:
+  /customer/profile:
+    get:
+      summary: Xem thông tin cá nhân
+      responses:
+        '200':
+          description: Trả về thông tin cá nhân của khách hàng
+    put:
+      summary: Cập nhật thông tin cá nhân
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                full_name:
+                  type: string
+                email:
+                  type: string
+                avatar_url:
+                  type: string
+      responses:
+        '200':
+          description: Cập nhật thông tin cá nhân thành công
+  /customer/favorite-addresses:
+    get:
+      summary: Xem danh sách địa chỉ yêu thích
+      responses:
+        '200':
+          description: Danh sách địa chỉ yêu thích
+    post:
+      summary: Thêm địa chỉ yêu thích mới
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                label:
+                  type: string
+                address:
+                  type: string
+                latitude:
+                  type: number
+                longitude:
+                  type: number
+      responses:
+        '201':
+          description: Thêm địa chỉ yêu thích thành công
+  /customer/favorite-addresses/{id}:
+    delete:
+      summary: Xóa địa chỉ yêu thích
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Xóa địa chỉ yêu thích thành công

@@ -1,0 +1,40 @@
+openapi: 3.0.3
+info:
+  title: API Cập nhật hệ thống
+  description: Cấu hình tham số vận hành, cập nhật tính năng và bảo trì các thiết lập chung của hệ thống.
+  version: 1.0.0
+paths:
+  /admin/system/parameters:
+    get:
+      summary: Xem các tham số vận hành hệ thống
+      responses:
+        '200':
+          description: Danh sách tham số vận hành
+    put:
+      summary: Cấu hình tham số vận hành hệ thống
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+      responses:
+        '200':
+          description: Cấu hình tham số vận hành thành công
+  /admin/system/maintenance:
+    post:
+      summary: Cập nhật tính năng và bảo trì các thiết lập chung của hệ thống
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                maintenance_mode:
+                  type: boolean
+                message:
+                  type: string
+      responses:
+        '200':
+          description: Cập nhật thiết lập bảo trì thành công

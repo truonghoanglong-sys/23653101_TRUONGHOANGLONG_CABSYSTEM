@@ -1,0 +1,27 @@
+openapi: 3.0.3
+info:
+  title: API Hủy xe
+  description: Chủ động hủy yêu cầu đặt xe hoặc hủy chuyến trước khi tài xế đón.
+  version: 1.0.0
+paths:
+  /bookings/{id}/cancel:
+    post:
+      summary: Hủy yêu cầu đặt xe hoặc hủy chuyến trước khi đón
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: Hủy chuyến thành công

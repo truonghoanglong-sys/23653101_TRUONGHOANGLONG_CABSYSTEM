@@ -1,0 +1,28 @@
+openapi: 3.0.3
+info:
+  title: API Xử lý yêu cầu chuyến đi
+  description: Nhận thông báo chuyến đi mới và thực hiện Chấp nhận hoặc Từ chối trong thời gian quy định.
+  version: 1.0.0
+paths:
+  /driver/trips/{trip_id}/respond:
+    post:
+      summary: Chấp nhận hoặc Từ chối yêu cầu chuyến đi mới
+      parameters:
+        - name: trip_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: string
+                  enum: [ACCEPT, REJECT]
+      responses:
+        '200':
+          description: Phản hồi yêu cầu chuyến đi thành công

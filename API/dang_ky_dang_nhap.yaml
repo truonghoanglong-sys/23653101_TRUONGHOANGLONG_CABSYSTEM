@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: API Đăng ký / Đăng nhập
+  description: Đăng ký tài khoản mới và xác thực đăng nhập để truy cập hệ thống.
+  version: 1.0.0
+paths:
+  /auth/register:
+    post:
+      summary: Đăng ký tài khoản mới
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: string
+                password:
+                  type: string
+                full_name:
+                  type: string
+                email:
+                  type: string
+      responses:
+        '201':
+          description: Đăng ký thành công
+  /auth/login:
+    post:
+      summary: Xác thực đăng nhập
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone_number:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Đăng nhập thành công, trả về token truy cập

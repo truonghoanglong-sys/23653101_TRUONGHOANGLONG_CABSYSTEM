@@ -1,0 +1,44 @@
+openapi: 3.0.3
+info:
+  title: API Đối soát tài chính
+  description: Đối soát dữ liệu thanh toán giữa CSDL hệ thống và Cổng thanh toán để phát hiện, xử lý các giao dịch chênh lệch.
+  version: 1.0.0
+paths:
+  /finance/reconciliation/run:
+    post:
+      summary: Thực hiện đối soát dữ liệu thanh toán CSDL hệ thống và Cổng thanh toán
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+      responses:
+        '200':
+          description: Báo cáo kết quả đối soát và danh sách chênh lệch
+  /finance/reconciliation/discrepancies/{id}/resolve:
+    post:
+      summary: Xử lý giao dịch chênh lệch
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: string
+                note:
+                  type: string
+      responses:
+        '200':
+          description: Xử lý giao dịch chênh lệch thành công

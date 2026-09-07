@@ -1,0 +1,53 @@
+openapi: 3.0.3
+info:
+  title: API Quản lý ví tài xế
+  description: Quản lý số dư, lịch sử biến động nguồn tiền, khấu trừ chiết khấu và công nợ trên ví của tài xế.
+  version: 1.0.0
+paths:
+  /finance/driver-wallets/{driver_id}:
+    get:
+      summary: Quản lý số dư và thông tin ví tài xế
+      parameters:
+        - name: driver_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Thông tin số dư ví tài xế
+  /finance/driver-wallets/{driver_id}/history:
+    get:
+      summary: Xem lịch sử biến động nguồn tiền
+      parameters:
+        - name: driver_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lịch sử biến động nguồn tiền trên ví
+  /finance/driver-wallets/{driver_id}/deduct-commission:
+    post:
+      summary: Khấu trừ chiết khấu và công nợ trên ví tài xế
+      parameters:
+        - name: driver_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: number
+                reason:
+                  type: string
+      responses:
+        '200':
+          description: Khấu trừ chiết khấu/công nợ thành công
