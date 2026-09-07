@@ -127,7 +127,7 @@ quadrantChart
 | **20**| | Cập nhật & Quản lý Dữ liệu | Quản lý danh mục hệ thống, cập nhật cấu hình và dữ liệu người dùng | Admin | System Module |
 | **21**| | Sao lưu & Lưu trữ | Thực hiện sao lưu định kỳ cơ sở dữ liệu và lưu trữ nhật ký Audit Log | Admin | System Module |
 
-### Bước 6: Bảng Phân rã Chức năng Hệ thống (Functional Decomposition)
+### Bước 6: Bảng Phân rã Chức năng Hệ thống (Functional requirement)
 
 | Modul | Chức năng cấp 1 | Chi tiết chức năng cấp 2 (Mức cơ bản) |
 | :--- | :--- | :--- |
