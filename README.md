@@ -666,3 +666,8 @@ Bước 8: đặc tả usecase
 | **BR-05** | **Đặt & Hủy chuyến** | Phí Hủy chuyến | Khách hàng được miễn phí hủy chuyến trong vòng 2 phút đầu sau khi ghép xế thành công. Nếu hủy sau 2 phút, hệ thống sẽ ghi nhận phí phạt hủy chuyến vào đơn tiếp theo. |
 | **BR-06** | **Thanh toán & Tài chính** | Khấu trừ Chiết khấu | Hệ thống tự động trừ % hoa hồng dịch vụ (VD: 20%) trực tiếp vào Ví tài xế ngay khi chuyến đi hoàn thành thành công. |
 | **BR-07** | **Đánh giá & Khóa tài khoản** | Tỷ lệ Hoàn thành & Điểm Sao | Tài xế có điểm đánh giá trung bình dưới 4.0★ hoặc tỷ lệ hủy chuyến quá 15% trong tuần sẽ bị hệ thống tạm khóa quyền nhận chuyến tự động. |
+
+
+--------------
+ĐẶC TẢ API(XUẤT PHÁT TỪ FR-PHÂN RÃ CHỨC NĂNG VD: LẤY VỊ TRÍ KH: CÓ API GET POSITION)
+
