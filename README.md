@@ -128,16 +128,67 @@ quadrantChart
 | **21**| | Sao lưu & Lưu trữ | Thực hiện sao lưu định kỳ cơ sở dữ liệu và lưu trữ nhật ký Audit Log | Admin | System Module |
 
 ### Bước 6: Bảng Phân rã Chức năng Hệ thống (Functional requirement)
+1. Actor: Khách hàng
 
-| Modul | Chức năng cấp 1 | Chi tiết chức năng cấp 2 (Mức cơ bản) |
-| :--- | :--- | :--- |
-| **1. Auth Module** | Đăng ký & Đăng nhập | Đăng ký, đăng nhập bằng SĐT/Mật khẩu; phân quyền theo vai trò (Khách, Xế, Ops, Admin) |
-| **2. Customer Module** | Quản lý Hồ sơ | Cập nhật thông tin cá nhân, xem lịch sử chuyến đi và đánh giá dịch vụ 1–5★ |
-| **3. Driver Module** | Quản lý Hồ sơ & Xe | Cập nhật bằng lái, biển số xe (chờ Ops duyệt) và bật/tắt nhận chuyến (Online/Offline) |
-| **4. Booking Module** | Đặt xe & Điều phối | Khởi tạo chuyến đi (tính cước), tự động tìm tài xế gần nhất qua GPS và xử lý Hủy chuyến |
-| **5. Tracking Module**| Tiến trình & Bản đồ | Tài xế chuyển trạng thái (Đón khách → Hoàn thành) và xem vị trí xe chạy trên bản đồ |
-| **6. Payment Module** | Thanh toán | Xác nhận thu tiền mặt hoặc thanh toán trực tuyến qua cổng thử nghiệm (Sandbox) |
-| **7. Dashboard Module**| Quản trị & Báo cáo | Ops giám sát chuyến đi; Finance đối soát tiền; Ban Giám đốc xem báo cáo doanh thu |
+Đăng ký / Đăng nhập: Đăng ký tài khoản mới và xác thực đăng nhập để truy cập hệ thống.
+
+Quản lý hồ sơ: Khách hàng xem và cập nhật thông tin cá nhân (Họ tên, Email, Ảnh đại diện) và quản lý danh sách địa chỉ yêu thích.
+
+Đặt xe: Nhập điểm đi, điểm đến, chọn loại xe, xem cước phí dự kiến và gửi yêu cầu tìm tài xế.
+
+Đánh giá dịch vụ: Chấm điểm số sao (1–5 sao) và gửi nhận xét về chất lượng chuyến đi sau khi hoàn tất.
+
+Hủy xe: Chủ động hủy yêu cầu đặt xe hoặc hủy chuyến trước khi tài xế đón.
+
+2. Actor: Tài xế
+
+Quản lý hồ sơ và phương tiện: Cập nhật thông tin cá nhân và tải lên giấy tờ xe (Bằng lái, Biển số, Cavet, Đăng kiểm) để chờ duyệt.
+
+Cập nhật trạng thái sẵn sàng: Chủ động bật/tắt chế độ nhận chuyến (Sẵn sàng / Ngừng nhận chuyến).
+
+Xử lý yêu cầu chuyến đi: Nhận thông báo chuyến đi mới và thực hiện Chấp nhận hoặc Từ chối trong thời gian quy định.
+
+Cập nhật tiến trình đi: Cập nhật trạng thái thực tế của chuyến đi theo luồng: Đã đến điểm đón -> Bắt đầu di chuyển -> Hoàn thành chuyến đi.
+
+Xác nhận thu tiền mặt: Xác nhận đã thu đủ số tiền mặt từ khách hàng đối với các chuyến đi thanh toán bằng tiền mặt.
+
+3. Actor: Nhân viên vận hành
+
+Duyệt hồ sơ tài xế: Kiểm tra thông tin, hình ảnh giấy tờ do tài xế cung cấp để Phê duyệt hoặc Từ chối cấp quyền hoạt động.
+
+Giám sát vận hành: Theo dõi danh sách các chuyến đi đang diễn ra và vị trí/trạng thái của tài xế real-time trên bản đồ.
+
+Can thiệp sự cố: Can thiệp hủy chuyến, điều lại xe hoặc xử lý các sự cố phát sinh trong quá trình vận hành.
+
+4. Actor: Nhân viên tài chính
+
+Tra cứu giao dịch: Khai thác và kiểm tra chi tiết thông tin lịch sử các giao dịch thanh toán trên hệ thống.
+
+Đối soát tài chính: Đối soát dữ liệu thanh toán giữa CSDL hệ thống và Cổng thanh toán để phát hiện, xử lý các giao dịch chênh lệch.
+
+Quản lý ví tài xế: Quản lý số dư, lịch sử biến động nguồn tiền, khấu trừ chiết khấu và công nợ trên ví của tài xế.
+
+5. Actor: Ban giám đốc
+
+Xem báo cáo doanh thu: Trích xuất và theo dõi các chỉ số doanh thu tổng quan, doanh thu theo thời gian và phương thức thanh toán.
+
+Xem báo cáo hiệu suất: Theo dõi các báo cáo chỉ số KPI, tỷ lệ hoàn thành/hủy chuyến và hiệu suất hoạt động của tài xế.
+
+6. Actor: Quản trị viên hệ thống
+
+Cập nhật hệ thống: Cấu hình tham số vận hành, cập nhật tính năng và bảo trì các thiết lập chung của hệ thống.
+
+Quản lý dữ liệu: Quản trị danh mục, phân quyền truy cập người dùng (RBAC) và quản lý cơ sở dữ liệu.
+
+Sao lưu và lưu trữ: Thực hiện sao lưu dữ liệu định kỳ, lưu trữ nhật ký thao tác (Audit Log) và khôi phục dữ liệu khi cần.
+
+7. External Actor: Cổng thanh toán
+
+Xử lý giao dịch online: Tiếp nhận và xử lý các giao dịch thanh toán trực tuyến qua Thẻ/Ví điện tử an toàn theo cơ chế Tokenization.
+
+8. External Actor: Nhà cung cấp Thông báo
+
+Gửi thông báo: Chịu trách nhiệm truyền tải các Push Notification, SMS, Email tức thì đến thiết bị của người dùng.
 
 Bước 7: vẽ usecase tổng quát
 <img width="939" height="916" alt="Hệ thống đặt xe" src="https://github.com/user-attachments/assets/6d969fc1-171a-45dd-a72b-d287d54109d3" />
