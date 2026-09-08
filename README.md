@@ -144,7 +144,6 @@ quadrantChart
 
 #### 6. Quản trị viên Hệ thống (System Admin)
 * **FR-ADM-01 (Cập nhật hệ thống):** Cấu hình tham số vận hành, cập nhật tính năng và bảo trì các thiết lập chung của hệ thống.
-* **FR-ADM-02 (Quản lý dữ liệu):** Quản trị danh mục, phân quyền truy cập người dùng (RBAC) và quản lý cơ sở dữ liệu.
 * **FR-ADM-03 (Sao lưu và lưu trữ):** Thực hiện sao lưu dữ liệu định kỳ, lưu trữ nhật ký thao tác (Audit Log) và khôi phục dữ liệu khi cần.
 
 #### 7. Hệ thống Tích hợp bên ngoài (External Systems)
