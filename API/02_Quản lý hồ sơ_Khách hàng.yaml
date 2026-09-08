@@ -1,0 +1,28 @@
+openapi: 3.0.3
+info:
+  title: "Quản lý hồ sơ"
+  version: 1.0.0
+  description: "API cho FR-CUS-02 - Quản lý hồ sơ, tác nhân: Khách hàng."
+paths:
+  '/api/customer/profile':
+    put:
+      summary: "Quản lý hồ sơ"
+      operationId: fr_cus_02
+      tags:
+        - "Khách hàng"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Thực hiện chức năng thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."

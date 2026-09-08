@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: "Cập nhật tiến trình đi"
+  version: 1.0.0
+  description: "API cho FR-DRI-04 - Cập nhật tiến trình đi, tác nhân: Tài xế."
+paths:
+  '/api/driver/trips/{tripId}/status':
+    put:
+      summary: "Cập nhật tiến trình đi"
+      operationId: fr_dri_04
+      tags:
+        - "Tài xế"
+      parameters:
+        - name: tripId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Thực hiện chức năng thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."

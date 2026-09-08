@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: "Xác nhận thu tiền mặt"
+  version: 1.0.0
+  description: "API cho FR-DRI-05 - Xác nhận thu tiền mặt, tác nhân: Tài xế."
+paths:
+  '/api/driver/trips/{tripId}/cash-confirmation':
+    post:
+      summary: "Xác nhận thu tiền mặt"
+      operationId: fr_dri_05
+      tags:
+        - "Tài xế"
+      parameters:
+        - name: tripId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Thực hiện chức năng thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."

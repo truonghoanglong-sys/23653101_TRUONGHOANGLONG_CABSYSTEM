@@ -1,0 +1,34 @@
+openapi: 3.0.3
+info:
+  title: "Xử lý yêu cầu chuyến đi"
+  version: 1.0.0
+  description: "API cho FR-DRI-03 - Xử lý yêu cầu chuyến đi, tác nhân: Tài xế."
+paths:
+  '/api/driver/trip-requests/{requestId}':
+    post:
+      summary: "Xử lý yêu cầu chuyến đi"
+      operationId: fr_dri_03
+      tags:
+        - "Tài xế"
+      parameters:
+        - name: requestId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Thực hiện chức năng thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."

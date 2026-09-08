@@ -1,0 +1,21 @@
+openapi: 3.0.3
+info:
+  title: "Tra cứu giao dịch"
+  version: 1.0.0
+  description: "API cho FR-FIN-01 - Tra cứu giao dịch, tác nhân: Nhân viên Tài chính."
+paths:
+  '/api/finance/transactions':
+    get:
+      summary: "Tra cứu giao dịch"
+      operationId: fr_fin_01
+      tags:
+        - "Nhân viên Tài chính"
+      responses:
+        '200':
+          description: "Thực hiện chức năng thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."

@@ -1,0 +1,28 @@
+openapi: 3.0.3
+info:
+  title: "Quản lý hồ sơ & Phương tiện"
+  version: 1.0.0
+  description: "API cho FR-DRI-01 - Quản lý hồ sơ & Phương tiện, tác nhân: Tài xế."
+paths:
+  '/api/driver/profile-vehicle':
+    put:
+      summary: "Quản lý hồ sơ & Phương tiện"
+      operationId: fr_dri_01
+      tags:
+        - "Tài xế"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Thực hiện chức năng thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."
