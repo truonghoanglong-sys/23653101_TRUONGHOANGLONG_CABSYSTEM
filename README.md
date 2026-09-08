@@ -53,7 +53,7 @@ quadrantChart
     "Tài xế": [0.85, 0.25]
     "Nhà cung cấp Thông báo": [0.25, 0.20]
 ```
-### Bước 3: Mục đích nghiệp vụ (Business Purpose & Goals)
+### Bước 3: Mục đích kinh doanh (Business Purpose & Goals)
 
 * **Tự động hóa vận hành:** Tự động ghép chuyến thông minh qua vị trí GPS, loại bỏ hoàn toàn quy trình phân công thủ công, tối ưu chi phí nhân sự tổng đài.
 * **Đa dạng phương thức thanh toán:** Hỗ trợ linh hoạt song song cả **Thanh toán tiền mặt** và **Thanh toán trực tuyến** (Ví điện tử/Thẻ) an toàn qua cơ chế Tokenization.
@@ -103,30 +103,14 @@ quadrantChart
 
 #### Bảng Quy trình Nghiệp vụ
 
-| STT | Giai đoạn | Quy trình nghiệp vụ | Bước thực hiện | Tác nhân | Modul hệ thống |
-| :---: | :--- | :--- | :--- | :--- | :--- |
-| **1** | **Khởi tạo & Xác thực** | Đăng ký tài khoản | Tạo tài khoản mới cho Khách hàng/Tài xế, xác thực thông tin ban đầu | Khách hàng, Tài xế | Auth Module |
-| **2** | | Đăng nhập hệ thống | Xác thực thông tin đăng nhập (SĐT/Mật khẩu), cấp Token phiên làm việc | All Users | Auth Module |
-| **3** | | Phân quyền (RBAC) | Cấp quyền truy cập giao diện và chức năng tương ứng theo từng vai trò | All Users | Auth Module |
-| **4** | **Quản lý Khách & Tài xế** | Quản lý Hồ sơ Khách hàng | Lưu địa chỉ yêu thích, xem lịch sử chuyến đi & cài đặt thông tin cá nhân | Khách hàng | Customer Module |
-| **5** | | Quản lý Hồ sơ & Phương tiện | Tài xế cập nhật/tải lên bằng lái, cavet, đăng kiểm, biển số xe | Tài xế | Driver Module |
-| **6** | | Duyệt Hồ sơ Tài xế | Kiểm tra hình ảnh giấy tờ, phê duyệt hoặc từ chối cấp quyền hoạt động | NV Vận hành | Driver Module |
-| **7** | | Cập nhật Trạng thái Sẵn sàng | Tài xế bật/tắt chế độ nhận chuyến (Online/Offline) trên ứng dụng | Tài xế | Driver Module |
-| **8** | **Đặt xe & Điều phối** | Khởi tạo Đặt xe | Chọn điểm đi/đến, chọn loại xe, hệ thống tính khoảng cách & báo giá | Khách hàng | Booking Module |
-| **9** | | Xử lý Yêu cầu Chuyến đi | Hệ thống quét GPS tìm tài xế gần nhất; Tài xế nhận hoặc từ chối chuyến | Hệ thống, Tài xế | Booking Module |
-| **10**| | Hủy chuyến | Khách hàng chủ động hủy yêu cầu đặt xe hoặc hủy chuyến trước khi đón | Khách hàng | Booking Module |
-| **11**| **Vận hành & Theo dõi** | Cập nhật Tiến trình đi | Cập nhật trạng thái: Đã đến điểm đón → Bắt đầu đi → Hoàn thành | Tài xế | Booking Module |
-| **12**| | Theo dõi Real-time | Hiển thị vị trí GPS và lộ trình di chuyển trực tiếp trên bản đồ | Khách hàng, Tài xế | Tracking Module |
-| **13**| | Giám sát Vận hành & Can thiệp | Giám sát danh sách chuyến đi real-time, can thiệp điều xe/hủy xe khi sự cố | NV Vận hành | Dashboard Module |
-| **14**| **Thanh toán & Tài chính**| Xác nhận Thu tiền mặt | Tài xế xác nhận đã thu tiền mặt từ khách khi kết thúc chuyến đi | Khách hàng, Tài xế | Payment Module |
-| **15**| | Xử lý Giao dịch Online | Tự động trừ tiền qua Ví/Thẻ (Tokenization Sandbox) khi hoàn tất chuyến | Hệ thống, Cổng TT | Payment Module |
-| **16**| | Tra cứu & Đối soát Tài chính | Tra cứu lịch sử giao dịch, tính chiết khấu hoa hồng & quản lý ví tài xế | NV Tài chính | Dashboard Module |
-| **17**| **Đánh giá & Báo cáo** | Đánh giá Dịch vụ | Khách hàng chấm điểm 1-5 sao và gửi phản hồi chất lượng phục vụ | Khách hàng | Customer Module |
-| **18**| | Báo cáo Doanh thu & Hiệu suất| Trích xuất báo cáo doanh thu tổng quan, chỉ số KPI và tỷ lệ hoàn thành | Ban Giám đốc | Dashboard Module |
-| **19**| **Tích hợp & Quản trị** | Gửi Thông báo | Gửi Push Notification, SMS, Email tức thì đến thiết bị người dùng | Nhà cung cấp TB | Notification Module |
-| **20**| | Cập nhật & Quản lý Dữ liệu | Quản lý danh mục hệ thống, cập nhật cấu hình và dữ liệu người dùng | Admin | System Module |
-| **21**| | Sao lưu & Lưu trữ | Thực hiện sao lưu định kỳ cơ sở dữ liệu và lưu trữ nhật ký Audit Log | Admin | System Module |
-
+| Mã BR | Yêu cầu Nghiệp vụ cốt lõi | KPI & Tiêu chí Nghiệm thu cụ thể |
+| :---: | :--- | :--- |
+| **BR-01** | **Tự động hóa ghép chuyến (Smart Matching) & Phân công tài xế** | • **100%** luồng phân công ghép chuyến chạy tự động theo vị trí GPS, không cần tổng đài can thiệp.<br>• Thời gian phản hồi tìm tài xế gần nhất **≤ 15s**/vòng quét.<br>• Tự động chuyển tiếp tìm tài xế khác khi tài xế trước từ chối hoặc hết giờ (timeout) mà không bắt khách hàng tạo lại chuyến. |
+| **BR-02** | **Minh bạch hành trình & Trạng thái real-time** | • Hiển thị chuẩn xác **5 trạng thái** vòng đời chuyến đi (*Tìm tài xế, Đã nhận chuyến, Đến điểm đón, Đang di chuyển, Hoàn thành*).<br>• Cập nhật thời gian dự kiến đến (ETA) và định vị tài xế trên bản đồ với sai số **≤ ±3 phút**.<br>• Tự động gửi **100%** thông báo đẩy (Push/SMS/Email) tức thì tới người dùng theo đúng các mốc sự kiện cốt lõi. |
+| **BR-03** | **Chuẩn hóa, Bảo mật & An toàn luồng Thanh toán** | • Hỗ trợ song song **Thanh toán tiền mặt** và **Thanh toán trực tuyến** (Môi trường Sandbox tích hợp Cổng thanh toán).<br>• **0%** lưu trữ thông tin thẻ nhạy cảm (CVV, số thẻ đầy đủ) trên hệ thống CAB (Áp dụng cơ chế Tokenization).<br>• Tự động tính cước chính xác và cho phép khách hàng chọn thanh toán lại (Retry) hoặc đổi sang tiền mặt khi giao dịch điện tử thất bại. |
+| **BR-04** | **Giám sát Vận hành, Phân quyền RBAC & Kiểm soát rủi ro** | • Áp dụng phân quyền chặt chẽ (RBAC) cho 5 nhóm vai trò người dùng (*Khách hàng, Tài xế, Nhân viên Vận hành, Nhân viên Tài chính, Admin/Ban Giám đốc*).<br>• Nhân viên vận hành giám sát real-time, tra cứu và can thiệp xử lý sự cố chuyến đi trong vòng **≤ 2 phút**.<br>• **100%** thao tác nhạy cảm của nhân viên (phân quyền, cập nhật dữ liệu, xử lý giao dịch) phải được ghi nhật ký theo vết (Audit Logs) đầy đủ. |
+| **BR-05** | **Hệ thống Báo cáo Quản trị & Đối soát Tài chính** | • Cung cấp đủ **5 nhóm chỉ số**: *Doanh thu & chiết khấu, Số lượng chuyến, Tỷ lệ hoàn thành, Tỷ lệ hủy, KPI hiệu suất tài xế*.<br>• Cho phép Nhân viên Tài chính đối soát giao dịch và tra cứu dữ liệu tài chính dễ dàng.<br>• Tốc độ xuất báo cáo dữ liệu quản trị trong vòng 30 ngày đạt **≤ 5 giây**. |
+| **BR-06** | **Cách ly lỗi, Khả năng Mở rộng & Kiến trúc Modul** | • **0% Downtime** luồng Đặt xe cốt lõi khi Module Thanh toán hoặc Module Thông báo gặp sự cố kỹ thuật (Fault Tolerance).<br>• Hệ thống sẵn sàng chịu tải cao vào giờ cao điểm, tự động nâng cấp tài nguyên khi cần.<br>• Kiến trúc linh hoạt, cho phép cắm/rút cổng thanh toán, kênh thông báo hoặc thêm loại dịch vụ mới (*xe ghép, giao hàng...*) mà không phải làm lại hệ thống. |
 ### Bước 6: Bảng Phân rã Chức năng Hệ thống (Functional requirement)
 1. Actor: Khách hàng
 
