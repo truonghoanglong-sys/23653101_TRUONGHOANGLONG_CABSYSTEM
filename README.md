@@ -662,24 +662,24 @@ Bước 8: đặc tả usecase
 <img width="926" height="1106" alt="image" src="https://github.com/user-attachments/assets/1f7747a1-a666-4a84-bc58-fc00ca01fbd0" />
 
 ### QUY TRÌNH 2: THỰC HIỆN VÀ HOÀN THÀNH CHUYẾN ĐI
-<img width="976" height="996" alt="image" src="https://github.com/user-attachments/assets/0a876f58-a7a6-4554-9146-5cc22b8bf665" />
-
-### Duyệt hồ sơ tài xế
-<img width="726" height="1116" alt="image" src="https://github.com/user-attachments/assets/09203ae8-024e-4898-934a-4d53993086ff" />
+<img width="1156" height="1246" alt="image" src="https://github.com/user-attachments/assets/d50b4f0e-634e-4107-b072-7091ad82159e" />
 
 
-### Bước 10: Kết thúc phần thiết kế (Quy tắc Nghiệp vụ Hệ thống)
+### DUYỆT HỒ SƠ TÀI XẾ & TÍCH HỢP HỆ THỐNG
+<img width="1096" height="1166" alt="image" src="https://github.com/user-attachments/assets/9d24761d-4810-46f9-aba9-8c83b7410193" />
 
-| Mã Quy tắc | Nhóm Quy tắc | Tên Quy tắc | Nội dung chi tiết |
-| :---: | :--- | :--- | :--- |
-| **BR-01** | **Điều phối & Ghép chuyến** | Trạng thái Khả dụng | Chỉ những Tài xế đang ở trạng thái "Trực tuyến" (Online) và "Sẵn sàng" (Available) mới được hệ thống ưu tiên phát thông báo mời chuyến. |
-| **BR-02** | **Điều phối & Ghép chuyến** | Thuật toán Định vị (GPS) | Hệ thống tự động quét và ưu tiên gửi đơn đặt xe cho Tài xế ở gần vị trí điểm đón của Khách hàng nhất trong bán kính tối đa 3km. |
-| **BR-03** | **Điều phối & Ghép chuyến** | Thời gian Chờ (Timeout) | Tài xế có tối đa 15 giây để nhấn "Nhận chuyến". Quá 15 giây không phản hồi, hệ thống tự động coi là Từ chối và chuyển chuyến đi cho Tài xế tiếp theo. |
-| **BR-04** | **Vận hành & Hồ sơ** | Điều kiện Hoạt động | Tài xế chỉ được phép bật trạng thái "Trực tuyến" khi hồ sơ cá nhân (Bằng lái, Đăng ký xe, Bảo hiểm) đã được Nhân viên Vận hành (Ops) phê duyệt. |
-| **BR-05** | **Đặt & Hủy chuyến** | Phí Hủy chuyến | Khách hàng được miễn phí hủy chuyến trong vòng 2 phút đầu sau khi ghép xế thành công. Nếu hủy sau 2 phút, hệ thống sẽ ghi nhận phí phạt hủy chuyến vào đơn tiếp theo. |
-| **BR-06** | **Thanh toán & Tài chính** | Khấu trừ Chiết khấu | Hệ thống tự động trừ % hoa hồng dịch vụ (VD: 20%) trực tiếp vào Ví tài xế ngay khi chuyến đi hoàn thành thành công. |
-| **BR-07** | **Đánh giá & Khóa tài khoản** | Tỷ lệ Hoàn thành & Điểm Sao | Tài xế có điểm đánh giá trung bình dưới 4.0★ hoặc tỷ lệ hủy chuyến quá 15% trong tuần sẽ bị hệ thống tạm khóa quyền nhận chuyến tự động. |
 
+### BƯỚC 10: PHÂN TÍCH QUY TẮC NGHIỆP VỤ (BUSINESS RULES ANALYSIS)
+
+| Nhóm Quy tắc | Tên Quy tắc Nghiệp vụ | Nội dung Chi tiết Đặc tả |
+| :--- | :--- | :--- |
+| **Ghép chuyến tự động** | Trạng thái Khả dụng | • Chỉ những Tài xế đang ở trạng thái **"Trực tuyến"** (Online) và **"Sẵn sàng"** (Available) mới được hệ thống ưu tiên phát thông báo mời chuyến. |
+| **Ghép chuyến tự động** | Thuật toán Định vị (GPS) | • Hệ thống tự động quét và ưu tiên gửi đơn đặt xe cho Tài xế ở gần vị trí điểm đón của Khách hàng nhất trong bán kính tối đa 3km. |
+| **Ghép chuyến tự động** | Thời gian Chờ (Timeout) | • Tài xế có tối đa 15 giây để nhấn **"Nhận chuyến"**. Quá 15 giây không phản hồi, hệ thống tự động coi là Từ chối và chuyển chuyến đi cho Tài xế tiếp theo mà không bắt Khách hàng đặt lại. |
+| **Vận hành & Hồ sơ** | Điều kiện Hoạt động | • Tài xế chỉ được phép bật trạng thái **"Trực tuyến"** khi hồ sơ cá nhân và phương tiện (Bằng lái, Cavet, Đăng kiểm) đã được Nhân viên Vận hành phê duyệt. |
+| **Đặt & Hủy chuyến** | Phí Hủy chuyến | • Khách hàng được miễn phí hủy chuyến trong vòng 2 phút đầu sau khi ghép xế thành công. Nếu hủy sau 2 phút, hệ thống sẽ ghi nhận phí phạt hủy chuyến vào đơn đặt tiếp theo. |
+| **Thanh toán & Cước phí** | Khấu trừ Chiết khấu | • Hệ thống tự động trừ % hoa hồng chiết khấu dịch vụ trực tiếp vào Ví tài xế ngay khi chuyến đi hoàn thành thành công. |
+| **Đánh giá & Khóa tài khoản** | Tỷ lệ Hoàn thành & Điểm Sao | • Tài xế có điểm đánh giá trung bình dưới 4.0★ hoặc tỷ lệ hủy chuyến quá 15% trong tuần sẽ bị hệ thống tự động tạm khóa quyền nhận chuyến. |
 
 --------------
 ĐẶC TẢ API(XUẤT PHÁT TỪ FR-PHÂN RÃ CHỨC NĂNG VD: LẤY VỊ TRÍ KH: CÓ API GET POSITION)
