@@ -658,9 +658,10 @@ Bước 8: đặc tả usecase
 | **5.1.3.** Nhấn nút Thử lại. Kết thúc usecase | |
 
 ### Bước 9: quy trình nghiệp vụ business process
-### Đặt xe
-<img width="976" height="1096" alt="image" src="https://github.com/user-attachments/assets/90bc1ce3-0353-4ef0-b949-a0f3705a0e0e" />
-### Cập nhật tiến trình
+### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
+<img width="926" height="1106" alt="image" src="https://github.com/user-attachments/assets/1f7747a1-a666-4a84-bc58-fc00ca01fbd0" />
+
+### QUY TRÌNH 2: THỰC HIỆN VÀ HOÀN THÀNH CHUYẾN ĐI
 <img width="976" height="996" alt="image" src="https://github.com/user-attachments/assets/0a876f58-a7a6-4554-9146-5cc22b8bf665" />
 
 ### Duyệt hồ sơ tài xế
