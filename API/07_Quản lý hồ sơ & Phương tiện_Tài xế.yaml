@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: "Quản lý hồ sơ & Phương tiện"
+  version: 1.0.0
+  description: "API cho FR-DRI-01 - Quản lý hồ sơ & Phương tiện, tác nhân: Tài xế."
+paths:
+  /api/driver/profile-vehicle:
+    get:
+      summary: "Xem thông tin hồ sơ tài xế và giấy tờ phương tiện"
+      operationId: fr_dri_01_get
+      tags:
+        - "Tài xế"
+      responses:
+        '200':
+          description: "Lấy thông tin hồ sơ và phương tiện thành công."
+        '401':
+          description: "Chưa xác thực hoặc token không hợp lệ."
+        '500':
+          description: "Lỗi hệ thống."
+
+    post:
+      summary: "Đăng ký / Tải lên thông tin hồ sơ và phương tiện mới"
+      operationId: fr_dri_01_post
+      tags:
+        - "Tài xế"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '201':
+          description: "Đăng ký thông tin hồ sơ và phương tiện thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực."
+        '500':
+          description: "Lỗi hệ thống."
+
+    put:
+      summary: "Cập nhật thông tin hồ sơ và giấy tờ phương tiện"
+      operationId: fr_dri_01_put
+      tags:
+        - "Tài xế"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Cập nhật thông tin thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."
+
+    delete:
+      summary: "Xóa thông tin phương tiện hoặc hủy hồ sơ tài xế"
+      operationId: fr_dri_01_delete
+      tags:
+        - "Tài xế"
+      responses:
+        '200':
+          description: "Xóa thông tin thành công."
+        '401':
+          description: "Chưa xác thực."
+        '403':
+          description: "Không có quyền thực hiện thao tác xóa."
+        '500':
+          description: "Lỗi hệ thống."

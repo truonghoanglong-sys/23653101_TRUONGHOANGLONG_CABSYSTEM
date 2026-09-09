@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: "Quản lý hồ sơ"
+  version: 1.0.0
+  description: "API cho FR-CUS-02 - Quản lý hồ sơ cá nhân, tác nhân: Khách hàng."
+paths:
+  /api/customer/profile:
+    get:
+      summary: "Xem thông tin hồ sơ cá nhân"
+      operationId: fr_cus_02_get
+      tags:
+        - "Khách hàng"
+      responses:
+        '200':
+          description: "Lấy thông tin hồ sơ thành công."
+        '401':
+          description: "Chưa xác thực hoặc token không hợp lệ."
+        '500':
+          description: "Lỗi hệ thống."
+
+    post:
+      summary: "Khai báo / Tạo mới hồ sơ cá nhân"
+      operationId: fr_cus_02_post
+      tags:
+        - "Khách hàng"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '201':
+          description: "Tạo mới hồ sơ thành công."
+        '400':
+          description: "Dữ liệu gửi lên không hợp lệ."
+        '401':
+          description: "Chưa xác thực."
+        '500':
+          description: "Lỗi hệ thống."
+
+    put:
+      summary: "Cập nhật thông tin hồ sơ cá nhân"
+      operationId: fr_cus_02_put
+      tags:
+        - "Khách hàng"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Cập nhật thông tin thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."
+
+    delete:
+      summary: "Yêu cầu xóa / Hủy tài khoản hồ sơ"
+      operationId: fr_cus_02_delete
+      tags:
+        - "Khách hàng"
+      responses:
+        '200':
+          description: "Xóa / Hủy hồ sơ thành công."
+        '401':
+          description: "Chưa xác thực."
+        '403':
+          description: "Không đủ quyền hạn thực hiện thao tác."
+        '500':
+          description: "Lỗi hệ thống."

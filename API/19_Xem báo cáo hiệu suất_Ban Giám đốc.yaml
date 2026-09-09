@@ -1,0 +1,21 @@
+openapi: 3.0.3
+info:
+  title: "Xem báo cáo hiệu suất"
+  version: 1.0.0
+  description: "API cho FR-MGT-02 - Xem báo cáo hiệu suất, tác nhân: Ban Giám đốc."
+paths:
+  '/api/management/reports/performance':
+    get:
+      summary: "Xem báo cáo hiệu suất"
+      operationId: fr_mgt_02
+      tags:
+        - "Ban Giám đốc"
+      responses:
+        '200':
+          description: "Thực hiện chức năng thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."

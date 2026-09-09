@@ -1,0 +1,110 @@
+openapi: 3.0.3
+info:
+  title: "Quản lý ví tài xế"
+  version: 1.0.0
+  description: "API cho FR-FIN-03 - Quản lý ví tài xế, tác nhân: Nhân viên Tài chính."
+paths:
+  /api/finance/driver-wallets/{driverId}:
+    get:
+      summary: "Xem thông tin số dư và lịch sử ví tài xế"
+      operationId: fr_fin_03_get
+      tags:
+        - "Nhân viên Tài chính"
+      parameters:
+        - name: driverId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Lấy thông tin ví thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '404':
+          description: "Không tìm thấy thông tin ví của tài xế."
+        '500':
+          description: "Lỗi hệ thống."
+
+    post:
+      summary: "Khởi tạo ví mới hoặc nạp/cộng tiền vào ví tài xế"
+      operationId: fr_fin_03_post
+      tags:
+        - "Nhân viên Tài chính"
+      parameters:
+        - name: driverId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '201':
+          description: "Tạo mới hoặc cộng tiền vào ví tài xế thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."
+
+    put:
+      summary: "Cập nhật trạng thái ví (khóa/mở khóa) hoặc khấu trừ tiền"
+      operationId: fr_fin_03_put
+      tags:
+        - "Nhân viên Tài chính"
+      parameters:
+        - name: driverId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Cập nhật trạng thái ví thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '404':
+          description: "Không tìm thấy thông tin ví."
+        '500':
+          description: "Lỗi hệ thống."
+
+    delete:
+      summary: "Hủy hoặc đóng tài khoản ví tài xế"
+      operationId: fr_fin_03_delete
+      tags:
+        - "Nhân viên Tài chính"
+      parameters:
+        - name: driverId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: "Đóng tài khoản ví tài xế thành công."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '403':
+          description: "Không đủ thẩm quyền thực hiện thao tác xóa ví."
+        '404':
+          description: "Không tìm thấy thông tin ví."
+        '500':
+          description: "Lỗi hệ thống."

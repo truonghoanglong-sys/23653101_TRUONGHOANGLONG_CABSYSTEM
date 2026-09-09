@@ -1,0 +1,28 @@
+openapi: 3.0.3
+info:
+  title: "Sao lưu và lưu trữ"
+  version: 1.0.0
+  description: "API cho FR-ADM-03 - Sao lưu và lưu trữ, tác nhân: Quản trị viên Hệ thống."
+paths:
+  '/api/admin/backup':
+    post:
+      summary: "Sao lưu và lưu trữ"
+      operationId: fr_adm_03
+      tags:
+        - "Quản trị viên Hệ thống"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Thực hiện chức năng thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."

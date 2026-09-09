@@ -1,0 +1,80 @@
+openapi: 3.0.3
+info:
+  title: "Cập nhật hệ thống"
+  version: 1.0.0
+  description: "API cho FR-ADM-01 - Cập nhật hệ thống, tác nhân: Quản trị viên Hệ thống."
+paths:
+  /api/admin/system:
+    get:
+      summary: "Xem danh sách thông số cấu hình và phiên bản hệ thống"
+      operationId: fr_adm_01_get
+      tags:
+        - "Quản trị viên Hệ thống"
+      responses:
+        '200':
+          description: "Lấy thông tin cấu hình hệ thống thành công."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '403':
+          description: "Không đủ thẩm quyền truy cập cấu hình hệ thống."
+        '500':
+          description: "Lỗi hệ thống."
+
+    post:
+      summary: "Khai báo / Thêm mới cấu hình hệ thống"
+      operationId: fr_adm_01_post
+      tags:
+        - "Quản trị viên Hệ thống"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '201':
+          description: "Thêm mới tham số cấu hình thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."
+
+    put:
+      summary: "Cập nhật tham số cấu hình hoặc phiên bản hệ thống"
+      operationId: fr_adm_01_put
+      tags:
+        - "Quản trị viên Hệ thống"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Cập nhật cấu hình hệ thống thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."
+
+    delete:
+      summary: "Gỡ bỏ / Xóa tham số cấu hình hệ thống"
+      operationId: fr_adm_01_delete
+      tags:
+        - "Quản trị viên Hệ thống"
+      responses:
+        '200':
+          description: "Xóa cấu hình thành công."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '403':
+          description: "Thao tác xóa bị từ chối."
+        '500':
+          description: "Lỗi hệ thống."

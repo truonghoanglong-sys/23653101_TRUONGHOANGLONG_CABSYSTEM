@@ -1,0 +1,28 @@
+openapi: 3.0.3
+info:
+  title: "Nhà cung cấp Thông báo - Gửi thông báo"
+  version: 1.0.0
+  description: "API cho FR-EXT-02 - Nhà cung cấp Thông báo - Gửi thông báo, tác nhân: Hệ thống Tích hợp bên ngoài."
+paths:
+  '/api/external/notification-provider/notifications':
+    post:
+      summary: "Nhà cung cấp Thông báo - Gửi thông báo"
+      operationId: fr_ext_02
+      tags:
+        - "Hệ thống Tích hợp bên ngoài"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: true
+      responses:
+        '200':
+          description: "Thực hiện chức năng thành công."
+        '400':
+          description: "Dữ liệu yêu cầu không hợp lệ."
+        '401':
+          description: "Chưa xác thực hoặc không có quyền truy cập."
+        '500':
+          description: "Lỗi hệ thống."
