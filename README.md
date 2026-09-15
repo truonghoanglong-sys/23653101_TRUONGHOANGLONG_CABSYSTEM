@@ -468,7 +468,7 @@ Bước 8: đặc tả usecase
 | | **5.1.** Hệ thống gặp lỗi kết nối Internet khi cập nhật trạng thái hủy chuyến, hiển thị thông báo "Không thể hủy chuyến, vui lòng thử lại sau" |
 | **5.1.1.** Khách hàng nhấn "OK" và thực hiện lại thao tác hủy chuyến. Quay lại bước 3 | |
 
-## 6. Use case: Thanh toán
+## 7. Use case: Thanh toán
 
 | Thuộc tính | Nội dung |
 | :--- | :--- |
