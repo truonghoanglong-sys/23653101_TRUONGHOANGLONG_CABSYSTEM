@@ -200,7 +200,96 @@ Bước 8: đặc tả usecase
 | | **9.1.** Mất kết nối Internet trong quá trình gửi thông tin đăng ký, gửi OTP hoặc xác thực OTP, hiển thị thông báo "Mất kết nối, vui lòng kiểm tra Internet và thử lại" |
 | **9.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại từ bước tương ứng | |
 
-**Ghi chú:** Chưa quy định số lần giới hạn gửi lại OTP trong đặc tả BR hiện tại — nếu sau này viết test case với boundary value, cần bổ sung quy tắc số lần gửi lại tối đa vào bảng BR trước.
+## 1.2.2.2. Quản lý hồ sơ (Khách hàng)
+
+| **Quản lý hồ sơ** | |
+|---|---|
+| **Mục đích** | Cho phép Khách hàng xem, cập nhật thông tin cá nhân và quản lý địa chỉ yêu thích. |
+| **Mô tả** | Use Case cho phép Khách hàng xem, cập nhật hồ sơ và thêm/xoá địa chỉ yêu thích trong hệ thống. |
+| **Tiền điều kiện** | Khách hàng đã đăng nhập thành công và hệ thống hoạt động bình thường. |
+| **Hậu điều kiện** | Nếu Use Case thành công, thông tin hồ sơ được hiển thị hoặc cập nhật, hoặc địa chỉ yêu thích được thêm/xoá và dữ liệu thay đổi được lưu vào hệ thống. Nếu Use Case không thành công, dữ liệu hiện tại không thay đổi. |
+| **Actor chính** | Khách hàng |
+| **Actor phụ** | Không |
+
+### Basic flow
+
+| Khách hàng | Hệ thống |
+|---|---|
+| 1. Chọn chức năng "Quản lý hồ sơ" | 2. Hiển thị các chức năng: Xem hồ sơ, Cập nhật hồ sơ, Thêm địa chỉ yêu thích, Xoá địa chỉ yêu thích |
+| 3. Chọn một trong các chức năng được yêu cầu.<br><br>Nếu chọn "Xem hồ sơ", subflow **Xem hồ sơ** được thực hiện.<br><br>Nếu chọn "Cập nhật hồ sơ", subflow **Cập nhật hồ sơ** được thực hiện.<br><br>Nếu chọn "Thêm địa chỉ yêu thích", subflow **Thêm địa chỉ yêu thích** được thực hiện.<br><br>Nếu chọn "Xoá địa chỉ yêu thích", subflow **Xoá địa chỉ yêu thích** được thực hiện. | |
+
+### Xem hồ sơ
+
+| Khách hàng | Hệ thống |
+|---|---|
+| 1. Chọn chức năng "Xem hồ sơ" | 2. Hiển thị thông tin hồ sơ gồm: Họ tên, Email, Số điện thoại, Ảnh đại diện và danh sách địa chỉ yêu thích. |
+
+### Cập nhật hồ sơ
+
+| Khách hàng | Hệ thống |
+|---|---|
+| 1. Chọn chức năng "Cập nhật hồ sơ" | 2. Hiển thị biểu mẫu chứa thông tin hồ sơ hiện tại (Họ tên, Email, Ảnh đại diện). |
+| 3. Thay đổi thông tin cần cập nhật (Họ tên, Email, Ảnh đại diện). | 4. Hiển thị thông tin đã nhập để Khách hàng kiểm tra. |
+| 5. Xác nhận cập nhật thông tin hồ sơ. | 6. Kiểm tra thông tin hồ sơ. |
+| | 7. Cập nhật thông tin hồ sơ vào CSDL. |
+| | 8. Thông báo cập nhật hồ sơ thành công. |
+
+### Thêm địa chỉ yêu thích
+
+| Khách hàng | Hệ thống |
+|---|---|
+| 1. Chọn chức năng "Thêm địa chỉ yêu thích" | 2. Hiển thị biểu mẫu nhập thông tin địa chỉ. |
+| 3. Nhập thông tin địa chỉ gồm: Tên địa chỉ, Địa chỉ chi tiết, Toạ độ (GPS). | |
+| 4. Xác nhận thêm địa chỉ. | 5. Kiểm tra thông tin địa chỉ. |
+| | 6. Lưu địa chỉ vào CSDL. |
+| | 7. Thông báo thêm địa chỉ thành công. |
+
+### Xoá địa chỉ yêu thích
+
+| Khách hàng | Hệ thống |
+|---|---|
+| 1. Chọn địa chỉ cần xoá. | 2. Hiển thị thông tin địa chỉ được chọn. |
+| 3. Chọn "Xoá". | 4. Yêu cầu xác nhận thao tác xoá. |
+| 5. Xác nhận xoá. | 6. Xoá địa chỉ khỏi CSDL. |
+| | 7. Thông báo xoá địa chỉ thành công. |
+
+### Alternative flow
+
+**Subflow Cập nhật hồ sơ**
+
+- **5.1** Khách hàng không xác nhận cập nhật thông tin.
+  Hệ thống: Hủy thao tác cập nhật, quay lại bước 3 để Khách hàng chỉnh sửa lại thông tin.
+- **6.1** Thông tin hồ sơ không hợp lệ.
+  Hệ thống: Thông báo lỗi và yêu cầu nhập lại thông tin.
+  Khách hàng: Nhập lại thông tin, quay lại bước 3.
+
+**Subflow Thêm địa chỉ yêu thích**
+
+- **4.1** Khách hàng không xác nhận thêm địa chỉ.
+  Hệ thống: Hủy thao tác thêm địa chỉ, quay lại bước 3 để Khách hàng nhập lại thông tin.
+- **5.1** Thông tin địa chỉ không hợp lệ.
+  Hệ thống: Thông báo lỗi và yêu cầu nhập lại thông tin.
+  Khách hàng: Nhập lại thông tin địa chỉ, quay lại bước 3.
+
+**Subflow Xoá địa chỉ yêu thích**
+
+- **5.1** Khách hàng không xác nhận xoá địa chỉ.
+  Hệ thống: Hủy thao tác xoá địa chỉ và quay lại bước 1.
+
+### Exception flow
+
+**Subflow Cập nhật hồ sơ**
+
+- **8.1** Hệ thống: Không thể cập nhật hồ sơ do mất kết nối với hệ thống. Kết thúc Use Case.
+
+**Subflow Thêm địa chỉ yêu thích**
+
+- **7.1** Hệ thống: Không thể thêm địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case.
+
+**Subflow Xoá địa chỉ yêu thích**
+
+- **7.1** Hệ thống: Không thể xoá địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case.
+
 
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
