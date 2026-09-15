@@ -384,6 +384,51 @@ Bước 8: đặc tả usecase
 | **6.1.1.** Nhấn "OK" và thực hiện lại thao tác gửi đánh giá | |
 | | **6.2.** Mất kết nối trong quá trình gửi đánh giá, hiển thị thông báo "Mất kết nối, vui lòng kiểm tra Internet và thử lại" |
 | **6.2.1.** Kiểm tra kết nối và thực hiện lại thao tác gửi đánh giá | |
+
+## Use case: Đặt xe
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Đặt xe |
+| **– Mô tả sơ lược:** | Cho phép Khách hàng nhập điểm đi, điểm đến, chọn loại xe, xem cước phí dự kiến và gửi yêu cầu đặt xe để hệ thống tự động tìm tài xế gần nhất. |
+| **– Actor chính:** | Khách hàng |
+| **– Actor phụ:** | Tài xế |
+| **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập; Khách hàng không có chuyến đi khác đang ở trạng thái xử lý/thực hiện. |
+| **– Hậu điều kiện (Post-condition):** | Yêu cầu đặt xe được ghi nhận; chuyến đi được gán cho Tài xế đã chấp nhận; trạng thái chuyến đi là "Đang đến đón". |
+
+### – Luồng sự kiện chính (main flow):
+
+| Actor | System |
+| :--- | :--- |
+| **1.** Chọn chức năng "Đặt xe" | |
+| | **2.** Hiển thị màn hình đặt xe |
+| **3.** Nhập điểm đón, điểm đến và chọn loại xe | |
+| | **4.** Tính toán và hiển thị cước phí dự kiến cho chuyến đi |
+| **5.** Xác nhận thông tin và nhấn nút "Đặt xe" | |
+| | **6.** Kiểm tra tính hợp lệ của điểm đón, điểm đến và loại xe đã chọn |
+| | **7.** Tìm Tài xế khả dụng gần nhất trong phạm vi tìm kiếm dựa trên tọa độ GPS |
+| | **8.** Gửi yêu cầu chuyến đi đến Tài xế đó |
+| | **9.** Chờ phản hồi từ Tài xế trong thời gian quy định |
+| **10.** Tài xế chấp nhận chuyến đi | |
+| | **11.** Cập nhật trạng thái chuyến đi thành "Đang đến đón" |
+| | **12.** Hiển thị thông tin Tài xế (họ tên, biển số xe, số điện thoại) và vị trí Tài xế trên bản đồ cho Khách hàng. Kết thúc use case |
+
+### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor | System |
+| :--- | :--- |
+| **9.1.** Hủy yêu cầu đặt xe trong lúc hệ thống đang chờ phản hồi từ Tài xế (bước 9) | |
+| | **9.1.1.** Hệ thống hủy yêu cầu đặt xe và kết thúc use case |
+| | **9.2.** Tài xế từ chối chuyến đi hoặc hết thời gian phản hồi (timeout) tại bước 9, tự động tìm và gửi yêu cầu đến Tài xế khả dụng gần kế tiếp, giữ nguyên dữ liệu chuyến đi, không yêu cầu Khách hàng đặt lại, quay lại bước 8 |
+
+### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor | System |
+| :--- | :--- |
+| | **6.1.** Điểm đón/điểm đến không hợp lệ hoặc chưa chọn loại xe, hiển thị thông báo "Thông tin chuyến đi không hợp lệ, vui lòng kiểm tra lại." |
+| **6.1.1.** Nhập lại thông tin và nhấn "Đặt xe", quay lại bước 5 | |
+| | **7.1.** Ngay từ đầu không có Tài xế nào khả dụng trong phạm vi tìm kiếm, hiển thị thông báo "Hiện không có tài xế khả dụng, vui lòng thử lại sau" và kết thúc use case |
+| | **7.2.** Trong quá trình chuyển tiếp (fallback) ở bước 9.2, không còn Tài xế khả dụng nào khác để chuyển tiếp, hiển thị thông báo "Không tìm được tài xế, vui lòng thử lại sau" và kết thúc use case |
   
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
