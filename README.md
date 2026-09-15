@@ -385,16 +385,16 @@ Bước 8: đặc tả usecase
 | | **6.2.** Mất kết nối trong quá trình gửi đánh giá, hiển thị thông báo "Mất kết nối, vui lòng kiểm tra Internet và thử lại" |
 | **6.2.1.** Kiểm tra kết nối và thực hiện lại thao tác gửi đánh giá | |
 
-##5. Use case: Đặt xe
+## 5. Use case: Đặt xe
 
 | Thuộc tính | Nội dung |
 | :--- | :--- |
 | **– Tên use case:** | Đặt xe |
-| **– Mô tả sơ lược:** | Cho phép Khách hàng nhập điểm đón, điểm đến, chọn loại xe, xem cước phí dự kiến và gửi yêu cầu đặt xe để hệ thống tự động tìm Tài xế gần nhất. |
+| **– Mô tả sơ lược:** | Cho phép Khách hàng nhập điểm đón, điểm đến, chọn loại xe, xem cước phí dự kiến, chọn phương thức thanh toán và gửi yêu cầu đặt xe để hệ thống tự động tìm Tài xế gần nhất. |
 | **– Actor chính:** | Khách hàng |
 | **– Actor phụ:** | Tài xế |
 | **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập và không có chuyến đi khác đang ở trạng thái xử lý hoặc thực hiện. |
-| **– Hậu điều kiện (Post-condition):** | Yêu cầu đặt xe được ghi nhận, chuyến đi được gán cho Tài xế đã chấp nhận và trạng thái chuyến đi là "Đang đến đón". |
+| **– Hậu điều kiện (Post-condition):** | Yêu cầu đặt xe được ghi nhận, phương thức thanh toán được lưu cho chuyến đi, chuyến đi được gán cho Tài xế đã chấp nhận và trạng thái chuyến đi là "Đang đến đón". |
 
 ### – Luồng sự kiện chính (main flow):
 
@@ -404,30 +404,33 @@ Bước 8: đặc tả usecase
 | | **2.** Hiển thị màn hình đặt xe |
 | **3.** Khách hàng nhập điểm đón, điểm đến và chọn loại xe | |
 | | **4.** Tính toán và hiển thị cước phí dự kiến cho chuyến đi |
-| **5.** Khách hàng xác nhận thông tin và nhấn nút "Đặt xe" | |
-| | **6.** Tìm Tài xế khả dụng gần nhất trong phạm vi tìm kiếm dựa trên tọa độ GPS |
-| | **7.** Gửi yêu cầu chuyến đi đến Tài xế đó |
-| | **8.** Chờ phản hồi từ Tài xế trong thời gian quy định |
-| **9.** Nhận được thông báo tài xế chấp nhận chuyến đi | |
-| | **10.** Cập nhật trạng thái chuyến đi thành "Đang đến đón" |
-| | **11.** Hiển thị thông tin Tài xế (họ tên, biển số xe, số điện thoại) và vị trí Tài xế trên bản đồ cho Khách hàng. Kết thúc use case |
+| **5.** Khách hàng chọn phương thức thanh toán | |
+| | **6.** Thực hiện use case "Chọn phương thức thanh toán" và lưu phương thức thanh toán được chọn cho chuyến đi |
+| **7.** Khách hàng xác nhận thông tin và nhấn nút "Đặt xe" | |
+| | **8.** Kiểm tra tính hợp lệ của điểm đón, điểm đến, loại xe và phương thức thanh toán |
+| | **9.** Tìm Tài xế khả dụng gần nhất trong phạm vi tìm kiếm dựa trên tọa độ GPS |
+| | **10.** Gửi yêu cầu chuyến đi đến Tài xế đó |
+| | **11.** Chờ phản hồi từ Tài xế trong thời gian quy định |
+| **12.** Tài xế chấp nhận chuyến đi | |
+| | **13.** Cập nhật trạng thái chuyến đi thành "Đang đến đón" |
+| | **14.** Hiển thị thông tin Tài xế (họ tên, biển số xe, số điện thoại) và vị trí Tài xế trên bản đồ cho Khách hàng. Kết thúc use case |
 
 ### – Luồng sự kiện thay thế (alternate flow):
 
 | Actor | System |
 | :--- | :--- |
-| **8.1.** Khách hàng hủy yêu cầu đặt xe trong lúc hệ thống đang chờ phản hồi từ Tài xế | |
-| | **8.1.1.** Hệ thống hủy yêu cầu đặt xe và kết thúc use case |
-| **8.2.** Tài xế từ chối chuyến đi hoặc hết thời gian phản hồi (timeout) tại bước 8 | |
-| | **8.2.1.** Hệ thống tự động tìm và gửi yêu cầu đến Tài xế khả dụng gần kế tiếp, giữ nguyên dữ liệu chuyến đi, không yêu cầu Khách hàng đặt lại và quay lại bước 6 |
+| **11.1.** Khách hàng hủy yêu cầu đặt xe trong lúc hệ thống đang chờ phản hồi từ Tài xế | |
+| | **11.1.1.** Hệ thống hủy yêu cầu đặt xe và kết thúc use case |
+| **11.2.** Tài xế từ chối chuyến đi hoặc hết thời gian phản hồi (timeout) tại bước 11 | |
+| | **11.2.1.** Hệ thống tự động tìm và gửi yêu cầu đến Tài xế khả dụng gần kế tiếp, giữ nguyên dữ liệu chuyến đi và phương thức thanh toán, không yêu cầu Khách hàng đặt lại và quay lại bước 10 |
 
 ### – Luồng sự kiện ngoại lệ (exception flow):
 
 | Actor | System |
 | :--- | :--- |
-| | **7.1.** Không có Tài xế khả dụng trong phạm vi tìm kiếm; hiển thị thông báo "Hiện không có tài xế khả dụng, vui lòng thử lại sau" và kết thúc use case |
-| | **7.2.** Trong quá trình chuyển tiếp (fallback) tại bước 8.2, không còn Tài xế khả dụng khác để chuyển tiếp; hiển thị thông báo "Không tìm được tài xế, vui lòng thử lại sau" và kết thúc use case |
-
+| | **8.1.** Thông tin điểm đón, điểm đến, loại xe hoặc phương thức thanh toán không hợp lệ; hiển thị thông báo lỗi và yêu cầu Khách hàng kiểm tra, chỉnh sửa thông tin, sau đó quay lại bước 7 |
+| | **9.1.** Không có Tài xế khả dụng trong phạm vi tìm kiếm; hiển thị thông báo "Hiện không có tài xế khả dụng, vui lòng thử lại sau" và kết thúc use case |
+| | **9.2.** Trong quá trình chuyển tiếp (fallback) tại bước 11.2, không còn Tài xế khả dụng khác để chuyển tiếp; hiển thị thông báo "Không tìm được tài xế, vui lòng thử lại sau" và kết thúc use case |
 ## 6. Use case: Hủy xe
 
 | Thuộc tính | Nội dung |
