@@ -405,32 +405,31 @@ Bước 8: đặc tả usecase
 | **3.** Khách hàng nhập điểm đón, điểm đến và chọn loại xe | |
 | | **4.** Tính toán và hiển thị cước phí dự kiến cho chuyến đi |
 | **5.** Khách hàng chọn phương thức thanh toán | |
-| | **6.** Thực hiện use case "Chọn phương thức thanh toán" và lưu phương thức thanh toán được chọn cho chuyến đi |
+| | **6.** Thực hiện use case "Thanh toán" |
 | **7.** Khách hàng xác nhận thông tin và nhấn nút "Đặt xe" | |
-| | **8.** Kiểm tra tính hợp lệ của điểm đón, điểm đến, loại xe và phương thức thanh toán |
-| | **9.** Tìm Tài xế khả dụng gần nhất trong phạm vi tìm kiếm dựa trên tọa độ GPS |
-| | **10.** Gửi yêu cầu chuyến đi đến Tài xế đó |
-| | **11.** Chờ phản hồi từ Tài xế trong thời gian quy định |
-| **12.** Tài xế chấp nhận chuyến đi | |
-| | **13.** Cập nhật trạng thái chuyến đi thành "Đang đến đón" |
-| | **14.** Hiển thị thông tin Tài xế (họ tên, biển số xe, số điện thoại) và vị trí Tài xế trên bản đồ cho Khách hàng. Kết thúc use case |
+| | **8.** Tìm Tài xế khả dụng gần nhất trong phạm vi tìm kiếm dựa trên tọa độ GPS |
+| | **9.** Gửi yêu cầu chuyến đi đến Tài xế đó |
+| | **10.** Chờ phản hồi từ Tài xế trong thời gian quy định |
+| **11.** Tài xế chấp nhận chuyến đi | |
+| | **12.** Cập nhật trạng thái chuyến đi thành "Đang đến đón" |
+| | **13.** Hiển thị thông tin Tài xế (họ tên, biển số xe, số điện thoại) và vị trí Tài xế trên bản đồ cho Khách hàng. Kết thúc use case |
 
 ### – Luồng sự kiện thay thế (alternate flow):
 
 | Actor | System |
 | :--- | :--- |
-| **11.1.** Khách hàng hủy yêu cầu đặt xe trong lúc hệ thống đang chờ phản hồi từ Tài xế | |
-| | **11.1.1.** Hệ thống hủy yêu cầu đặt xe và kết thúc use case |
-| **11.2.** Tài xế từ chối chuyến đi hoặc hết thời gian phản hồi (timeout) tại bước 11 | |
-| | **11.2.1.** Hệ thống tự động tìm và gửi yêu cầu đến Tài xế khả dụng gần kế tiếp, giữ nguyên dữ liệu chuyến đi và phương thức thanh toán, không yêu cầu Khách hàng đặt lại và quay lại bước 10 |
+| **10.1.** Khách hàng hủy yêu cầu đặt xe trong lúc hệ thống đang chờ phản hồi từ Tài xế | |
+| | **10.1.1.** Hệ thống hủy yêu cầu đặt xe và kết thúc use case |
+| **10.2.** Tài xế từ chối chuyến đi hoặc hết thời gian phản hồi (timeout) tại bước 10 | |
+| | **10.2.1.** Hệ thống tự động tìm và gửi yêu cầu đến Tài xế khả dụng gần kế tiếp, giữ nguyên dữ liệu chuyến đi và phương thức thanh toán, không yêu cầu Khách hàng đặt lại và quay lại bước 9 |
 
 ### – Luồng sự kiện ngoại lệ (exception flow):
 
 | Actor | System |
 | :--- | :--- |
-| | **8.1.** Thông tin điểm đón, điểm đến, loại xe hoặc phương thức thanh toán không hợp lệ; hiển thị thông báo lỗi và yêu cầu Khách hàng kiểm tra, chỉnh sửa thông tin, sau đó quay lại bước 7 |
-| | **9.1.** Không có Tài xế khả dụng trong phạm vi tìm kiếm; hiển thị thông báo "Hiện không có tài xế khả dụng, vui lòng thử lại sau" và kết thúc use case |
-| | **9.2.** Trong quá trình chuyển tiếp (fallback) tại bước 11.2, không còn Tài xế khả dụng khác để chuyển tiếp; hiển thị thông báo "Không tìm được tài xế, vui lòng thử lại sau" và kết thúc use case |
+| | **8.1.** Không có Tài xế khả dụng trong phạm vi tìm kiếm; hiển thị thông báo "Hiện không có tài xế khả dụng, vui lòng thử lại sau" và kết thúc use case |
+| | **8.2.** Trong quá trình chuyển tiếp (fallback) tại bước 10.2, không còn Tài xế khả dụng khác để chuyển tiếp; hiển thị thông báo "Không tìm được tài xế, vui lòng thử lại sau" và kết thúc use case |
+
 ## 6. Use case: Hủy xe
 
 | Thuộc tính | Nội dung |
@@ -469,54 +468,46 @@ Bước 8: đặc tả usecase
 | | **5.1.** Hệ thống gặp lỗi kết nối Internet khi cập nhật trạng thái hủy chuyến, hiển thị thông báo "Không thể hủy chuyến, vui lòng thử lại sau" |
 | **5.1.1.** Khách hàng nhấn "OK" và thực hiện lại thao tác hủy chuyến. Quay lại bước 3 | |
 
-##7. Use case: Thanh toán
+## 6. Use case: Thanh toán
 
 | Thuộc tính | Nội dung |
 | :--- | :--- |
 | **– Tên use case:** | Thanh toán |
-| **– Mô tả sơ lược:** | Cho phép Khách hàng thanh toán cước phí chuyến đi bằng tiền mặt hoặc thanh toán trực tuyến thông qua Payment Gateway. |
+| **– Mô tả sơ lược:** | Cho phép Khách hàng lựa chọn phương thức thanh toán cho chuyến đi và hệ thống ghi nhận phương thức thanh toán được lựa chọn để sử dụng khi thanh toán cước phí. |
 | **– Actor chính:** | Khách hàng |
 | **– Actor phụ:** | Payment Gateway |
-| **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập và chuyến đi đã hoàn thành, có cước phí cần thanh toán. |
-| **– Hậu điều kiện (Post-condition):** | Giao dịch thanh toán được ghi nhận với số tiền, phương thức và trạng thái thanh toán tương ứng; trạng thái chuyến đi được cập nhật phù hợp. |
+| **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập và đang thực hiện quy trình đặt xe. |
+| **– Hậu điều kiện (Post-condition):** | Phương thức thanh toán được lựa chọn và lưu cho chuyến đi. |
 
 ### – Luồng sự kiện chính (main flow):
 
 | Actor | System |
 | :--- | :--- |
-| **1.** Chọn chức năng "Thanh toán" của chuyến đi đã hoàn thành | |
-| | **2.** Hiển thị thông tin chuyến đi, số tiền cần thanh toán và các phương thức thanh toán: "Tiền mặt" hoặc "Thanh toán online" |
-| **3.** Chọn phương thức thanh toán | |
-| | **4.** Kiểm tra thông tin chuyến đi và số tiền cần thanh toán |
-| | **5.** Hiển thị giao diện thanh toán tương ứng với phương thức đã chọn |
-| **6.** Xác nhận thanh toán | |
-| | **7.** Xử lý giao dịch thanh toán và ghi nhận thông tin giao dịch vào hệ thống |
-| | **8.** Cập nhật trạng thái thanh toán thành "Đã thanh toán" |
-| | **9.** Hiển thị thông báo "Thanh toán thành công" và kết thúc use case |
+| **1.** Khách hàng chọn phương thức thanh toán | |
+| | **2.** Hiển thị các phương thức thanh toán gồm "Tiền mặt" và "Thanh toán online" |
+| **3.** Khách hàng chọn một phương thức thanh toán | |
+| | **4.** Kiểm tra phương thức thanh toán được lựa chọn |
+| | **5.** Lưu phương thức thanh toán cho chuyến đi |
+| | **6.** Hiển thị thông báo "Đã chọn phương thức thanh toán" và kết thúc use case |
 
 ### – Luồng sự kiện thay thế (alternate flow):
 
 | Actor | System |
 | :--- | :--- |
-| **5.1.** Chọn phương thức "Tiền mặt" | |
-| | **5.1.1.** Ghi nhận phương thức thanh toán là "Tiền mặt" và chờ Tài xế xác nhận đã thu tiền |
-| **5.1.2.** Tài xế xác nhận đã thu tiền | |
-| | **5.1.3.** Cập nhật trạng thái thanh toán thành "Đã thanh toán" và quay lại bước 9 |
-| **5.2.** Chọn phương thức "Thanh toán online" | |
-| | **5.2.1.** Chuyển yêu cầu thanh toán đến Payment Gateway |
-| | **5.2.2.** Payment Gateway xử lý giao dịch và trả kết quả về hệ thống |
-| | **5.2.3.** Nếu giao dịch thành công, quay lại bước 7 |
+| **3.1.** Khách hàng chọn phương thức "Thanh toán online" | |
+| | **3.1.1.** Hệ thống chuyển yêu cầu đến Payment Gateway để chuẩn bị phương thức thanh toán online |
+| | **3.1.2.** Payment Gateway phản hồi thành công và hệ thống lưu phương thức "Thanh toán online" cho chuyến đi |
+| | **3.1.3.** Quay lại bước 6 |
+| **3.2.** Khách hàng chọn phương thức "Tiền mặt" | |
+| | **3.2.1.** Hệ thống lưu phương thức "Tiền mặt" cho chuyến đi và quay lại bước 6 |
 
 ### – Luồng sự kiện ngoại lệ (exception flow):
 
 | Actor | System |
 | :--- | :--- |
-| | **4.1.** Chuyến đi không tồn tại hoặc không có cước phí cần thanh toán, hiển thị thông báo lỗi và kết thúc use case |
-| | **4.2.** Chuyến đi đã được thanh toán trước đó, hiển thị thông báo "Chuyến đi đã được thanh toán" và kết thúc use case |
-| | **7.1.** Giao dịch thanh toán online thất bại hoặc bị từ chối, cập nhật trạng thái "Thanh toán thất bại" và thông báo cho Khách hàng |
-| | **7.2.** Mất kết nối hoặc Payment Gateway không phản hồi, thông báo "Không thể xử lý thanh toán, vui lòng thử lại sau" |
-| **7.2.1.** Thực hiện lại thanh toán, quay lại bước 6 | |
-| | **7.3.** Lỗi hệ thống khi ghi nhận giao dịch, thông báo lỗi và không cập nhật trạng thái "Đã thanh toán" |
+| | **4.1.** Phương thức thanh toán không hợp lệ hoặc không được hỗ trợ, hiển thị thông báo "Phương thức thanh toán không hợp lệ" và yêu cầu Khách hàng chọn lại |
+| | **3.1.1.** Payment Gateway không phản hồi hoặc xảy ra lỗi kết nối, hiển thị thông báo "Không thể sử dụng thanh toán online, vui lòng thử lại sau" |
+| | **5.1.** Không thể lưu phương thức thanh toán do lỗi hệ thống, hiển thị thông báo "Không thể lưu phương thức thanh toán, vui lòng thử lại sau" |
 
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
