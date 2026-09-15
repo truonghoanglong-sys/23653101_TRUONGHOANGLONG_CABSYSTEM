@@ -257,39 +257,31 @@ Bước 8: đặc tả usecase
 
 **Subflow Cập nhật hồ sơ**
 
-- **5.1** Khách hàng không xác nhận cập nhật thông tin.
-  Hệ thống: Hủy thao tác cập nhật, quay lại bước 3 để Khách hàng chỉnh sửa lại thông tin.
-- **6.1** Thông tin hồ sơ không hợp lệ.
-  Hệ thống: Thông báo lỗi và yêu cầu nhập lại thông tin.
-  Khách hàng: Nhập lại thông tin, quay lại bước 3.
+| Bước | Khách hàng | Hệ thống |
+|---|---|---|
+| **5.1** Không xác nhận cập nhật thông tin | | Hủy thao tác cập nhật, quay lại bước 3 để Khách hàng chỉnh sửa lại thông tin. |
+| **6.1** Thông tin hồ sơ không hợp lệ | Nhập lại thông tin, quay lại bước 3. | Thông báo lỗi và yêu cầu nhập lại thông tin. |
 
 **Subflow Thêm địa chỉ yêu thích**
 
-- **4.1** Khách hàng không xác nhận thêm địa chỉ.
-  Hệ thống: Hủy thao tác thêm địa chỉ, quay lại bước 3 để Khách hàng nhập lại thông tin.
-- **5.1** Thông tin địa chỉ không hợp lệ.
-  Hệ thống: Thông báo lỗi và yêu cầu nhập lại thông tin.
-  Khách hàng: Nhập lại thông tin địa chỉ, quay lại bước 3.
+| Bước | Khách hàng | Hệ thống |
+|---|---|---|
+| **4.1** Không xác nhận thêm địa chỉ | | Hủy thao tác thêm địa chỉ, quay lại bước 3 để Khách hàng nhập lại thông tin. |
+| **5.1** Thông tin địa chỉ không hợp lệ | Nhập lại thông tin địa chỉ, quay lại bước 3. | Thông báo lỗi và yêu cầu nhập lại thông tin. |
 
 **Subflow Xoá địa chỉ yêu thích**
 
-- **5.1** Khách hàng không xác nhận xoá địa chỉ.
-  Hệ thống: Hủy thao tác xoá địa chỉ và quay lại bước 1.
+| Bước | Khách hàng | Hệ thống |
+|---|---|---|
+| **5.1** Không xác nhận xoá địa chỉ | | Hủy thao tác xoá địa chỉ và quay lại bước 1. |
 
 ### Exception flow
 
-**Subflow Cập nhật hồ sơ**
-
-- **8.1** Hệ thống: Không thể cập nhật hồ sơ do mất kết nối với hệ thống. Kết thúc Use Case.
-
-**Subflow Thêm địa chỉ yêu thích**
-
-- **7.1** Hệ thống: Không thể thêm địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case.
-
-**Subflow Xoá địa chỉ yêu thích**
-
-- **7.1** Hệ thống: Không thể xoá địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case.
-
+| Subflow | Bước | Hệ thống |
+|---|---|---|
+| Cập nhật hồ sơ | **8.1** | Không thể cập nhật hồ sơ do mất kết nối với hệ thống. Kết thúc Use Case. |
+| Thêm địa chỉ yêu thích | **7.1** | Không thể thêm địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case. |
+| Xoá địa chỉ yêu thích | **7.1** | Không thể xoá địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case. |
 
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
