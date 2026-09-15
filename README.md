@@ -418,15 +418,15 @@ Bước 8: đặc tả usecase
 | :--- | :--- |
 | **8.1.** Khách hàng hủy yêu cầu đặt xe trong lúc hệ thống đang chờ phản hồi từ Tài xế | |
 | | **8.1.1.** Hệ thống hủy yêu cầu đặt xe và kết thúc use case |
-| **8.2.** Tài xế từ chối chuyến đi hoặc hết thời gian phản hồi (timeout) tại bước 9 | |
-| | **8.2.1.** Hệ thống tự động tìm và gửi yêu cầu đến Tài xế khả dụng gần kế tiếp, giữ nguyên dữ liệu chuyến đi, không yêu cầu Khách hàng đặt lại và quay lại bước 7 |
+| **8.2.** Tài xế từ chối chuyến đi hoặc hết thời gian phản hồi (timeout) tại bước 8 | |
+| | **8.2.1.** Hệ thống tự động tìm và gửi yêu cầu đến Tài xế khả dụng gần kế tiếp, giữ nguyên dữ liệu chuyến đi, không yêu cầu Khách hàng đặt lại và quay lại bước 6 |
 
 ### – Luồng sự kiện ngoại lệ (exception flow):
 
 | Actor | System |
 | :--- | :--- |
 | | **7.1.** Không có Tài xế khả dụng trong phạm vi tìm kiếm; hiển thị thông báo "Hiện không có tài xế khả dụng, vui lòng thử lại sau" và kết thúc use case |
-| | **7.2.** Trong quá trình chuyển tiếp (fallback) tại bước 9.2, không còn Tài xế khả dụng khác để chuyển tiếp; hiển thị thông báo "Không tìm được tài xế, vui lòng thử lại sau" và kết thúc use case |
+| | **7.2.** Trong quá trình chuyển tiếp (fallback) tại bước 8.2, không còn Tài xế khả dụng khác để chuyển tiếp; hiển thị thông báo "Không tìm được tài xế, vui lòng thử lại sau" và kết thúc use case |
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
 <img width="926" height="1106" alt="image" src="https://github.com/user-attachments/assets/1f7747a1-a666-4a84-bc58-fc00ca01fbd0" />
