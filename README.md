@@ -158,7 +158,7 @@ Bước 7: vẽ usecase tổng quát
 Bước 8: đặc tả usecase
 **###KHÁCH HÀNG**
 **Đặc tả usecase Đăng ký**
-## Use case: Đăng ký
+##1. Use case: Đăng ký
 
 | Thuộc tính | Nội dung |
 | :--- | :--- |
@@ -200,7 +200,62 @@ Bước 8: đặc tả usecase
 | | **9.1.** Mất kết nối Internet trong quá trình gửi thông tin đăng ký, gửi OTP hoặc xác thực OTP, hiển thị thông báo "Mất kết nối, vui lòng kiểm tra Internet và thử lại" |
 | **9.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại từ bước tương ứng | |
 
-## 1.2.2.2. Quản lý hồ sơ (Khách hàng)
+##2. Use case: Đăng nhập
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Đăng nhập |
+| **– Mô tả sơ lược:** | Cho phép Người dùng (Khách hàng, Tài xế, Nhân viên Vận hành, Nhân viên Tài chính, Ban Giám đốc, Quản trị viên hệ thống) xác thực danh tính bằng Số điện thoại/Email và Mật khẩu để truy cập hệ thống theo đúng vai trò và quyền hạn được phân quyền (RBAC). |
+| **– Actor chính:** | Người dùng (Khách hàng/Tài xế/Nhân viên Vận hành/Nhân viên Tài chính/Ban Giám đốc/Quản trị viên hệ thống) |
+| **– Actor phụ:** | Không có |
+| **– Tiền điều kiện (Pre-condition):** | Người dùng đã có tài khoản được đăng ký/khởi tạo hợp lệ trên hệ thống. |
+| **– Hậu điều kiện (Post-condition):** | Người dùng được xác thực thành công, hệ thống khởi tạo phiên làm việc (session), ghi nhận vào Audit Log và điều hướng vào giao diện tương ứng với vai trò. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Người dùng | System |
+| :--- | :--- |
+| **1.** Chọn chức năng "Đăng nhập" | |
+| | **2.** Hiển thị form đăng nhập gồm: Số điện thoại/Email, Mật khẩu |
+| **3.** Nhập thông tin đăng nhập và nhấn nút "Đăng nhập" | |
+| | **4.** Kiểm tra dữ liệu đầu vào: (a) dữ liệu đã được nhập đầy đủ; (b) dữ liệu đúng định dạng quy định |
+| | **5.** Kiểm tra tài khoản có tồn tại trong hệ thống |
+| | **6.** Kiểm tra mật khẩu có khớp với tài khoản |
+| | **7.** Kiểm tra trạng thái tài khoản (đã được duyệt/kích hoạt, không bị khóa hoặc vô hiệu hóa) |
+| | **8.** Xác định vai trò (Role) của tài khoản theo mô hình RBAC |
+| | **9.** Khởi tạo phiên làm việc (session), ghi nhận thời gian đăng nhập vào Audit Log |
+| | **10.** Điều hướng người dùng vào giao diện/Dashboard tương ứng với vai trò. Kết thúc use case |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Người dùng | System |
+| :--- | :--- |
+| | **4.1.** Số điện thoại/Email bị bỏ trống, hiển thị thông báo "Vui lòng nhập Số điện thoại/Email" |
+| **4.1.1.** Nhập lại thông tin, quay lại bước 3 | |
+| | **4.2.** Mật khẩu bị bỏ trống, hiển thị thông báo "Vui lòng nhập Mật khẩu" |
+| **4.2.1.** Nhập lại thông tin, quay lại bước 3 | |
+| | **4.3.** Số điện thoại/Email sai định dạng, hiển thị thông báo "Số điện thoại/Email không đúng định dạng" |
+| **4.3.1.** Nhập lại thông tin, quay lại bước 3 | |
+| | **5.1.** Tài khoản không tồn tại, hiển thị thông báo chung "Số điện thoại/Email hoặc mật khẩu không đúng" (không tiết lộ chi tiết tài khoản) |
+| **5.1.1.** Nhập lại thông tin, quay lại bước 3 | |
+| | **6.1.** Mật khẩu không đúng, hiển thị thông báo "Số điện thoại/Email hoặc mật khẩu không đúng" và ghi nhận số lần đăng nhập sai liên tiếp |
+| | **6.1.1.** Số lần đăng nhập sai liên tiếp từ 1 đến 4 lần: tài khoản chưa bị khóa |
+| **6.1.2.** Nhập lại thông tin, quay lại bước 3 | |
+| | **6.2.** Số lần đăng nhập sai liên tiếp đạt đến lần thứ 5: tạm khóa tài khoản theo thời gian quy định của hệ thống, hiển thị thông báo "Tài khoản tạm khóa do đăng nhập sai quá nhiều lần, vui lòng thử lại sau" và không cho phép đăng nhập trong thời gian khóa |
+| | **7.1.** Tài khoản chưa được duyệt (ví dụ: Tài xế chưa được phê duyệt), hiển thị thông báo "Tài khoản chưa được kích hoạt hoặc đã bị khóa" và không cho phép đăng nhập |
+| | **7.2.** Tài khoản đang bị khóa, hiển thị thông báo "Tài khoản chưa được kích hoạt hoặc đã bị khóa" và không cho phép đăng nhập |
+| | **7.3.** Tài khoản đã bị vô hiệu hóa, hiển thị thông báo "Tài khoản chưa được kích hoạt hoặc đã bị khóa" và không cho phép đăng nhập |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Người dùng | System |
+| :--- | :--- |
+| | **3.1.** Mất kết nối Internet khi gửi thông tin đăng nhập (phát sinh tại bước 3), hiển thị thông báo "Mất kết nối, vui lòng kiểm tra Internet và thử lại" |
+| **3.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại từ bước 3 | |
+| | **8.1.** Hệ thống gặp sự cố nội bộ (server lỗi/timeout) trong quá trình xác thực tài khoản/mật khẩu/vai trò (phát sinh tại bước 4, 5, 6, 7 hoặc 8), hiển thị thông báo "Hệ thống đang gặp sự cố, vui lòng thử lại sau" và ghi log lỗi để Quản trị viên hệ thống xử lý |
+| | **9.1.** Hệ thống không tạo được phiên làm việc (session) hoặc gặp lỗi khi ghi Audit Log (phát sinh tại bước 9), hệ thống ghi nhận lỗi và xử lý theo cơ chế dự phòng của hệ thống |
+
+## 3. Quản lý hồ sơ (Khách hàng)
 
 | **Quản lý hồ sơ** | |
 |---|---|
@@ -257,32 +312,40 @@ Bước 8: đặc tả usecase
 
 **Subflow Cập nhật hồ sơ**
 
-| Bước | Khách hàng | Hệ thống |
-|---|---|---|
-| **5.1** Không xác nhận cập nhật thông tin | | Hủy thao tác cập nhật, quay lại bước 3 để Khách hàng chỉnh sửa lại thông tin. |
-| **6.1** Thông tin hồ sơ không hợp lệ | Nhập lại thông tin, quay lại bước 3. | Thông báo lỗi và yêu cầu nhập lại thông tin. |
+- **5.1** Khách hàng không xác nhận cập nhật thông tin.
+  Hệ thống: Hủy thao tác cập nhật, quay lại bước 3 để Khách hàng chỉnh sửa lại thông tin.
+- **6.1** Thông tin hồ sơ không hợp lệ.
+  Hệ thống: Thông báo lỗi và yêu cầu nhập lại thông tin.
+  Khách hàng: Nhập lại thông tin, quay lại bước 3.
 
 **Subflow Thêm địa chỉ yêu thích**
 
-| Bước | Khách hàng | Hệ thống |
-|---|---|---|
-| **4.1** Không xác nhận thêm địa chỉ | | Hủy thao tác thêm địa chỉ, quay lại bước 3 để Khách hàng nhập lại thông tin. |
-| **5.1** Thông tin địa chỉ không hợp lệ | Nhập lại thông tin địa chỉ, quay lại bước 3. | Thông báo lỗi và yêu cầu nhập lại thông tin. |
+- **4.1** Khách hàng không xác nhận thêm địa chỉ.
+  Hệ thống: Hủy thao tác thêm địa chỉ, quay lại bước 3 để Khách hàng nhập lại thông tin.
+- **5.1** Thông tin địa chỉ không hợp lệ.
+  Hệ thống: Thông báo lỗi và yêu cầu nhập lại thông tin.
+  Khách hàng: Nhập lại thông tin địa chỉ, quay lại bước 3.
 
 **Subflow Xoá địa chỉ yêu thích**
 
-| Bước | Khách hàng | Hệ thống |
-|---|---|---|
-| **5.1** Không xác nhận xoá địa chỉ | | Hủy thao tác xoá địa chỉ và quay lại bước 1. |
+- **5.1** Khách hàng không xác nhận xoá địa chỉ.
+  Hệ thống: Hủy thao tác xoá địa chỉ và quay lại bước 1.
 
 ### Exception flow
 
-| Subflow | Bước | Hệ thống |
-|---|---|---|
-| Cập nhật hồ sơ | **8.1** | Không thể cập nhật hồ sơ do mất kết nối với hệ thống. Kết thúc Use Case. |
-| Thêm địa chỉ yêu thích | **7.1** | Không thể thêm địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case. |
-| Xoá địa chỉ yêu thích | **7.1** | Không thể xoá địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case. |
+**Subflow Cập nhật hồ sơ**
 
+- **8.1** Hệ thống: Không thể cập nhật hồ sơ do mất kết nối với hệ thống. Kết thúc Use Case.
+
+**Subflow Thêm địa chỉ yêu thích**
+
+- **7.1** Hệ thống: Không thể thêm địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case.
+
+**Subflow Xoá địa chỉ yêu thích**
+
+- **7.1** Hệ thống: Không thể xoá địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case.
+
+  
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
 <img width="926" height="1106" alt="image" src="https://github.com/user-attachments/assets/1f7747a1-a666-4a84-bc58-fc00ca01fbd0" />
