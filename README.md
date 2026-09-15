@@ -428,7 +428,7 @@ Bước 8: đặc tả usecase
 | | **7.1.** Không có Tài xế khả dụng trong phạm vi tìm kiếm; hiển thị thông báo "Hiện không có tài xế khả dụng, vui lòng thử lại sau" và kết thúc use case |
 | | **7.2.** Trong quá trình chuyển tiếp (fallback) tại bước 8.2, không còn Tài xế khả dụng khác để chuyển tiếp; hiển thị thông báo "Không tìm được tài xế, vui lòng thử lại sau" và kết thúc use case |
 
-##6. Use case: Hủy xe
+## 6. Use case: Hủy xe
 
 | Thuộc tính | Nội dung |
 | :--- | :--- |
@@ -444,7 +444,7 @@ Bước 8: đặc tả usecase
 | Actor | System |
 | :--- | :--- |
 | **1.** Khách hàng chọn chức năng "Hủy xe" đối với chuyến đi đang ở trạng thái "Đang tìm tài xế" hoặc "Đang đến đón" | |
-| | **2.** Hiển thị thông tin chuyến đi hiện tại và yêu cầu xác nhận hủy |
+| | **2.** Kiểm tra chuyến đi tồn tại và hiển thị thông tin chuyến đi hiện tại, yêu cầu xác nhận hủy |
 | **3.** Khách hàng xác nhận hủy chuyến | |
 | | **4.** Kiểm tra trạng thái hiện tại của chuyến đi |
 | | **5.** Cập nhật trạng thái chuyến đi thành "Đã hủy" |
@@ -462,9 +462,10 @@ Bước 8: đặc tả usecase
 
 | Actor | System |
 | :--- | :--- |
+| | **2.1.** Không tìm thấy chuyến đi cần hủy, hiển thị thông báo "Không có chuyến đi để hủy" và kết thúc use case |
 | | **4.1.** Chuyến đi đã chuyển sang trạng thái không cho phép hủy, hiển thị thông báo "Không thể hủy chuyến ở thời điểm này" và kết thúc use case |
-| | **5.1.** Hệ thống gặp lỗi khi cập nhật trạng thái hủy chuyến, hiển thị thông báo "Không thể hủy chuyến, vui lòng thử lại sau" |
-| **5.1.1.** Khách hàng nhấn "OK" và thực hiện lại thao tác hủy chuyến | |
+| | **5.1.** Hệ thống gặp lỗi kết nối Internet khi cập nhật trạng thái hủy chuyến, hiển thị thông báo "Không thể hủy chuyến, vui lòng thử lại sau" |
+| **5.1.1.** Khách hàng nhấn "OK" và thực hiện lại thao tác hủy chuyến. Quay lại bước 3 | |
 
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
