@@ -345,6 +345,45 @@ Bước 8: đặc tả usecase
 
 - **7.1** Hệ thống: Không thể xoá địa chỉ do mất kết nối với hệ thống. Kết thúc Use Case.
 
+##4. Use case: Đánh giá dịch vụ
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Đánh giá dịch vụ |
+| **– Mô tả sơ lược:** | Cho phép Khách hàng chấm điểm từ 1–5 sao và gửi nhận xét về chất lượng chuyến đi sau khi chuyến đi hoàn tất. |
+| **– Actor chính:** | Khách hàng |
+| **– Actor phụ:** | Không có |
+| **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập và chuyến đi đã hoàn thành. |
+| **– Hậu điều kiện (Post-condition):** | Đánh giá được lưu vào hệ thống và gắn với chuyến đi và Tài xế tương ứng. |
+
+### – Luồng sự kiện chính (main flow):
+
+| Actor | System |
+| :--- | :--- |
+| **1.** Chọn chức năng "Đánh giá dịch vụ" của chuyến đi đã hoàn thành | |
+| | **2.** Kiểm tra chuyến đi chưa được đánh giá và hiển thị form đánh giá gồm: số sao (1–5), ô nhập nhận xét và nút "Gửi đánh giá" |
+| **3.** Chọn số sao từ 1–5 và nhập nhận xét (nếu có) | |
+| **4.** Nhấn nút "Gửi đánh giá" | |
+| | **5.** Kiểm tra dữ liệu đánh giá hợp lệ |
+| | **6.** Lưu đánh giá vào cơ sở dữ liệu và gắn đánh giá với chuyến đi và Tài xế tương ứng |
+| | **7.** Hiển thị thông báo "Đánh giá thành công" và kết thúc use case |
+
+### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor | System |
+| :--- | :--- |
+| | **2.1.** Chuyến đi đã được đánh giá trước đó, hiển thị thông báo "Chuyến đi này đã được đánh giá" và kết thúc use case |
+
+### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor | System |
+| :--- | :--- |
+| | **5.1.** Số sao bị bỏ trống hoặc không nằm trong phạm vi 1–5, hiển thị thông báo "Vui lòng chọn số sao từ 1 đến 5" |
+| **5.1.1.** Chọn lại số sao và nhấn "Gửi đánh giá", quay lại bước 4 | |
+| | **6.1.** Không thể lưu đánh giá do lỗi cơ sở dữ liệu hoặc lỗi hệ thống, hiển thị thông báo "Không thể lưu đánh giá, vui lòng thử lại sau" |
+| **6.1.1.** Nhấn "OK" và thực hiện lại thao tác gửi đánh giá | |
+| | **6.2.** Mất kết nối trong quá trình gửi đánh giá, hiển thị thông báo "Mất kết nối, vui lòng kiểm tra Internet và thử lại" |
+| **6.2.1.** Kiểm tra kết nối và thực hiện lại thao tác gửi đánh giá | |
   
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
