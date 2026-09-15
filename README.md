@@ -444,7 +444,7 @@ Bước 8: đặc tả usecase
 | Actor | System |
 | :--- | :--- |
 | **1.** Khách hàng chọn chức năng "Hủy xe" đối với chuyến đi đang ở trạng thái "Đang tìm tài xế" hoặc "Đang đến đón" | |
-| | **2.** Kiểm tra chuyến đi tồn tại và hiển thị thông tin chuyến đi hiện tại, yêu cầu xác nhận hủy |
+| | **2.** Hiển thị thông tin chuyến đi hiện tại và yêu cầu xác nhận hủy |
 | **3.** Khách hàng xác nhận hủy chuyến | |
 | | **4.** Kiểm tra trạng thái hiện tại của chuyến đi |
 | | **5.** Cập nhật trạng thái chuyến đi thành "Đã hủy" |
@@ -462,10 +462,58 @@ Bước 8: đặc tả usecase
 
 | Actor | System |
 | :--- | :--- |
-| | **2.1.** Không tìm thấy chuyến đi cần hủy, hiển thị thông báo "Không có chuyến đi để hủy" và kết thúc use case |
 | | **4.1.** Chuyến đi đã chuyển sang trạng thái không cho phép hủy, hiển thị thông báo "Không thể hủy chuyến ở thời điểm này" và kết thúc use case |
 | | **5.1.** Hệ thống gặp lỗi kết nối Internet khi cập nhật trạng thái hủy chuyến, hiển thị thông báo "Không thể hủy chuyến, vui lòng thử lại sau" |
 | **5.1.1.** Khách hàng nhấn "OK" và thực hiện lại thao tác hủy chuyến. Quay lại bước 3 | |
+
+##7. Use case: Thanh toán
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Thanh toán |
+| **– Mô tả sơ lược:** | Cho phép Khách hàng thanh toán cước phí chuyến đi bằng tiền mặt hoặc thanh toán trực tuyến thông qua Payment Gateway. |
+| **– Actor chính:** | Khách hàng |
+| **– Actor phụ:** | Payment Gateway |
+| **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập và chuyến đi đã hoàn thành, có cước phí cần thanh toán. |
+| **– Hậu điều kiện (Post-condition):** | Giao dịch thanh toán được ghi nhận với số tiền, phương thức và trạng thái thanh toán tương ứng; trạng thái chuyến đi được cập nhật phù hợp. |
+
+### – Luồng sự kiện chính (main flow):
+
+| Actor | System |
+| :--- | :--- |
+| **1.** Chọn chức năng "Thanh toán" của chuyến đi đã hoàn thành | |
+| | **2.** Hiển thị thông tin chuyến đi, số tiền cần thanh toán và các phương thức thanh toán: "Tiền mặt" hoặc "Thanh toán online" |
+| **3.** Chọn phương thức thanh toán | |
+| | **4.** Kiểm tra thông tin chuyến đi và số tiền cần thanh toán |
+| | **5.** Hiển thị giao diện thanh toán tương ứng với phương thức đã chọn |
+| **6.** Xác nhận thanh toán | |
+| | **7.** Xử lý giao dịch thanh toán và ghi nhận thông tin giao dịch vào hệ thống |
+| | **8.** Cập nhật trạng thái thanh toán thành "Đã thanh toán" |
+| | **9.** Hiển thị thông báo "Thanh toán thành công" và kết thúc use case |
+
+### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor | System |
+| :--- | :--- |
+| **5.1.** Chọn phương thức "Tiền mặt" | |
+| | **5.1.1.** Ghi nhận phương thức thanh toán là "Tiền mặt" và chờ Tài xế xác nhận đã thu tiền |
+| **5.1.2.** Tài xế xác nhận đã thu tiền | |
+| | **5.1.3.** Cập nhật trạng thái thanh toán thành "Đã thanh toán" và quay lại bước 9 |
+| **5.2.** Chọn phương thức "Thanh toán online" | |
+| | **5.2.1.** Chuyển yêu cầu thanh toán đến Payment Gateway |
+| | **5.2.2.** Payment Gateway xử lý giao dịch và trả kết quả về hệ thống |
+| | **5.2.3.** Nếu giao dịch thành công, quay lại bước 7 |
+
+### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor | System |
+| :--- | :--- |
+| | **4.1.** Chuyến đi không tồn tại hoặc không có cước phí cần thanh toán, hiển thị thông báo lỗi và kết thúc use case |
+| | **4.2.** Chuyến đi đã được thanh toán trước đó, hiển thị thông báo "Chuyến đi đã được thanh toán" và kết thúc use case |
+| | **7.1.** Giao dịch thanh toán online thất bại hoặc bị từ chối, cập nhật trạng thái "Thanh toán thất bại" và thông báo cho Khách hàng |
+| | **7.2.** Mất kết nối hoặc Payment Gateway không phản hồi, thông báo "Không thể xử lý thanh toán, vui lòng thử lại sau" |
+| **7.2.1.** Thực hiện lại thanh toán, quay lại bước 6 | |
+| | **7.3.** Lỗi hệ thống khi ghi nhận giao dịch, thông báo lỗi và không cập nhật trạng thái "Đã thanh toán" |
 
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
