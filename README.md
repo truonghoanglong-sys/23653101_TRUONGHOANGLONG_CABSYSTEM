@@ -427,6 +427,45 @@ Bước 8: đặc tả usecase
 | :--- | :--- |
 | | **7.1.** Không có Tài xế khả dụng trong phạm vi tìm kiếm; hiển thị thông báo "Hiện không có tài xế khả dụng, vui lòng thử lại sau" và kết thúc use case |
 | | **7.2.** Trong quá trình chuyển tiếp (fallback) tại bước 8.2, không còn Tài xế khả dụng khác để chuyển tiếp; hiển thị thông báo "Không tìm được tài xế, vui lòng thử lại sau" và kết thúc use case |
+
+##6. Use case: Hủy xe
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Hủy xe |
+| **– Mô tả sơ lược:** | Cho phép Khách hàng chủ động hủy yêu cầu đặt xe hoặc hủy chuyến đi trước khi Tài xế đón. |
+| **– Actor chính:** | Khách hàng |
+| **– Actor phụ:** | Tài xế |
+| **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập; Khách hàng đang có một chuyến đi ở trạng thái "Đang tìm tài xế" hoặc "Đang đến đón" (Tài xế chưa đón khách). |
+| **– Hậu điều kiện (Post-condition):** | Chuyến đi chuyển sang trạng thái "Đã hủy"; Tài xế (nếu đã được gán) được giải phóng khỏi chuyến đi và trở về trạng thái sẵn sàng nhận chuyến khác. |
+
+### – Luồng sự kiện chính (main flow):
+
+| Actor | System |
+| :--- | :--- |
+| **1.** Khách hàng chọn chức năng "Hủy xe" đối với chuyến đi đang ở trạng thái "Đang tìm tài xế" hoặc "Đang đến đón" | |
+| | **2.** Hiển thị thông tin chuyến đi hiện tại và yêu cầu xác nhận hủy |
+| **3.** Khách hàng xác nhận hủy chuyến | |
+| | **4.** Kiểm tra trạng thái hiện tại của chuyến đi |
+| | **5.** Cập nhật trạng thái chuyến đi thành "Đã hủy" |
+| | **6.** Nếu chuyến đi đã được gán cho Tài xế, gửi thông báo hủy chuyến đến Tài xế và giải phóng Tài xế về trạng thái sẵn sàng |
+| | **7.** Hiển thị thông báo "Hủy chuyến thành công". Kết thúc use case |
+
+### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor | System |
+| :--- | :--- |
+| **3.1.** Khách hàng không muốn hủy chuyến, chọn "Đóng"/"Thoát" tại màn hình xác nhận | |
+| | **3.1.1.** Hệ thống đóng màn hình xác nhận, giữ nguyên trạng thái chuyến đi hiện tại và kết thúc use case |
+
+### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor | System |
+| :--- | :--- |
+| | **4.1.** Chuyến đi đã chuyển sang trạng thái không cho phép hủy, hiển thị thông báo "Không thể hủy chuyến ở thời điểm này" và kết thúc use case |
+| | **5.1.** Hệ thống gặp lỗi khi cập nhật trạng thái hủy chuyến, hiển thị thông báo "Không thể hủy chuyến, vui lòng thử lại sau" |
+| **5.1.1.** Khách hàng nhấn "OK" và thực hiện lại thao tác hủy chuyến | |
+
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
 <img width="926" height="1106" alt="image" src="https://github.com/user-attachments/assets/1f7747a1-a666-4a84-bc58-fc00ca01fbd0" />
