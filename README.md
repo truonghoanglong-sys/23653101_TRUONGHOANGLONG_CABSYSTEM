@@ -509,6 +509,46 @@ Bước 8: đặc tả usecase
 | | **3.1.1.** Payment Gateway không phản hồi hoặc xảy ra lỗi kết nối, hiển thị thông báo "Không thể sử dụng thanh toán online, vui lòng thử lại sau" |
 | | **5.1.** Không thể lưu phương thức thanh toán do lỗi hệ thống, hiển thị thông báo "Không thể lưu phương thức thanh toán, vui lòng thử lại sau" |
 
+## Use case: Duyệt hồ sơ tài xế
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Duyệt hồ sơ tài xế |
+| **– Mô tả sơ lược:** | Cho phép Nhân viên Vận hành kiểm tra thông tin, hình ảnh giấy tờ (Bằng lái, Biển số, Cavet, Đăng kiểm) do Tài xế cung cấp để phê duyệt, từ chối hoặc yêu cầu bổ sung giấy tờ. |
+| **– Actor chính:** | Nhân viên Vận hành |
+| **– Actor phụ:** | Tài xế (đã gửi hồ sơ đăng ký), Nhà cung cấp Thông báo (gửi kết quả xử lý hồ sơ đến Tài xế) |
+| **– Tiền điều kiện (Pre-condition):** | Nhân viên Vận hành đã đăng nhập vào hệ thống; có ít nhất một hồ sơ Tài xế đang ở trạng thái "Chờ duyệt". |
+| **– Hậu điều kiện (Post-condition):** | Hồ sơ Tài xế được chuyển sang trạng thái "Đã duyệt" (được phép nhận chuyến), "Bị từ chối" hoặc "Chờ bổ sung"; Tài xế nhận được thông báo kết quả tương ứng. |
+
+### – Luồng sự kiện chính (main flow):
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **1.** Chọn mục "Duyệt hồ sơ tài xế" | |
+| | **2.** Hiển thị danh sách hồ sơ Tài xế đang ở trạng thái "Chờ duyệt" |
+| **3.** Chọn một hồ sơ để xem chi tiết | |
+| | **4.** Hiển thị đầy đủ thông tin cá nhân và hình ảnh giấy tờ (Bằng lái, Biển số, Cavet, Đăng kiểm) của Tài xế |
+| **5.** Kiểm tra tính hợp lệ của thông tin/giấy tờ và lựa chọn kết quả xử lý: Phê duyệt / Từ chối / Yêu cầu bổ sung giấy tờ | |
+| | **6.** Trường hợp Phê duyệt: Cập nhật trạng thái hồ sơ thành "Đã duyệt", cấp quyền hoạt động cho Tài xế, gửi thông báo kết quả đến Tài xế qua Nhà cung cấp Thông báo. Kết thúc use case |
+
+### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **5.1.** Phát hiện thông tin/giấy tờ không hợp lệ, chọn "Từ chối" và nhập lý do từ chối | |
+| | **5.2.** Cập nhật trạng thái hồ sơ thành "Bị từ chối", gửi thông báo kèm lý do đến Tài xế qua Nhà cung cấp Thông báo. Kết thúc use case |
+| **5.3.** Chưa đủ căn cứ để quyết định, chọn "Yêu cầu bổ sung giấy tờ" và nhập nội dung yêu cầu | |
+| | **5.4.** Cập nhật trạng thái hồ sơ thành "Chờ bổ sung", gửi thông báo yêu cầu bổ sung đến Tài xế. Kết thúc use case |
+
+### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| | **4.1.** Mất kết nối Internet hoặc lỗi hệ thống khi tải hình ảnh giấy tờ, hiển thị thông báo "Không thể tải dữ liệu, vui lòng thử lại" |
+| **4.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại thao tác xem hồ sơ, quay lại bước 3 | |
+| | **6.1.** Mất kết nối Internet hoặc lỗi hệ thống khi lưu kết quả duyệt, hiển thị thông báo "Không thể lưu kết quả, vui lòng thử lại" |
+| **6.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại thao tác xử lý hồ sơ, quay lại bước 5 | |
+
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
 <img width="926" height="1106" alt="image" src="https://github.com/user-attachments/assets/1f7747a1-a666-4a84-bc58-fc00ca01fbd0" />
