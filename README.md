@@ -151,7 +151,8 @@ quadrantChart
 * **FR-EXT-02 (Nhà cung cấp Thông báo - Gửi thông báo):** Chịu trách nhiệm truyền tải các Push Notification, SMS, Email tức thì đến thiết bị của người dùng.
 
 Bước 7: vẽ usecase tổng quát
-<img width="973" height="977" alt="image" src="https://github.com/user-attachments/assets/3b1dea0d-104a-4000-a6ef-0fa5c6b955c0" />
+<img width="973" height="977" alt="image" src="https://github.com/user-attachments/assets/feea7c2b-ea6c-49bb-81d3-4adc27cc6d04" />
+
 
 
 
@@ -509,7 +510,7 @@ Bước 8: đặc tả usecase
 | | **3.1.1.** Payment Gateway không phản hồi hoặc xảy ra lỗi kết nối, hiển thị thông báo "Không thể sử dụng thanh toán online, vui lòng thử lại sau" |
 | | **5.1.** Không thể lưu phương thức thanh toán do lỗi hệ thống, hiển thị thông báo "Không thể lưu phương thức thanh toán, vui lòng thử lại sau" |
 
-## Use case: Duyệt hồ sơ tài xế
+##8. Use case: Duyệt hồ sơ tài xế
 
 | Thuộc tính | Nội dung |
 | :--- | :--- |
@@ -548,6 +549,703 @@ Bước 8: đặc tả usecase
 | **4.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại thao tác xem hồ sơ, quay lại bước 3 | |
 | | **6.1.** Mất kết nối Internet hoặc lỗi hệ thống khi lưu kết quả duyệt, hiển thị thông báo "Không thể lưu kết quả, vui lòng thử lại" |
 | **6.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại thao tác xử lý hồ sơ, quay lại bước 5 | |
+
+##9. Use case: Giám sát vận hành
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Giám sát vận hành |
+| **– Mô tả sơ lược:** | Cho phép Nhân viên Vận hành theo dõi danh sách các chuyến đi đang diễn ra cùng vị trí và trạng thái của Tài xế theo thời gian thực trên bản đồ. |
+| **– Actor chính:** | Nhân viên Vận hành |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Nhân viên Vận hành đã đăng nhập vào hệ thống. |
+| **– Hậu điều kiện (Post-condition):** | Nhân viên Vận hành xem được tình trạng các chuyến đi và Tài xế tại thời điểm giám sát. |
+
+### – Luồng sự kiện chính (main flow):
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **1.** Chọn mục "Giám sát vận hành" | |
+| | **2.** Hiển thị bản đồ tổng quan cùng danh sách các chuyến đi đang diễn ra (trạng thái: "Đang tìm tài xế", "Đang đến đón", "Đang di chuyển") và vị trí Tài xế theo thời gian thực |
+| **3.** Chọn một chuyến đi trong danh sách để xem chi tiết | |
+| | **4.** Hiển thị thông tin chi tiết chuyến đi (Khách hàng, Tài xế, điểm đi/đến, trạng thái, thời gian) và vị trí hiện tại trên bản đồ |
+| **5.** Đóng màn hình chi tiết để quay lại danh sách tổng quan | |
+| | **6.** Hiển thị lại bản đồ tổng quan và tiếp tục cập nhật dữ liệu theo thời gian thực. Kết thúc use case |
+
+### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **3.1.** Nhập từ khóa hoặc sử dụng bộ lọc theo khu vực, trạng thái chuyến đi hoặc Tài xế | |
+| | **3.2.** Lọc và hiển thị danh sách chuyến đi/Tài xế phù hợp với điều kiện tìm kiếm |
+| **3.3.** Chọn một chuyến đi trong danh sách kết quả để xem chi tiết | |
+| | **3.4.** Hiển thị thông tin chi tiết chuyến đi và vị trí hiện tại trên bản đồ, quay lại bước 5 |
+| | **3.5.** Không tìm thấy chuyến đi/Tài xế phù hợp với điều kiện tìm kiếm, hiển thị thông báo "Không tìm thấy dữ liệu phù hợp" |
+
+### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| | **2.1.** Mất kết nối Internet hoặc lỗi hệ thống khi tải dữ liệu bản đồ/danh sách chuyến đi, hiển thị thông báo "Không thể tải dữ liệu giám sát, vui lòng thử lại" |
+| **2.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại thao tác, quay lại bước 1 | |
+| | **4.1.** Mất kết nối Internet hoặc lỗi hệ thống khi tải chi tiết chuyến đi, hiển thị thông báo "Không thể tải chi tiết chuyến đi, vui lòng thử lại" |
+| **4.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại thao tác xem chi tiết, quay lại bước 3 | |
+
+##10. Use case: Can thiệp sự cố
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Can thiệp sự cố |
+| **– Mô tả sơ lược:** | Cho phép Nhân viên Vận hành xử lý các sự cố phát sinh đối với chuyến đi đang diễn ra bằng cách hủy chuyến, điều tài xế khác hoặc ghi nhận phương án xử lý khác. |
+| **– Actor chính:** | Nhân viên Vận hành |
+| **– Actor phụ:** | Khách hàng, Tài xế, Dịch vụ thông báo |
+| **– Tiền điều kiện (Pre-condition):** | Nhân viên Vận hành đã đăng nhập vào hệ thống và có một chuyến đi đang diễn ra cần được can thiệp. |
+| **– Hậu điều kiện (Post-condition):** | Kết quả can thiệp được lưu vào hệ thống; trạng thái chuyến đi và tài xế được cập nhật tương ứng; các bên liên quan nhận được thông báo nếu phương án xử lý làm thay đổi chuyến đi hoặc tài xế. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **1.** Từ màn hình Giám sát vận hành, chọn chuyến đi đang gặp sự cố. | |
+| | **2.** Hiển thị thông tin chi tiết chuyến đi, tài xế hiện tại, trạng thái chuyến đi và các phương án can thiệp. |
+| **3.** Chọn một phương án can thiệp: Hủy chuyến / Điều tài xế khác / Xử lý sự cố khác. | |
+| **4.** Nhập lý do hoặc nội dung xử lý và xác nhận can thiệp. | |
+| | **5.** Kiểm tra tính hợp lệ của thông tin can thiệp. |
+| | **6.** Thực hiện phương án can thiệp được chọn và cập nhật thông tin chuyến đi tương ứng. |
+| | **7.** Lưu kết quả can thiệp vào lịch sử xử lý sự cố của chuyến đi. |
+| | **8.** Gửi thông báo đến các bên liên quan nếu phương án xử lý làm thay đổi chuyến đi hoặc tài xế. |
+| | **9.** Hiển thị thông báo can thiệp thành công. Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| **3.1.** Chọn phương án **“Hủy chuyến”**. | |
+| | **3.2.** Cập nhật trạng thái chuyến đi thành **“Đã hủy”** và giải phóng tài xế đang được ghép với chuyến đi (nếu có). |
+| | **3.3.** Gửi thông báo hủy chuyến kèm lý do đến Khách hàng và Tài xế liên quan. |
+| | **3.4.** Tiếp tục bước **7** của luồng chính. |
+| **3.5.** Chọn phương án **“Điều tài xế khác”**. | |
+| | **3.6.** Xác định vị trí hiện tại của chuyến đi và tìm Tài xế đang sẵn sàng phù hợp theo vị trí GPS. |
+| | **3.7.** Ghép Tài xế mới với chuyến đi và giữ nguyên thông tin chuyến đi. |
+| | **3.8.** Cập nhật Tài xế phụ trách và trạng thái chuyến đi. |
+| | **3.9.** Gửi thông báo đến Khách hàng và Tài xế mới về kết quả điều phối. |
+| | **3.10.** Tiếp tục bước **7** của luồng chính. |
+| **3.11.** Chọn phương án **“Xử lý sự cố khác”**. | |
+| **3.12.** Nhập nội dung xử lý sự cố. | |
+| | **3.13.** Lưu nội dung xử lý vào lịch sử sự cố và giữ nguyên trạng thái chuyến đi hiện tại. |
+| | **3.14.** Tiếp tục bước **7** của luồng chính. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Nhân viên Vận hành | System |
+| :--- | :--- |
+| | **5.1.** Thông tin can thiệp không hợp lệ hoặc thiếu lý do/nội dung bắt buộc, hệ thống hiển thị thông báo yêu cầu bổ sung hoặc chỉnh sửa thông tin. |
+| **5.2.** Bổ sung hoặc chỉnh sửa thông tin can thiệp. | |
+| | **5.3.** Hệ thống quay lại bước **5** của luồng chính. |
+| | **6.1.** Không tìm thấy Tài xế khả dụng khi thực hiện phương án **“Điều tài xế khác”**, hệ thống hiển thị thông báo: **“Không có tài xế khả dụng, vui lòng chọn phương án khác.”** |
+| **6.2.** Nhấn **“OK”** và chọn phương án can thiệp khác. | |
+| | **6.3.** Hệ thống quay lại bước **3** của luồng chính. |
+| | **7.1.** Phát sinh lỗi hệ thống hoặc mất kết nối khi lưu kết quả can thiệp, hệ thống hiển thị thông báo: **“Không thể lưu kết quả xử lý, vui lòng thử lại.”** |
+| **7.2.** Nhấn **“OK”** và thực hiện lại thao tác. | |
+| | **7.3.** Hệ thống quay lại bước **4** của luồng chính. |
+
+##11. Use case: Tra cứu giao dịch
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Tra cứu giao dịch |
+| **– Mô tả sơ lược:** | Cho phép Nhân viên Tài chính tra cứu và kiểm tra thông tin lịch sử các giao dịch thanh toán trên hệ thống. |
+| **– Actor chính:** | Nhân viên Tài chính |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Nhân viên Tài chính đã đăng nhập vào hệ thống. |
+| **– Hậu điều kiện (Post-condition):** | Kết quả tra cứu và thông tin giao dịch được hiển thị đúng theo điều kiện tra cứu. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Nhân viên Tài chính | System |
+| :--- | :--- |
+| **1.** Chọn mục **"Tra cứu giao dịch"**. | |
+| | **2.** Hiển thị danh sách giao dịch và bộ lọc tra cứu gồm: thời gian, phương thức thanh toán, trạng thái giao dịch, mã chuyến đi và mã giao dịch. |
+| **3.** Nhập điều kiện tra cứu và nhấn **"Tìm kiếm"**. | |
+| | **4.** Kiểm tra tính hợp lệ của điều kiện tra cứu. |
+| | **5.** Truy vấn dữ liệu và hiển thị danh sách các giao dịch phù hợp với điều kiện tra cứu. |
+| **6.** Chọn một giao dịch trong danh sách. | |
+| | **7.** Hiển thị thông tin chi tiết giao dịch gồm: mã giao dịch, mã chuyến đi, Khách hàng, Tài xế, số tiền, phương thức thanh toán, trạng thái và thời gian giao dịch. Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Nhân viên Tài chính | System |
+| :--- | :--- |
+| **5.1.** Chọn **"Xuất dữ liệu"** tại màn hình danh sách giao dịch. | |
+| | **5.2.** Xuất danh sách giao dịch theo điều kiện tra cứu ra file. |
+| | **5.3.** Hiển thị file dữ liệu để Nhân viên Tài chính tải về. Kết thúc use case. |
+| **7.1.** Chọn **"Xuất dữ liệu"** tại màn hình chi tiết giao dịch. | |
+| | **7.2.** Xuất thông tin chi tiết giao dịch ra file. |
+| | **7.3.** Hiển thị file dữ liệu để Nhân viên Tài chính tải về. Kết thúc use case. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Nhân viên Tài chính | System |
+| :--- | :--- |
+| | **4.1.** Điều kiện tra cứu không hợp lệ hoặc vượt quá giới hạn cho phép, hệ thống hiển thị thông báo **"Điều kiện tra cứu không hợp lệ, vui lòng kiểm tra lại."** |
+| **4.2.** Chỉnh sửa điều kiện tra cứu. | |
+| | **4.3.** Quay lại bước **4** của luồng chính. |
+| | **5.1a.** Không có giao dịch nào phù hợp với điều kiện tra cứu, hệ thống hiển thị thông báo **"Không tìm thấy giao dịch phù hợp."** |
+| **5.2a.** Nhập lại điều kiện tra cứu. | |
+| | **5.3a.** Quay lại bước **3** của luồng chính. |
+| | **5.1b.** Mất kết nối hoặc xảy ra lỗi hệ thống khi truy vấn dữ liệu, hệ thống hiển thị thông báo **"Không thể tải dữ liệu, vui lòng thử lại."** |
+| **5.2b.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **5.3b.** Quay lại bước **3** của luồng chính. |
+| | **7.1a.** Mất kết nối hoặc xảy ra lỗi hệ thống khi tải chi tiết giao dịch, hệ thống hiển thị thông báo **"Không thể tải chi tiết giao dịch, vui lòng thử lại."** |
+| **7.2a.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **7.3a.** Quay lại bước **6** của luồng chính. |
+
+##12. Use case: Đối soát tài chính
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Đối soát tài chính |
+| **– Mô tả sơ lược:** | Cho phép Nhân viên Tài chính đối chiếu dữ liệu thanh toán giữa hệ thống và Cổng thanh toán để phát hiện và xử lý các giao dịch chênh lệch. |
+| **– Actor chính:** | Nhân viên Tài chính |
+| **– Actor phụ:** | Cổng thanh toán |
+| **– Tiền điều kiện (Pre-condition):** | Nhân viên Tài chính đã đăng nhập vào hệ thống. |
+| **– Hậu điều kiện (Post-condition):** | Kết quả đối soát được ghi nhận và các giao dịch chênh lệch được đánh dấu hoặc xử lý theo phương án được chọn. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Nhân viên Tài chính | System |
+| :--- | :--- |
+| **1.** Chọn mục **"Đối soát tài chính"**. | |
+| | **2.** Hiển thị form chọn khoảng thời gian đối soát gồm ngày bắt đầu và ngày kết thúc. |
+| **3.** Chọn khoảng thời gian và nhấn **"Bắt đầu đối soát"**. | |
+| | **4.** Kiểm tra tính hợp lệ của khoảng thời gian đối soát. |
+| | **5.** Truy xuất dữ liệu giao dịch từ cơ sở dữ liệu hệ thống và Cổng thanh toán trong khoảng thời gian đã chọn. |
+| | **6.** Đối chiếu các giao dịch theo mã giao dịch, số tiền, trạng thái và thời gian giao dịch. |
+| | **7.** Hiển thị kết quả đối soát gồm danh sách giao dịch khớp và giao dịch chênh lệch. Kết thúc use case nếu không có giao dịch chênh lệch. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Nhân viên Tài chính | System |
+| :--- | :--- |
+| **7.1.** Chọn một giao dịch chênh lệch để xem chi tiết. | |
+| | **7.2.** Hiển thị thông tin so sánh giữa hệ thống và Cổng thanh toán gồm: số tiền, trạng thái và thời gian giao dịch. |
+| **7.3.** Nhập ghi chú xử lý và chọn phương án **"Đánh dấu đã xử lý"** hoặc **"Yêu cầu Cổng thanh toán kiểm tra lại"**. | |
+| | **7.4.** Cập nhật trạng thái xử lý và lưu lịch sử xử lý giao dịch chênh lệch. Kết thúc use case. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Nhân viên Tài chính | System |
+| :--- | :--- |
+| | **4.1.** Khoảng thời gian không hợp lệ, ngày bắt đầu lớn hơn ngày kết thúc hoặc vượt quá giới hạn cho phép, hệ thống hiển thị thông báo **"Khoảng thời gian đối soát không hợp lệ, vui lòng kiểm tra lại."** |
+| **4.2.** Chỉnh sửa khoảng thời gian đối soát. | |
+| | **4.3.** Quay lại bước **4** của luồng chính. |
+| | **5.1.** Không có dữ liệu giao dịch trong khoảng thời gian đã chọn, hệ thống hiển thị thông báo **"Không có dữ liệu giao dịch để đối soát."** |
+| **5.2.** Chọn lại khoảng thời gian đối soát. | |
+| | **5.3.** Quay lại bước **3** của luồng chính. |
+| | **5.1a.** Mất kết nối hoặc lỗi khi lấy dữ liệu từ Cổng thanh toán, hệ thống hiển thị thông báo **"Không thể lấy dữ liệu đối soát, vui lòng thử lại."** |
+| **5.2a.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **5.3a.** Quay lại bước **3** của luồng chính. |
+| | **7.1a.** Không thể tải thông tin chi tiết giao dịch chênh lệch do lỗi hệ thống, hệ thống hiển thị thông báo **"Không thể tải chi tiết giao dịch, vui lòng thử lại."** |
+| **7.2a.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **7.3a.** Quay lại bước **7.1** của luồng thay thế. |
+| | **7.3b.** Ghi chú xử lý bị bỏ trống hoặc vượt quá giới hạn cho phép, hệ thống hiển thị thông báo **"Thông tin xử lý không hợp lệ."** |
+| **7.4b.** Bổ sung hoặc chỉnh sửa ghi chú xử lý. | |
+| | **7.5b.** Quay lại bước **7.3** của luồng thay thế. |
+| | **7.3c.** Mất kết nối hoặc lỗi hệ thống khi lưu kết quả xử lý, hệ thống hiển thị thông báo **"Không thể lưu kết quả xử lý, vui lòng thử lại."** |
+| **7.4c.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **7.5c.** Quay lại bước **7.3** của luồng thay thế. |
+
+##13. Use case: Quản lý ví tài xế
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Quản lý ví tài xế |
+| **– Mô tả sơ lược:** | Cho phép Nhân viên Tài chính quản lý số dư, lịch sử biến động nguồn tiền, khấu trừ chiết khấu và công nợ trên ví của Tài xế. |
+| **– Actor chính:** | Nhân viên Tài chính |
+| **– Actor phụ:** | Tài xế |
+| **– Tiền điều kiện (Pre-condition):** | Nhân viên Tài chính đã đăng nhập vào hệ thống và Tài xế đã có ví trên hệ thống. |
+| **– Hậu điều kiện (Post-condition):** | Thông tin ví của Tài xế được cập nhật theo thao tác của Nhân viên Tài chính và lịch sử biến động được ghi nhận. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Nhân viên Tài chính | System |
+| :--- | :--- |
+| **1.** Chọn mục **"Quản lý ví tài xế"**. | |
+| | **2.** Hiển thị danh sách Tài xế kèm số dư ví hiện tại. |
+| **3.** Chọn một Tài xế. | |
+| | **4.** Hiển thị thông tin ví của Tài xế gồm: số dư hiện tại, lịch sử biến động và trạng thái công nợ. |
+| **5.** Chọn thao tác cần thực hiện: **Khấu trừ chiết khấu / Ghi nhận công nợ / Điều chỉnh số dư**. | |
+| **6.** Nhập thông tin cần thiết và xác nhận thao tác. | |
+| | **7.** Kiểm tra thông tin thao tác. |
+| | **8.** Cập nhật số dư ví và ghi nhận biến động vào lịch sử ví. |
+| | **9.** Gửi thông báo cho Tài xế về biến động ví. Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Nhân viên Tài chính | System |
+| :--- | :--- |
+| **2.1.** Nhập tên hoặc mã Tài xế để tìm kiếm. | |
+| | **2.2.** Hiển thị danh sách Tài xế phù hợp với từ khóa tìm kiếm. |
+| | **2.3.** Tiếp tục bước **3** của luồng chính. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Nhân viên Tài chính | System |
+| :--- | :--- |
+| | **7.1.** Thông tin thao tác không hợp lệ hoặc còn thiếu, hệ thống hiển thị thông báo yêu cầu kiểm tra và bổ sung thông tin. |
+| **7.2.** Bổ sung hoặc chỉnh sửa thông tin. | |
+| | **7.3.** Quay lại bước **7** của luồng chính. |
+| | **8.1.** Số tiền thực hiện thao tác không phù hợp với số dư ví, hệ thống hiển thị thông báo **"Số dư không đủ để thực hiện thao tác."** |
+| **8.2.** Nhấn **"OK"** và điều chỉnh lại thao tác. | |
+| | **8.3.** Quay lại bước **5** của luồng chính. |
+| | **8.4.** Xảy ra lỗi khi cập nhật thông tin ví, hệ thống hiển thị thông báo **"Không thể cập nhật thông tin ví, vui lòng thử lại."** |
+| **8.5.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **8.6.** Quay lại bước **6** của luồng chính. |
+
+##14. Use case: Quản lý hồ sơ và phương tiện
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Quản lý hồ sơ và phương tiện |
+| **– Mô tả sơ lược:** | Cho phép Tài xế cập nhật thông tin cá nhân và tải lên giấy tờ xe (Bằng lái, Biển số, Cavet, Đăng kiểm) để chờ Nhân viên Vận hành duyệt. |
+| **– Actor chính:** | Tài xế |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Tài xế đã đăng nhập thành công vào hệ thống. |
+| **– Hậu điều kiện (Post-condition):** | Thông tin hồ sơ/phương tiện được cập nhật; nếu có thay đổi giấy tờ, hồ sơ chuyển sang trạng thái "Chờ duyệt". |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **1.** Chọn mục **"Hồ sơ và phương tiện"**. | |
+| | **2.** Hiển thị thông tin cá nhân hiện tại gồm: Họ tên, Số điện thoại, Email, Ảnh đại diện và thông tin phương tiện kèm giấy tờ đã tải gồm: Bằng lái, Biển số, Cavet, Đăng kiểm. |
+| **3.** Chỉnh sửa thông tin cá nhân cần thay đổi và nhấn **"Lưu"**. | |
+| | **4.** Kiểm tra thông tin cá nhân. |
+| | **5.** Cập nhật thông tin cá nhân và hiển thị thông báo **"Cập nhật thành công"**. Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **2.1.** Chọn **"Cập nhật giấy tờ xe"**. | |
+| | **2.2.** Hiển thị chức năng tải lên giấy tờ gồm: Bằng lái, Biển số, Cavet, Đăng kiểm. |
+| **2.3.** Tải lên hình ảnh giấy tờ mới và nhấn **"Gửi duyệt"**. | |
+| | **2.4.** Kiểm tra định dạng và dung lượng file. |
+| | **2.5.** Lưu giấy tờ mới và chuyển trạng thái hồ sơ thành **"Chờ duyệt"**. |
+| | **2.6.** Gửi yêu cầu duyệt đến Nhân viên Vận hành. Kết thúc use case. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **4.1.** Dữ liệu nhập sai định dạng, hệ thống hiển thị thông báo lỗi tương ứng. |
+| **4.2.** Chỉnh sửa lại thông tin. | |
+| | **4.3.** Quay lại bước **4** của luồng chính. |
+| | **2.4.1.** File giấy tờ tải lên sai định dạng hoặc vượt quá dung lượng cho phép, hệ thống hiển thị thông báo **"File không hợp lệ, vui lòng chọn lại."** |
+| **2.4.2.** Chọn lại file. | |
+| | **2.4.3.** Quay lại bước **2.4** của luồng thay thế. |
+| | **2.5.1.** Mất kết nối Internet hoặc xảy ra lỗi hệ thống khi tải giấy tờ hoặc lưu thông tin, hệ thống hiển thị thông báo **"Không thể lưu dữ liệu, vui lòng thử lại."** |
+| **2.5.2.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **2.5.3.** Quay lại bước **2.3** của luồng thay thế. |
+
+##15. Use case: Cập nhật trạng thái sẵn sàng
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Cập nhật trạng thái sẵn sàng |
+| **– Mô tả sơ lược:** | Cho phép Tài xế chủ động bật/tắt chế độ nhận chuyến (Sẵn sàng/Ngừng nhận chuyến) để hệ thống xác định có đưa vào danh sách ghép chuyến hay không. |
+| **– Actor chính:** | Tài xế |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Tài xế đã đăng nhập thành công vào hệ thống và hồ sơ Tài xế đang ở trạng thái "Đã duyệt". |
+| **– Hậu điều kiện (Post-condition):** | Trạng thái sẵn sàng của Tài xế được cập nhật; nếu bật "Sẵn sàng", Tài xế được đưa vào danh sách ghép chuyến. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **1.** Mở màn hình chính và chọn trạng thái **"Sẵn sàng"**. | |
+| | **2.** Kiểm tra điều kiện để Tài xế chuyển sang trạng thái "Sẵn sàng". |
+| | **3.** Cập nhật trạng thái Tài xế thành **"Sẵn sàng"** và đưa Tài xế vào danh sách ghép chuyến. |
+| | **4.** Hiển thị trạng thái **"Sẵn sàng"**. Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **1.1.** Chọn trạng thái **"Ngừng nhận chuyến"**. | |
+| | **1.2.** Cập nhật trạng thái Tài xế thành **"Ngừng nhận chuyến"** và loại Tài xế khỏi danh sách ghép chuyến. |
+| | **1.3.** Hiển thị trạng thái **"Ngừng nhận chuyến"**. Kết thúc use case. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **2.1.** Không đủ điều kiện để chuyển sang trạng thái **"Sẵn sàng"**, hệ thống hiển thị thông báo tương ứng. |
+| **2.2.** Nhấn **"OK"**. | |
+| | **2.3.** Kết thúc use case. |
+| | **3.1.** Xảy ra lỗi khi cập nhật trạng thái, hệ thống hiển thị thông báo **"Không thể cập nhật trạng thái, vui lòng thử lại."** |
+| **3.2.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **3.3.** Quay lại bước **1** của luồng chính. |
+
+##16. Use case: Xử lý yêu cầu chuyến đi
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Xử lý yêu cầu chuyến đi |
+| **– Mô tả sơ lược:** | Cho phép Tài xế nhận thông báo chuyến đi mới do hệ thống ghép chuyến (Smart Matching) gửi đến và thực hiện Chấp nhận hoặc Từ chối trong thời gian quy định. |
+| **– Actor chính:** | Tài xế |
+| **– Actor phụ:** | Khách hàng |
+| **– Tiền điều kiện (Pre-condition):** | Tài xế đang ở trạng thái "Sẵn sàng" và hệ thống vừa ghép Tài xế với một yêu cầu đặt xe mới. |
+| **– Hậu điều kiện (Post-condition):** | Yêu cầu chuyến đi được Tài xế xử lý (Chấp nhận/Từ chối/Hết thời gian phản hồi); chuyến đi được cập nhật theo kết quả xử lý. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **1.** Gửi thông báo yêu cầu chuyến đi mới đến Tài xế, kèm điểm đón, điểm đến và cước phí dự kiến; bắt đầu đếm thời gian phản hồi. |
+| **2.** Xem thông tin chuyến đi và chọn **"Chấp nhận"**. | |
+| | **3.** Ghi nhận Tài xế chấp nhận chuyến và cập nhật trạng thái chuyến đi thành **"Đang đến đón"**. |
+| | **4.** Gửi thông tin Tài xế gồm tên, biển số, số điện thoại và vị trí real-time đến Khách hàng. Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **2.1.** Chọn **"Từ chối"** chuyến đi. | |
+| | **2.2.** Ghi nhận Tài xế từ chối chuyến và chuyển yêu cầu sang Tài xế kế cận tiếp theo mà không thay đổi dữ liệu chuyến đi. Kết thúc use case. |
+| | **1.1.** Hết thời gian phản hồi quy định mà Tài xế chưa thực hiện thao tác. |
+| | **1.2.** Ghi nhận yêu cầu chuyến đi hết thời gian phản hồi và chuyển yêu cầu sang Tài xế kế cận tiếp theo. Kết thúc use case. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **3.1.** Mất kết nối hoặc xảy ra lỗi hệ thống khi ghi nhận thao tác **"Chấp nhận"**, hệ thống hiển thị thông báo **"Không thể xác nhận chuyến đi, vui lòng thử lại."** |
+| **3.2.** Nhấn **"OK"** và thực hiện lại thao tác **"Chấp nhận"** nếu thời gian phản hồi vẫn còn. | |
+| | **3.3.** Nếu thời gian phản hồi đã hết trong quá trình xử lý lỗi, hệ thống thực hiện luồng **1.1–1.2** của luồng thay thế. |
+
+##17. Use case: Cập nhật tiến trình đi
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Cập nhật tiến trình đi |
+| **– Mô tả sơ lược:** | Cho phép Tài xế cập nhật trạng thái thực tế của chuyến đi theo luồng: Đã đến điểm đón → Bắt đầu di chuyển → Hoàn thành chuyến đi. |
+| **– Actor chính:** | Tài xế |
+| **– Actor phụ:** | Khách hàng |
+| **– Tiền điều kiện (Pre-condition):** | Tài xế đã chấp nhận chuyến đi và chuyến đi đang ở trạng thái "Đang đến đón". |
+| **– Hậu điều kiện (Post-condition):** | Trạng thái chuyến đi được cập nhật theo tiến trình thực tế; khi hoàn thành, chuyến đi chuyển sang trạng thái "Hoàn thành". |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **1.** Di chuyển đến điểm đón và chọn **"Đã đến điểm đón"**. | |
+| | **2.** Cập nhật trạng thái chuyến đi thành **"Đã đến điểm đón"** và gửi thông báo đến Khách hàng. |
+| **3.** Đón khách xong và chọn **"Bắt đầu di chuyển"**. | |
+| | **4.** Cập nhật trạng thái chuyến đi thành **"Đang di chuyển"** và gửi thông báo đến Khách hàng. |
+| **5.** Đến điểm đến và chọn **"Hoàn thành chuyến đi"**. | |
+| | **6.** Cập nhật trạng thái chuyến đi thành **"Hoàn thành"** và gửi thông báo đến Khách hàng. Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| **1.1.** Không thể liên hệ được Khách hàng tại điểm đón, chọn **"Báo cáo sự cố"** và nhập lý do. | |
+| | **1.2.** Ghi nhận báo cáo sự cố và gửi thông báo đến Nhân viên Vận hành để can thiệp xử lý. |
+| | **1.3.** Giữ nguyên trạng thái chuyến đi hiện tại. Kết thúc use case. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Tài xế | System |
+| :--- | :--- |
+| | **2.1.** Xảy ra lỗi khi cập nhật trạng thái **"Đã đến điểm đón"**, hệ thống hiển thị thông báo **"Không thể cập nhật trạng thái, vui lòng thử lại."** |
+| **2.2.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **2.3.** Quay lại bước **1** của luồng chính. |
+| | **4.1.** Xảy ra lỗi khi cập nhật trạng thái **"Đang di chuyển"**, hệ thống hiển thị thông báo **"Không thể cập nhật trạng thái, vui lòng thử lại."** |
+| **4.2.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **4.3.** Quay lại bước **3** của luồng chính. |
+| | **6.1.** Xảy ra lỗi khi cập nhật trạng thái **"Hoàn thành"**, hệ thống hiển thị thông báo **"Không thể hoàn tất chuyến đi, vui lòng thử lại."** |
+| **6.2.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **6.3.** Quay lại bước **5** của luồng chính. |
+
+##18. Use case: Xem báo cáo doanh thu
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Xem báo cáo doanh thu |
+| **– Mô tả sơ lược:** | Cho phép Ban Giám đốc theo dõi doanh thu tổng quan, doanh thu theo thời gian và theo phương thức thanh toán. |
+| **– Actor chính:** | Ban Giám đốc |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Ban Giám đốc đã đăng nhập vào hệ thống và có quyền xem báo cáo doanh thu. |
+| **– Hậu điều kiện (Post-condition):** | Báo cáo doanh thu được hiển thị theo điều kiện đã chọn. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Ban Giám đốc | System |
+| :--- | :--- |
+| **1.** Chọn mục **"Báo cáo doanh thu"**. | |
+| | **2.** Hiển thị form chọn điều kiện báo cáo gồm: khoảng thời gian và phương thức thanh toán (Tất cả/Tiền mặt/Online). |
+| **3.** Chọn điều kiện và nhấn **"Xem báo cáo"**. | |
+| | **4.** Kiểm tra điều kiện báo cáo và truy vấn dữ liệu tương ứng. |
+| | **5.** Tổng hợp và hiển thị báo cáo doanh thu gồm: doanh thu tổng, doanh thu theo thời gian (ngày/tuần/tháng) và doanh thu theo phương thức thanh toán. Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Ban Giám đốc | System |
+| :--- | :--- |
+| **3.1.** Thay đổi điều kiện báo cáo. | |
+| | **3.2.** Cập nhật báo cáo theo điều kiện mới và hiển thị kết quả. Kết thúc use case. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Ban Giám đốc | System |
+| :--- | :--- |
+| | **4.1.** Điều kiện báo cáo không hợp lệ, hệ thống hiển thị thông báo yêu cầu kiểm tra lại điều kiện. |
+| **4.2.** Chỉnh sửa điều kiện báo cáo. | |
+| | **4.3.** Quay lại bước **4** của luồng chính. |
+| | **5.1.** Không có dữ liệu doanh thu phù hợp với điều kiện đã chọn, hệ thống hiển thị thông báo **"Không có dữ liệu trong khoảng thời gian này."** |
+| **5.2.** Nhấn **"OK"** và thay đổi điều kiện báo cáo. | |
+| | **5.3.** Quay lại bước **3** của luồng chính. |
+| | **5.4.** Xảy ra lỗi khi truy vấn hoặc tổng hợp dữ liệu, hệ thống hiển thị thông báo **"Không thể tải báo cáo, vui lòng thử lại."** |
+| **5.5.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **5.6.** Quay lại bước **3** của luồng chính. |
+
+##19. Use case: Xem báo cáo hiệu suất
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Xem báo cáo hiệu suất |
+| **– Mô tả sơ lược:** | Cho phép Ban Giám đốc theo dõi các chỉ số KPI, tỷ lệ hoàn thành/hủy chuyến và hiệu suất hoạt động của Tài xế. |
+| **– Actor chính:** | Ban Giám đốc |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Ban Giám đốc đã đăng nhập vào hệ thống và có quyền xem báo cáo hiệu suất. |
+| **– Hậu điều kiện (Post-condition):** | Báo cáo hiệu suất được hiển thị theo điều kiện đã chọn. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Ban Giám đốc | System |
+| :--- | :--- |
+| **1.** Chọn mục **"Báo cáo hiệu suất"**. | |
+| | **2.** Hiển thị form chọn điều kiện báo cáo gồm: khoảng thời gian và phạm vi (**Toàn hệ thống/Theo từng Tài xế**). |
+| **3.** Chọn điều kiện và nhấn **"Xem báo cáo"**. | |
+| | **4.** Kiểm tra điều kiện báo cáo và truy vấn dữ liệu tương ứng. |
+| | **5.** Tổng hợp và hiển thị báo cáo hiệu suất gồm: tổng số chuyến, tỷ lệ hoàn thành/hủy chuyến, thời gian ghép chuyến trung bình và KPI hiệu suất theo từng Tài xế (số chuyến, điểm đánh giá trung bình). Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Ban Giám đốc | System |
+| :--- | :--- |
+| **5.1.** Chọn một Tài xế trong bảng để xem chi tiết hiệu suất. | |
+| | **5.2.** Hiển thị chi tiết hiệu suất của Tài xế gồm: lịch sử chuyến đi, tỷ lệ chấp nhận/từ chối chuyến và điểm đánh giá theo từng chuyến. Kết thúc use case. |
+| **5.3.** Thay đổi điều kiện báo cáo. | |
+| | **5.4.** Cập nhật và hiển thị báo cáo theo điều kiện mới. Kết thúc use case. |
+| **5.5.** Chọn **"Xuất báo cáo"**. | |
+| | **5.6.** Xuất báo cáo hiệu suất theo điều kiện đã chọn ra file. Kết thúc use case. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Ban Giám đốc | System |
+| :--- | :--- |
+| | **4.1.** Điều kiện báo cáo không hợp lệ, hệ thống hiển thị thông báo yêu cầu kiểm tra lại điều kiện. |
+| **4.2.** Chỉnh sửa điều kiện báo cáo. | |
+| | **4.3.** Quay lại bước **4** của luồng chính. |
+| | **5.1.** Không có dữ liệu hiệu suất phù hợp với điều kiện đã chọn, hệ thống hiển thị thông báo **"Không có dữ liệu trong khoảng thời gian này."** |
+| **5.2.** Nhấn **"OK"** và thay đổi điều kiện báo cáo. | |
+| | **5.3.** Quay lại bước **3** của luồng chính. |
+| | **5.4.** Xảy ra lỗi khi truy vấn hoặc tổng hợp dữ liệu, hệ thống hiển thị thông báo **"Không thể tải báo cáo, vui lòng thử lại."** |
+| **5.5.** Nhấn **"OK"** và thực hiện lại thao tác. | |
+| | **5.6.** Quay lại bước **3** của luồng chính. |
+
+##20. Use case: Xử lý giao dịch online
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Xử lý giao dịch online |
+| **– Mô tả sơ lược:** | Cho phép Hệ thống CAB xử lý giao dịch thanh toán trực tuyến của Khách hàng thông qua Cổng thanh toán bằng cơ chế Tokenization và cập nhật kết quả giao dịch vào hệ thống. |
+| **– Actor chính:** | Khách hàng |
+| **– Actor phụ:** | Cổng thanh toán |
+| **– Tiền điều kiện (Pre-condition):** | Khách hàng đã chọn phương thức thanh toán trực tuyến và Hệ thống CAB có thể kết nối với Cổng thanh toán. |
+| **– Hậu điều kiện (Post-condition):** | Nếu giao dịch thành công, trạng thái thanh toán của chuyến đi được cập nhật và kết quả giao dịch được lưu vào hệ thống; nếu giao dịch thất bại, trạng thái thanh toán được cập nhật theo kết quả xử lý. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| **1.** Xác nhận thanh toán trực tuyến. | |
+| | **2.** Tạo yêu cầu thanh toán gồm số tiền và token thanh toán. |
+| | **3.** Gửi yêu cầu thanh toán đến Cổng thanh toán. |
+| | **4.** Tiếp nhận kết quả giao dịch từ Cổng thanh toán. |
+| | **5.** Cập nhật trạng thái thanh toán của chuyến đi và lưu kết quả giao dịch vào hệ thống. |
+| | **6.** Thông báo kết quả thanh toán cho Khách hàng. Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| | **4.1.** Giao dịch thanh toán thất bại, Cổng thanh toán trả về kết quả thất bại và lý do tương ứng. |
+| | **4.2.** Thực hiện Retry giao dịch theo số lần được cấu hình. |
+| | **4.3.** Nếu giao dịch vẫn thất bại sau khi Retry, cập nhật kết quả giao dịch thất bại và đề nghị Khách hàng chuyển sang phương thức thanh toán tiền mặt. Kết thúc use case. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Khách hàng | System |
+| :--- | :--- |
+| | **3.1.** Không thể gửi yêu cầu do mất kết nối với Cổng thanh toán, hệ thống hiển thị thông báo **"Không thể kết nối với Cổng thanh toán, vui lòng thử lại."** |
+| | **3.2.** Giữ nguyên trạng thái thanh toán của chuyến đi ở trạng thái chờ xử lý. |
+| **3.3.** Thực hiện lại thao tác thanh toán. | |
+| | **3.4.** Quay lại bước **2** của luồng chính. |
+
+##21. Use case: Gửi thông báo
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Gửi thông báo |
+| **– Mô tả sơ lược:** | Cho phép Hệ thống CAB gửi thông báo đến Khách hàng và Tài xế thông qua Nhà cung cấp Thông báo bằng các kênh Push Notification, SMS hoặc Email và ghi nhận kết quả gửi. |
+| **– Actor chính:** | Hệ thống CAB |
+| **– Actor phụ:** | Nhà cung cấp Thông báo |
+| **– Tiền điều kiện (Pre-condition):** | Sự kiện cần thông báo đã phát sinh trong hệ thống. |
+| **– Hậu điều kiện (Post-condition):** | Nếu gửi thành công, trạng thái gửi thông báo được ghi nhận; nếu gửi thất bại, thông báo được ghi nhận thất bại và được xử lý gửi lại theo quy định. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Hệ thống CAB | Actor: Nhà cung cấp Thông báo |
+| :--- | :--- |
+| **1.** Xác định sự kiện cần thông báo và tạo nội dung thông báo. | |
+| **2.** Xác định kênh gửi thông báo: Push Notification, SMS hoặc Email. | |
+| **3.** Gửi yêu cầu thông báo kèm nội dung và kênh gửi đến Nhà cung cấp Thông báo. | |
+| | **4.** Tiếp nhận yêu cầu và thực hiện gửi thông báo đến Khách hàng hoặc Tài xế. |
+| | **5.** Trả kết quả gửi thông báo (thành công/thất bại) về Hệ thống CAB. |
+| **6.** Cập nhật trạng thái gửi thông báo vào hệ thống. |
+| **7.** Kết thúc Use Case. | |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Hệ thống CAB | Actor: Nhà cung cấp Thông báo |
+| :--- | :--- |
+| | **5.1.** Gửi thông báo thất bại và trả lý do thất bại về Hệ thống CAB. |
+| **5.2.** Thực hiện Retry gửi thông báo theo số lần được cấu hình. | |
+| | **5.3.** Trả kết quả gửi lại về Hệ thống CAB. |
+| **5.4.** Nếu vẫn thất bại, chuyển sang kênh thông báo dự phòng theo quy định. |
+| **5.5.** Cập nhật trạng thái gửi thông báo và kết thúc Use Case. | |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Hệ thống CAB | Actor: Nhà cung cấp Thông báo |
+| :--- | :--- |
+| **3.1.** Không thể gửi yêu cầu do mất kết nối với Nhà cung cấp Thông báo. | |
+| **3.2.** Ghi nhận thông báo ở trạng thái **"Chờ gửi"** để thực hiện gửi lại sau. |
+| **3.3.** Kết thúc Use Case. | |
+
+##22. Use case: Cập nhật hệ thống
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Cập nhật hệ thống |
+| **– Mô tả sơ lược:** | Cho phép Quản trị viên hệ thống xem và thay đổi các tham số cấu hình, cập nhật tính năng và các thiết lập chung của hệ thống. |
+| **– Actor chính:** | Quản trị viên hệ thống |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Quản trị viên hệ thống đã đăng nhập thành công và có quyền cập nhật hệ thống. |
+| **– Hậu điều kiện (Post-condition):** | Tham số hoặc thiết lập hệ thống được cập nhật và thao tác cập nhật được ghi nhận vào Audit Log; nếu cập nhật không thành công, cấu hình hiện tại không thay đổi. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Quản trị viên hệ thống | System |
+| :--- | :--- |
+| **1.** Chọn chức năng **"Cập nhật hệ thống"**. | |
+| | **2.** Hiển thị danh sách các tham số và thiết lập hiện tại của hệ thống. |
+| **3.** Chọn tham số cần thay đổi và nhập giá trị mới. | |
+| | **4.** Hiển thị giá trị mới để Quản trị viên kiểm tra. |
+| **5.** Xác nhận cập nhật. | |
+| | **6.** Kiểm tra tính hợp lệ của giá trị cấu hình. |
+| | **7.** Cập nhật tham số hoặc thiết lập mới vào hệ thống. |
+| | **8.** Ghi nhận thao tác cập nhật vào Audit Log. |
+| | **9.** Hiển thị thông báo **"Cập nhật hệ thống thành công."** Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+| Actor: Quản trị viên hệ thống | System |
+| :--- | :--- |
+| **5.1.** Không xác nhận cập nhật. | |
+| | **5.2.** Hủy thao tác cập nhật và giữ nguyên giá trị hiện tại. |
+| | **5.3.** Quay lại bước **3** của luồng chính. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Quản trị viên hệ thống | System |
+| :--- | :--- |
+| | **6.1.** Giá trị cấu hình không hợp lệ, hệ thống hiển thị thông báo lỗi và yêu cầu nhập lại giá trị hợp lệ. |
+| **6.2.** Nhập lại giá trị cấu hình. | |
+| | **6.3.** Quay lại bước **4** của luồng chính. |
+| | **7.1.** Không thể cập nhật cấu hình do mất kết nối hoặc xảy ra lỗi hệ thống, hệ thống hiển thị thông báo **"Không thể cập nhật hệ thống, vui lòng thử lại."** |
+| | **7.2.** Giữ nguyên cấu hình hiện tại và kết thúc use case. |
+
+##23. Use case: Sao lưu và lưu trữ
+
+| Thuộc tính | Nội dung |
+| :--- | :--- |
+| **– Tên use case:** | Sao lưu và lưu trữ |
+| **– Mô tả sơ lược:** | Cho phép Quản trị viên hệ thống thực hiện sao lưu dữ liệu, xem danh sách bản sao lưu và khôi phục dữ liệu hệ thống từ bản sao lưu. |
+| **– Actor chính:** | Quản trị viên hệ thống |
+| **– Actor phụ:** | Không |
+| **– Tiền điều kiện (Pre-condition):** | Quản trị viên hệ thống đã đăng nhập thành công và có quyền sao lưu, lưu trữ hoặc khôi phục dữ liệu. |
+| **– Hậu điều kiện (Post-condition):** | Nếu thực hiện sao lưu hoặc khôi phục thành công, dữ liệu được sao lưu/khôi phục và thao tác được ghi nhận vào Audit Log; nếu không thành công, dữ liệu hiện tại không thay đổi. |
+
+#### – Luồng sự kiện chính (main flow):
+
+| Actor: Quản trị viên hệ thống | System |
+| :--- | :--- |
+| **1.** Chọn chức năng **"Sao lưu và lưu trữ"**. | |
+| | **2.** Hiển thị các chức năng: **Sao lưu dữ liệu / Xem danh sách bản sao lưu / Khôi phục dữ liệu**. |
+| **3.** Chọn chức năng cần thực hiện. | |
+| | **4.** Thực hiện chức năng tương ứng: **Sao lưu dữ liệu**, **Xem danh sách bản sao lưu** hoặc **Khôi phục dữ liệu**. |
+| | **5.** Ghi nhận thao tác vào Audit Log đối với thao tác sao lưu hoặc khôi phục. Kết thúc use case. |
+
+#### – Luồng sự kiện thay thế (alternate flow):
+
+**Nhánh 1 – Sao lưu dữ liệu**
+
+| Actor: Quản trị viên hệ thống | System |
+| :--- | :--- |
+| **3.1.** Chọn **"Sao lưu dữ liệu"**. | |
+| | **3.2.** Hiển thị tùy chọn phạm vi sao lưu gồm: **Toàn bộ CSDL / Audit Log**. |
+| **3.3.** Chọn phạm vi và xác nhận sao lưu. | |
+| | **3.4.** Tiến hành sao lưu dữ liệu theo phạm vi đã chọn. |
+| | **3.5.** Lưu bản sao lưu vào nơi lưu trữ. |
+| | **3.6.** Hiển thị thông báo sao lưu thành công, kèm thời gian và dung lượng bản sao lưu. |
+| | **3.7.** Tiếp tục bước **5** của luồng chính. |
+
+**Nhánh 2 – Xem danh sách bản sao lưu**
+
+| Actor: Quản trị viên hệ thống | System |
+| :--- | :--- |
+| **3.8.** Chọn **"Xem danh sách bản sao lưu"**. | |
+| | **3.9.** Hiển thị danh sách các bản sao lưu gồm: thời gian tạo, phạm vi, dung lượng và trạng thái. Kết thúc use case. |
+
+**Nhánh 3 – Khôi phục dữ liệu**
+
+| Actor: Quản trị viên hệ thống | System |
+| :--- | :--- |
+| **3.10.** Chọn **"Khôi phục dữ liệu"**. | |
+| | **3.11.** Hiển thị danh sách bản sao lưu để lựa chọn. |
+| **3.12.** Chọn bản sao lưu cần khôi phục. | |
+| | **3.13.** Hiển thị thông tin chi tiết bản sao lưu được chọn và yêu cầu xác nhận khôi phục. |
+| **3.14.** Xác nhận khôi phục. | |
+| | **3.15.** Tiến hành khôi phục dữ liệu từ bản sao lưu. |
+| | **3.16.** Hiển thị thông báo khôi phục dữ liệu thành công. |
+| | **3.17.** Tiếp tục bước **5** của luồng chính. |
+
+#### – Luồng sự kiện ngoại lệ (exception flow):
+
+| Actor: Quản trị viên hệ thống | System |
+| :--- | :--- |
+| **3.3.1.** Không xác nhận sao lưu. | |
+| | **3.3.2.** Hủy thao tác sao lưu và giữ nguyên dữ liệu hiện tại. Kết thúc nhánh. |
+| | **3.4.1.** Không thể sao lưu do mất kết nối với nơi lưu trữ hoặc thiếu dung lượng, hệ thống hiển thị thông báo lỗi. |
+| | **3.4.2.** Giữ nguyên dữ liệu hiện tại và kết thúc nhánh. |
+| **3.14.1.** Không xác nhận khôi phục. | |
+| | **3.14.2.** Hủy thao tác khôi phục và giữ nguyên dữ liệu hiện tại. Kết thúc nhánh. |
+| | **3.15.1.** Không thể khôi phục do bản sao lưu bị hỏng hoặc xảy ra lỗi kết nối, hệ thống hiển thị thông báo lỗi. |
+| | **3.15.2.** Giữ nguyên dữ liệu hiện tại và kết thúc nhánh. |
 
 ### Bước 9: quy trình nghiệp vụ business process
 ### QUY TRÌNH 1: ĐẶT XE VÀ TỰ ĐỘNG GHÉP CHUYẾN
