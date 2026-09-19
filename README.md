@@ -266,6 +266,7 @@ Bước 8: đặc tả usecase
 | **Hậu điều kiện** | Nếu Use Case thành công, thông tin hồ sơ được hiển thị hoặc cập nhật, hoặc địa chỉ yêu thích được thêm/xoá và dữ liệu thay đổi được lưu vào hệ thống. Nếu Use Case không thành công, dữ liệu hiện tại không thay đổi. |
 | **Actor chính** | Khách hàng |
 | **Actor phụ** | Không |
+| **Ràng buộc dữ liệu** | Họ tên: bắt buộc, tối đa 50 ký tự. Tên địa chỉ: bắt buộc, tối đa 50 ký tự. |
 
 ### Basic flow
 
@@ -286,7 +287,7 @@ Bước 8: đặc tả usecase
 |---|---|
 | 1. Chọn chức năng "Cập nhật hồ sơ" | 2. Hiển thị biểu mẫu chứa thông tin hồ sơ hiện tại (Họ tên, Email, Ảnh đại diện). |
 | 3. Thay đổi thông tin cần cập nhật (Họ tên, Email, Ảnh đại diện). | 4. Hiển thị thông tin đã nhập để Khách hàng kiểm tra. |
-| 5. Xác nhận cập nhật thông tin hồ sơ. | 6. Kiểm tra thông tin hồ sơ. |
+| 5. Xác nhận cập nhật thông tin hồ sơ. | 6. Kiểm tra thông tin hồ sơ (Họ tên bắt buộc, tối đa 50 ký tự; Email đúng định dạng). |
 | | 7. Cập nhật thông tin hồ sơ vào CSDL. |
 | | 8. Thông báo cập nhật hồ sơ thành công. |
 
@@ -296,7 +297,7 @@ Bước 8: đặc tả usecase
 |---|---|
 | 1. Chọn chức năng "Thêm địa chỉ yêu thích" | 2. Hiển thị biểu mẫu nhập thông tin địa chỉ. |
 | 3. Nhập thông tin địa chỉ gồm: Tên địa chỉ, Địa chỉ chi tiết, Toạ độ (GPS). | |
-| 4. Xác nhận thêm địa chỉ. | 5. Kiểm tra thông tin địa chỉ. |
+| 4. Xác nhận thêm địa chỉ. | 5. Kiểm tra thông tin địa chỉ (Tên địa chỉ bắt buộc, tối đa 50 ký tự; Toạ độ đúng định dạng GPS). |
 | | 6. Lưu địa chỉ vào CSDL. |
 | | 7. Thông báo thêm địa chỉ thành công. |
 
@@ -315,16 +316,28 @@ Bước 8: đặc tả usecase
 
 - **5.1** Khách hàng không xác nhận cập nhật thông tin.
   Hệ thống: Hủy thao tác cập nhật, quay lại bước 3 để Khách hàng chỉnh sửa lại thông tin.
-- **6.1** Thông tin hồ sơ không hợp lệ.
-  Hệ thống: Thông báo lỗi và yêu cầu nhập lại thông tin.
+- **6.1** Họ tên bị bỏ trống.
+  Hệ thống: Thông báo "Vui lòng nhập Họ tên" và yêu cầu nhập lại.
+  Khách hàng: Nhập lại thông tin, quay lại bước 3.
+- **6.2** Họ tên vượt quá 50 ký tự.
+  Hệ thống: Thông báo "Họ tên không được vượt quá 50 ký tự" và yêu cầu nhập lại.
+  Khách hàng: Nhập lại thông tin, quay lại bước 3.
+- **6.3** Email sai định dạng.
+  Hệ thống: Thông báo lỗi định dạng Email và yêu cầu nhập lại.
   Khách hàng: Nhập lại thông tin, quay lại bước 3.
 
 **Subflow Thêm địa chỉ yêu thích**
 
 - **4.1** Khách hàng không xác nhận thêm địa chỉ.
   Hệ thống: Hủy thao tác thêm địa chỉ, quay lại bước 3 để Khách hàng nhập lại thông tin.
-- **5.1** Thông tin địa chỉ không hợp lệ.
-  Hệ thống: Thông báo lỗi và yêu cầu nhập lại thông tin.
+- **5.1** Tên địa chỉ bị bỏ trống.
+  Hệ thống: Thông báo "Vui lòng nhập Tên địa chỉ" và yêu cầu nhập lại.
+  Khách hàng: Nhập lại thông tin địa chỉ, quay lại bước 3.
+- **5.2** Tên địa chỉ vượt quá 50 ký tự.
+  Hệ thống: Thông báo "Tên địa chỉ không được vượt quá 50 ký tự" và yêu cầu nhập lại.
+  Khách hàng: Nhập lại thông tin địa chỉ, quay lại bước 3.
+- **5.3** Toạ độ (GPS) sai định dạng.
+  Hệ thống: Thông báo lỗi định dạng toạ độ và yêu cầu nhập lại.
   Khách hàng: Nhập lại thông tin địa chỉ, quay lại bước 3.
 
 **Subflow Xoá địa chỉ yêu thích**
@@ -436,11 +449,10 @@ Bước 8: đặc tả usecase
 | Thuộc tính | Nội dung |
 | :--- | :--- |
 | **– Tên use case:** | Hủy xe |
-| **– Mô tả sơ lược:** | Cho phép Khách hàng chủ động hủy yêu cầu đặt xe hoặc hủy chuyến đi trước khi Tài xế đón. |
 | **– Actor chính:** | Khách hàng |
 | **– Actor phụ:** | Tài xế |
 | **– Tiền điều kiện (Pre-condition):** | Khách hàng đã đăng nhập; Khách hàng đang có một chuyến đi ở trạng thái "Đang tìm tài xế" hoặc "Đang đến đón" (Tài xế chưa đón khách). |
-| **– Hậu điều kiện (Post-condition):** | Chuyến đi chuyển sang trạng thái "Đã hủy"; Tài xế (nếu đã được gán) được giải phóng khỏi chuyến đi và trở về trạng thái sẵn sàng nhận chuyến khác. |
+| **– Hậu điều kiện (Post-condition):** | Chuyến đi chuyển sang trạng thái "Đã hủy"; hệ thống ghi nhận phí phạt hủy chuyến vào đơn tiếp theo nếu hủy sau thời gian miễn phí quy định; Tài xế (nếu đã được gán) được giải phóng khỏi chuyến đi và trở về trạng thái sẵn sàng nhận chuyến khác. |
 
 ### – Luồng sự kiện chính (main flow):
 
@@ -449,7 +461,7 @@ Bước 8: đặc tả usecase
 | **1.** Khách hàng chọn chức năng "Hủy xe" đối với chuyến đi đang ở trạng thái "Đang tìm tài xế" hoặc "Đang đến đón" | |
 | | **2.** Hiển thị thông tin chuyến đi hiện tại và yêu cầu xác nhận hủy |
 | **3.** Khách hàng xác nhận hủy chuyến | |
-| | **4.** Kiểm tra trạng thái hiện tại của chuyến đi |
+| | **4.** Kiểm tra trạng thái hiện tại của chuyến đi và tính phí phạt hủy chuyến (nếu hủy sau 5 phút kể từ khi Tài xế nhận chuyến) |
 | | **5.** Cập nhật trạng thái chuyến đi thành "Đã hủy" |
 | | **6.** Nếu chuyến đi đã được gán cho Tài xế, gửi thông báo hủy chuyến đến Tài xế và giải phóng Tài xế về trạng thái sẵn sàng |
 | | **7.** Hiển thị thông báo "Hủy chuyến thành công". Kết thúc use case |
@@ -520,6 +532,7 @@ Bước 8: đặc tả usecase
 | **– Actor phụ:** | Tài xế (đã gửi hồ sơ đăng ký), Nhà cung cấp Thông báo (gửi kết quả xử lý hồ sơ đến Tài xế) |
 | **– Tiền điều kiện (Pre-condition):** | Nhân viên Vận hành đã đăng nhập vào hệ thống; có ít nhất một hồ sơ Tài xế đang ở trạng thái "Chờ duyệt". |
 | **– Hậu điều kiện (Post-condition):** | Hồ sơ Tài xế được chuyển sang trạng thái "Đã duyệt" (được phép nhận chuyến), "Bị từ chối" hoặc "Chờ bổ sung"; Tài xế nhận được thông báo kết quả tương ứng. |
+| **– Ràng buộc dữ liệu:** | Lý do từ chối: bắt buộc, tối đa 200 ký tự. Nội dung yêu cầu bổ sung: bắt buộc, tối đa 200 ký tự. |
 
 ### – Luồng sự kiện chính (main flow):
 
@@ -536,9 +549,9 @@ Bước 8: đặc tả usecase
 
 | Actor: Nhân viên Vận hành | System |
 | :--- | :--- |
-| **5.1.** Phát hiện thông tin/giấy tờ không hợp lệ, chọn "Từ chối" và nhập lý do từ chối | |
+| **5.1.** Phát hiện thông tin/giấy tờ không hợp lệ, chọn "Từ chối" và nhập lý do từ chối (tối đa 200 ký tự) | |
 | | **5.2.** Cập nhật trạng thái hồ sơ thành "Bị từ chối", gửi thông báo kèm lý do đến Tài xế qua Nhà cung cấp Thông báo. Kết thúc use case |
-| **5.3.** Chưa đủ căn cứ để quyết định, chọn "Yêu cầu bổ sung giấy tờ" và nhập nội dung yêu cầu | |
+| **5.3.** Chưa đủ căn cứ để quyết định, chọn "Yêu cầu bổ sung giấy tờ" và nhập nội dung yêu cầu (tối đa 200 ký tự) | |
 | | **5.4.** Cập nhật trạng thái hồ sơ thành "Chờ bổ sung", gửi thông báo yêu cầu bổ sung đến Tài xế. Kết thúc use case |
 
 ### – Luồng sự kiện ngoại lệ (exception flow):
@@ -547,9 +560,17 @@ Bước 8: đặc tả usecase
 | :--- | :--- |
 | | **4.1.** Mất kết nối Internet hoặc lỗi hệ thống khi tải hình ảnh giấy tờ, hiển thị thông báo "Không thể tải dữ liệu, vui lòng thử lại" |
 | **4.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại thao tác xem hồ sơ, quay lại bước 3 | |
+| | **5.1.1.** Chọn "Từ chối" nhưng bỏ trống lý do, hệ thống hiển thị thông báo "Vui lòng nhập lý do từ chối." |
+| **5.1.2.** Nhập lý do và xác nhận lại. | |
+| | **5.1.3.** Quay lại bước **5.1** của luồng thay thế. |
+| | **5.1.4.** Lý do từ chối vượt quá 200 ký tự, hệ thống hiển thị thông báo "Lý do từ chối không được vượt quá 200 ký tự." |
+| **5.1.5.** Nhập lại lý do và xác nhận lại. | |
+| | **5.1.6.** Quay lại bước **5.1** của luồng thay thế. |
+| | **5.3.1.** Chọn "Yêu cầu bổ sung giấy tờ" nhưng bỏ trống nội dung, hệ thống hiển thị thông báo "Vui lòng nhập nội dung yêu cầu bổ sung." |
+| **5.3.2.** Nhập nội dung và xác nhận lại. | |
+| | **5.3.3.** Quay lại bước **5.3** của luồng thay thế. |
 | | **6.1.** Mất kết nối Internet hoặc lỗi hệ thống khi lưu kết quả duyệt, hiển thị thông báo "Không thể lưu kết quả, vui lòng thử lại" |
 | **6.2.** Nhấn "OK", kiểm tra kết nối và thực hiện lại thao tác xử lý hồ sơ, quay lại bước 5 | |
-
 ##9. Use case: Giám sát vận hành
 
 | Thuộc tính | Nội dung |
@@ -812,6 +833,7 @@ Bước 8: đặc tả usecase
 | **– Actor phụ:** | Không |
 | **– Tiền điều kiện (Pre-condition):** | Tài xế đã đăng nhập thành công vào hệ thống. |
 | **– Hậu điều kiện (Post-condition):** | Thông tin hồ sơ/phương tiện được cập nhật; nếu có thay đổi giấy tờ, hồ sơ chuyển sang trạng thái "Chờ duyệt". |
+| **– Ràng buộc dữ liệu:** | Họ tên: bắt buộc, tối đa 50 ký tự. Giấy tờ xe (Bằng lái, Biển số, Cavet, Đăng kiểm): định dạng JPG/PNG, dung lượng tối đa 5MB/tệp, bắt buộc phải có đủ 4 loại giấy tờ trước khi "Gửi duyệt". |
 
 #### – Luồng sự kiện chính (main flow):
 
@@ -820,7 +842,7 @@ Bước 8: đặc tả usecase
 | **1.** Chọn mục **"Hồ sơ và phương tiện"**. | |
 | | **2.** Hiển thị thông tin cá nhân hiện tại gồm: Họ tên, Số điện thoại, Email, Ảnh đại diện và thông tin phương tiện kèm giấy tờ đã tải gồm: Bằng lái, Biển số, Cavet, Đăng kiểm. |
 | **3.** Chỉnh sửa thông tin cá nhân cần thay đổi và nhấn **"Lưu"**. | |
-| | **4.** Kiểm tra thông tin cá nhân. |
+| | **4.** Kiểm tra thông tin cá nhân (Họ tên bắt buộc, tối đa 50 ký tự). |
 | | **5.** Cập nhật thông tin cá nhân và hiển thị thông báo **"Cập nhật thành công"**. Kết thúc use case. |
 
 #### – Luồng sự kiện thay thế (alternate flow):
@@ -830,7 +852,7 @@ Bước 8: đặc tả usecase
 | **2.1.** Chọn **"Cập nhật giấy tờ xe"**. | |
 | | **2.2.** Hiển thị chức năng tải lên giấy tờ gồm: Bằng lái, Biển số, Cavet, Đăng kiểm. |
 | **2.3.** Tải lên hình ảnh giấy tờ mới và nhấn **"Gửi duyệt"**. | |
-| | **2.4.** Kiểm tra định dạng và dung lượng file. |
+| | **2.4.** Kiểm tra đủ 4 loại giấy tờ bắt buộc, định dạng (JPG/PNG) và dung lượng file (tối đa 5MB/tệp). |
 | | **2.5.** Lưu giấy tờ mới và chuyển trạng thái hồ sơ thành **"Chờ duyệt"**. |
 | | **2.6.** Gửi yêu cầu duyệt đến Nhân viên Vận hành. Kết thúc use case. |
 
@@ -838,12 +860,18 @@ Bước 8: đặc tả usecase
 
 | Actor: Tài xế | System |
 | :--- | :--- |
-| | **4.1.** Dữ liệu nhập sai định dạng, hệ thống hiển thị thông báo lỗi tương ứng. |
+| | **4.1.** Họ tên bị bỏ trống, hệ thống hiển thị thông báo **"Vui lòng nhập Họ tên."** |
 | **4.2.** Chỉnh sửa lại thông tin. | |
 | | **4.3.** Quay lại bước **4** của luồng chính. |
-| | **2.4.1.** File giấy tờ tải lên sai định dạng hoặc vượt quá dung lượng cho phép, hệ thống hiển thị thông báo **"File không hợp lệ, vui lòng chọn lại."** |
-| **2.4.2.** Chọn lại file. | |
+| | **4.4.** Họ tên vượt quá 50 ký tự, hệ thống hiển thị thông báo **"Họ tên không được vượt quá 50 ký tự."** |
+| **4.5.** Chỉnh sửa lại thông tin. | |
+| | **4.6.** Quay lại bước **4** của luồng chính. |
+| | **2.4.1.** Chưa tải đủ 4 loại giấy tờ bắt buộc mà nhấn **"Gửi duyệt"**, hệ thống hiển thị thông báo **"Vui lòng tải lên đầy đủ giấy tờ bắt buộc."** |
+| **2.4.2.** Bổ sung giấy tờ còn thiếu. | |
 | | **2.4.3.** Quay lại bước **2.4** của luồng thay thế. |
+| | **2.4.4.** File giấy tờ tải lên sai định dạng (không phải JPG/PNG) hoặc vượt quá 5MB, hệ thống hiển thị thông báo **"File không hợp lệ, vui lòng chọn lại."** |
+| **2.4.5.** Chọn lại file. | |
+| | **2.4.6.** Quay lại bước **2.4** của luồng thay thế. |
 | | **2.5.1.** Mất kết nối Internet hoặc xảy ra lỗi hệ thống khi tải giấy tờ hoặc lưu thông tin, hệ thống hiển thị thông báo **"Không thể lưu dữ liệu, vui lòng thử lại."** |
 | **2.5.2.** Nhấn **"OK"** và thực hiện lại thao tác. | |
 | | **2.5.3.** Quay lại bước **2.3** của luồng thay thế. |
@@ -934,6 +962,7 @@ Bước 8: đặc tả usecase
 | **– Actor phụ:** | Khách hàng |
 | **– Tiền điều kiện (Pre-condition):** | Tài xế đã chấp nhận chuyến đi và chuyến đi đang ở trạng thái "Đang đến đón". |
 | **– Hậu điều kiện (Post-condition):** | Trạng thái chuyến đi được cập nhật theo tiến trình thực tế; khi hoàn thành, chuyến đi chuyển sang trạng thái "Hoàn thành". |
+| **– Ràng buộc dữ liệu:** | Nút "Báo cáo sự cố" tại điểm đón chỉ khả dụng sau khi Tài xế đã chờ tối thiểu 10 phút kể từ khi trạng thái chuyển "Đã đến điểm đón". Lý do báo cáo sự cố: bắt buộc, tối đa 200 ký tự. |
 
 #### – Luồng sự kiện chính (main flow):
 
@@ -950,7 +979,7 @@ Bước 8: đặc tả usecase
 
 | Actor: Tài xế | System |
 | :--- | :--- |
-| **1.1.** Không thể liên hệ được Khách hàng tại điểm đón, chọn **"Báo cáo sự cố"** và nhập lý do. | |
+| **1.1.** Đã chờ tối thiểu 10 phút mà không thể liên hệ được Khách hàng tại điểm đón, chọn **"Báo cáo sự cố"** và nhập lý do (tối đa 200 ký tự). | |
 | | **1.2.** Ghi nhận báo cáo sự cố và gửi thông báo đến Nhân viên Vận hành để can thiệp xử lý. |
 | | **1.3.** Giữ nguyên trạng thái chuyến đi hiện tại. Kết thúc use case. |
 
@@ -958,6 +987,13 @@ Bước 8: đặc tả usecase
 
 | Actor: Tài xế | System |
 | :--- | :--- |
+| | **1.1.1.** Chọn **"Báo cáo sự cố"** trước khi đủ 10 phút chờ, hệ thống hiển thị thông báo **"Vui lòng chờ đủ thời gian quy định trước khi báo cáo sự cố."** và không cho tiếp tục. |
+| | **1.1.2.** Chọn **"Báo cáo sự cố"** nhưng bỏ trống lý do, hệ thống hiển thị thông báo **"Vui lòng nhập lý do báo cáo sự cố."** |
+| **1.1.3.** Nhập lý do và xác nhận lại. | |
+| | **1.1.4.** Quay lại bước **1.1** của luồng thay thế. |
+| | **1.1.5.** Lý do báo cáo sự cố vượt quá 200 ký tự, hệ thống hiển thị thông báo **"Lý do không được vượt quá 200 ký tự."** |
+| **1.1.6.** Nhập lại lý do và xác nhận lại. | |
+| | **1.1.7.** Quay lại bước **1.1** của luồng thay thế. |
 | | **2.1.** Xảy ra lỗi khi cập nhật trạng thái **"Đã đến điểm đón"**, hệ thống hiển thị thông báo **"Không thể cập nhật trạng thái, vui lòng thử lại."** |
 | **2.2.** Nhấn **"OK"** và thực hiện lại thao tác. | |
 | | **2.3.** Quay lại bước **1** của luồng chính. |
@@ -1146,6 +1182,7 @@ Bước 8: đặc tả usecase
 | **– Actor phụ:** | Không |
 | **– Tiền điều kiện (Pre-condition):** | Quản trị viên hệ thống đã đăng nhập thành công và có quyền cập nhật hệ thống. |
 | **– Hậu điều kiện (Post-condition):** | Tham số hoặc thiết lập hệ thống được cập nhật và thao tác cập nhật được ghi nhận vào Audit Log; nếu cập nhật không thành công, cấu hình hiện tại không thay đổi. |
+| **– Ràng buộc dữ liệu:** | Mỗi tham số cấu hình đều bắt buộc phải có giá trị (không được để trống) và phải nằm trong phạm vi hợp lệ riêng của tham số đó. Ví dụ: tham số **"Số lần Retry giao dịch thanh toán online"** có phạm vi hợp lệ từ 1 đến 5 lần. |
 
 #### – Luồng sự kiện chính (main flow):
 
@@ -1156,7 +1193,7 @@ Bước 8: đặc tả usecase
 | **3.** Chọn tham số cần thay đổi và nhập giá trị mới. | |
 | | **4.** Hiển thị giá trị mới để Quản trị viên kiểm tra. |
 | **5.** Xác nhận cập nhật. | |
-| | **6.** Kiểm tra tính hợp lệ của giá trị cấu hình. |
+| | **6.** Kiểm tra tính hợp lệ của giá trị cấu hình (giá trị không được để trống và phải nằm trong phạm vi hợp lệ của tham số). |
 | | **7.** Cập nhật tham số hoặc thiết lập mới vào hệ thống. |
 | | **8.** Ghi nhận thao tác cập nhật vào Audit Log. |
 | | **9.** Hiển thị thông báo **"Cập nhật hệ thống thành công."** Kết thúc use case. |
@@ -1173,9 +1210,12 @@ Bước 8: đặc tả usecase
 
 | Actor: Quản trị viên hệ thống | System |
 | :--- | :--- |
-| | **6.1.** Giá trị cấu hình không hợp lệ, hệ thống hiển thị thông báo lỗi và yêu cầu nhập lại giá trị hợp lệ. |
-| **6.2.** Nhập lại giá trị cấu hình. | |
+| | **6.1.** Giá trị cấu hình bị bỏ trống, hệ thống hiển thị thông báo **"Vui lòng nhập giá trị cho tham số."** |
+| **6.2.** Nhập giá trị cấu hình. | |
 | | **6.3.** Quay lại bước **4** của luồng chính. |
+| | **6.4.** Giá trị cấu hình nằm ngoài phạm vi hợp lệ của tham số (ví dụ: nhập 0 hoặc 6 cho tham số "Số lần Retry" có phạm vi 1-5), hệ thống hiển thị thông báo lỗi nêu rõ phạm vi hợp lệ và yêu cầu nhập lại. |
+| **6.5.** Nhập lại giá trị cấu hình. | |
+| | **6.6.** Quay lại bước **4** của luồng chính. |
 | | **7.1.** Không thể cập nhật cấu hình do mất kết nối hoặc xảy ra lỗi hệ thống, hệ thống hiển thị thông báo **"Không thể cập nhật hệ thống, vui lòng thử lại."** |
 | | **7.2.** Giữ nguyên cấu hình hiện tại và kết thúc use case. |
 
