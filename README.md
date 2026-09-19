@@ -519,9 +519,8 @@ Bước 8: đặc tả usecase
 | Actor | System |
 | :--- | :--- |
 | | **4.1.** Phương thức thanh toán không hợp lệ hoặc không được hỗ trợ, hiển thị thông báo "Phương thức thanh toán không hợp lệ" và yêu cầu Khách hàng chọn lại |
-| | **3.1.1.** Payment Gateway không phản hồi hoặc xảy ra lỗi kết nối, hiển thị thông báo "Không thể sử dụng thanh toán online, vui lòng thử lại sau" |
+| | **3.1.1a.** Payment Gateway không phản hồi hoặc xảy ra lỗi kết nối, hiển thị thông báo "Không thể sử dụng thanh toán online, vui lòng thử lại sau" |
 | | **5.1.** Không thể lưu phương thức thanh toán do lỗi hệ thống, hiển thị thông báo "Không thể lưu phương thức thanh toán, vui lòng thử lại sau" |
-
 ##8. Use case: Duyệt hồ sơ tài xế
 
 | Thuộc tính | Nội dung |
